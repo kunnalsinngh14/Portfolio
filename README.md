@@ -31,3 +31,6 @@ This is a lightweight, optimized project consisting of a single core file for ma
 Portfolio/
 ├── index.html        # Contains all HTML, Tailwind Config, CSS, and JS
 └── hero-bg.png       # background img
+```
+---
+© 2026 Kunal Singh
