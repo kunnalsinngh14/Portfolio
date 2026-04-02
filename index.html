@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="dark" style="scroll-behavior: smooth;">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,6 +46,7 @@
             z-index: -1;
             pointer-events: none;
         }
+
         .dark .ambient-glow {
             background: radial-gradient(circle at center, rgba(56, 189, 248, 0.15) 0%, rgba(14, 165, 233, 0.05) 50%, transparent 70%);
         }
@@ -58,11 +60,13 @@
             box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, background 0.3s ease;
         }
+
         .dark .glass-panel {
             background: rgba(15, 23, 42, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
         }
+
         .glass-panel:hover {
             transform: translateY(-3px);
         }
@@ -81,10 +85,12 @@
             justify-content: space-between;
             padding: 0 6px;
         }
+
         .dark .theme-toggle {
             background-color: #1e293b;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
+
         .theme-toggle .toggle-ball {
             position: absolute;
             left: 3px;
@@ -93,21 +99,35 @@
             background-color: white;
             border-radius: 50%;
             transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             z-index: 2;
         }
+
         .dark .theme-toggle .toggle-ball {
             transform: translateX(30px);
             background-color: #0f172a;
         }
+
         .theme-toggle i {
             font-size: 14px;
             z-index: 1;
         }
-        .fa-moon { color: #94a3b8; }
-        .fa-sun { color: #f59e0b; }
-        .dark .fa-moon { color: #60a5fa; }
-        .dark .fa-sun { color: #475569; }
+
+        .fa-moon {
+            color: #94a3b8;
+        }
+
+        .fa-sun {
+            color: #f59e0b;
+        }
+
+        .dark .fa-moon {
+            color: #60a5fa;
+        }
+
+        .dark .fa-sun {
+            color: #475569;
+        }
 
         /* Typewriter Cursor */
         .caret {
@@ -118,9 +138,17 @@
             vertical-align: middle;
             animation: pulse-caret 0.85s infinite;
         }
+
         @keyframes pulse-caret {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
         }
 
         /* Designer Buttons */
@@ -137,20 +165,51 @@
             overflow: hidden;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
+
         .btn-designer::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(rgba(255,255,255,0.1), transparent);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(255, 255, 255, 0.1), transparent);
             opacity: 0;
             transition: opacity 0.3s;
         }
-        .btn-designer:hover::after { opacity: 1; }
-        .btn-designer:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15); }
-        .btn-resume { background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; border: none; }
-        .btn-github { background: #18181b; color: white; border: 1px solid #3f3f46; }
-        .light .btn-github { background: #f4f4f5; color: #18181b; border: 1px solid #e4e4e7; }
-        .btn-linkedin { background: #0077b5; color: white; border: none; }
+
+        .btn-designer:hover::after {
+            opacity: 1;
+        }
+
+        .btn-designer:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-resume {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border: none;
+        }
+
+        .btn-github {
+            background: #18181b;
+            color: white;
+            border: 1px solid #3f3f46;
+        }
+
+        .light .btn-github {
+            background: #f4f4f5;
+            color: #18181b;
+            border: 1px solid #e4e4e7;
+        }
+
+        .btn-linkedin {
+            background: #0077b5;
+            color: white;
+            border: none;
+        }
 
         /* Typography */
         .section-header {
@@ -160,6 +219,7 @@
             margin-bottom: 3rem;
             text-align: center;
         }
+
         .tag-pill {
             background: rgba(59, 130, 246, 0.1);
             color: #3b82f6;
@@ -169,6 +229,7 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
+
         .dark .tag-pill {
             color: #60a5fa;
             border: 1px solid rgba(96, 165, 250, 0.3);
@@ -180,27 +241,51 @@
             font-weight: 500;
             transition: color 0.3s;
         }
+
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: -4px; left: 0; width: 0; height: 2px;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
             background: currentColor;
             transition: width 0.3s ease;
         }
-        .nav-link:hover::after { width: 100%; }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
 
         /* Fade-in-up animation */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .animate-fade-in-up {
             animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
         }
-        .anim-delay-100 { animation-delay: 100ms; }
-        .anim-delay-200 { animation-delay: 200ms; }
-        .anim-delay-300 { animation-delay: 300ms; }
+
+        .anim-delay-100 {
+            animation-delay: 100ms;
+        }
+
+        .anim-delay-200 {
+            animation-delay: 200ms;
+        }
+
+        .anim-delay-300 {
+            animation-delay: 300ms;
+        }
 
         /* Certificate solid cards matching reference */
         .cert-card {
@@ -209,26 +294,30 @@
             border-radius: 1rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .dark .cert-card {
             background-color: #0b1121;
             border: 1px solid #1e293b;
         }
+
         .cert-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
+
 <body class="bg-lightBg dark:bg-darkBg text-slate-800 dark:text-slate-200 font-sans relative">
 
     <div class="ambient-glow fixed"></div>
 
     <!-- Navbar -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass-panel mx-6 mt-6 px-8 py-4 flex items-center justify-between rounded-full max-w-7xl xl:mx-auto">
+    <nav
+        class="fixed top-0 left-0 right-0 z-50 glass-panel mx-6 mt-6 px-8 py-4 flex items-center justify-between rounded-full max-w-7xl xl:mx-auto">
         <div class="font-display font-bold text-2xl tracking-tighter cursor-pointer" onclick="window.scrollTo(0,0)">
             KS<span class="text-blue-500">.</span>
         </div>
-        
+
         <div class="hidden md:flex space-x-8 text-sm text-slate-600 dark:text-slate-300">
             <a href="#about" class="nav-link hover:text-blue-600 dark:hover:text-white">About</a>
             <a href="#skills" class="nav-link hover:text-blue-600 dark:hover:text-white">Skills</a>
@@ -247,42 +336,52 @@
     </nav>
 
     <main class="max-w-6xl mx-auto px-6 relative pt-40 pb-32 space-y-40">
-        
+
         <!-- Hero Section -->
-        <section class="min-h-[70vh] flex flex-col items-center justify-center text-center relative pointer-events-auto">
+        <section
+            class="min-h-[70vh] flex flex-col items-center justify-center text-center relative pointer-events-auto">
             <!-- Background Data Analytics Image -->
             <div class="absolute inset-[-80px] z-[-1] pointer-events-none flex items-center justify-center">
-                <img src="hero-bg.png" alt="3D Data Analytics Graphics" class="w-full h-full object-cover opacity-0 animate-fade-in-up dark:opacity-40" 
-                     style="animation-fill-mode: forwards; -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 70%); mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 70%);">
+                <img src="hero-bg.png" alt="3D Data Analytics Graphics"
+                    class="w-full h-full object-cover opacity-0 animate-fade-in-up dark:opacity-40"
+                    style="animation-fill-mode: forwards; -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 70%); mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 70%);">
             </div>
 
             <!-- Profile initial avatar (matches reference structure) -->
-            <div class="w-32 h-32 rounded-full mb-8 bg-gradient-to-br from-blue-400 to-purple-500 p-1 shadow-2xl animate-fade-in-up">
+            <div
+                class="w-32 h-32 rounded-full mb-8 bg-gradient-to-br from-blue-400 to-purple-500 p-1 shadow-2xl animate-fade-in-up">
                 <div class="w-full h-full bg-white dark:bg-slate-900 rounded-full flex items-center justify-center">
-                    <span class="text-4xl font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600">KS</span>
+                    <span
+                        class="text-4xl font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600">KS</span>
                 </div>
             </div>
 
-            <h1 class="text-5xl md:text-7xl font-display font-bold mb-4 tracking-tight text-slate-900 dark:text-white animate-fade-in-up anim-delay-100">
+            <h1
+                class="text-5xl md:text-7xl font-display font-bold mb-4 tracking-tight text-slate-900 dark:text-white animate-fade-in-up anim-delay-100">
                 Hi, I'm Kunal Singh
             </h1>
-            
+
             <div class="animate-fade-in-up anim-delay-200 mb-12 flex justify-center">
-                <div class="inline-flex items-center justify-center px-6 py-2 rounded-full bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-lg ring-1 ring-black/5 dark:ring-white/10">
-                    <div class="text-lg md:text-xl text-black dark:text-white font-medium h-8 flex items-center justify-center">
+                <div
+                    class="inline-flex items-center justify-center px-6 py-2 rounded-full bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-lg ring-1 ring-black/5 dark:ring-white/10">
+                    <div
+                        class="text-lg md:text-xl text-black dark:text-white font-medium h-8 flex items-center justify-center">
                         <span id="typewriter-text"></span><span class="caret"></span>
                     </div>
                 </div>
             </div>
 
             <div class="flex flex-wrap justify-center gap-4 animate-fade-in-up anim-delay-300">
-                <a href="https://drive.google.com/file/d/1CyLXnjb4OogsLjSouhQGt56P5kb9vuyD/view?usp=sharing" target="_blank" class="btn-designer btn-resume">
+                <a href="https://drive.google.com/file/d/15SbtGmhvuREH5As4PDXiAigG7v2gigSs/view?usp=drive_link"
+                    target="_blank" class="btn-designer btn-resume">
                     <i class="fa-solid fa-file-pdf"></i> RESUME
                 </a>
-                <a href="https://github.com/kunnalsinngh14" target="_blank" class="btn-designer btn-github dark:bg-[#18181b] dark:text-white dark:border-[#3f3f46] bg-white text-slate-900 border-slate-300">
+                <a href="https://github.com/kunnalsinngh14" target="_blank"
+                    class="btn-designer btn-github dark:bg-[#18181b] dark:text-white dark:border-[#3f3f46] bg-white text-slate-900 border-slate-300">
                     <i class="fa-brands fa-github text-lg"></i> GITHUB
                 </a>
-                <a href="https://www.linkedin.com/in/kunal-singh-8741a03b7" target="_blank" class="btn-designer btn-linkedin">
+                <a href="https://www.linkedin.com/in/kunal-singh-8741a03b7" target="_blank"
+                    class="btn-designer btn-linkedin">
                     <i class="fa-brands fa-linkedin text-lg"></i> LINKEDIN
                 </a>
             </div>
@@ -291,16 +390,27 @@
         <!-- About Section -->
         <section id="about">
             <h2 class="section-header text-slate-900 dark:text-white">About</h2>
-            
-            <div class="glass-panel rounded-[2rem] p-8 md:p-12 leading-relaxed text-lg text-slate-700 dark:text-slate-300 space-y-6 max-w-4xl mx-auto">
+
+            <div
+                class="glass-panel rounded-[2rem] p-8 md:p-12 leading-relaxed text-lg text-slate-700 dark:text-slate-300 space-y-6 max-w-4xl mx-auto">
                 <p>
-                    I'm <span class="font-bold text-slate-900 dark:text-white">Kunal Singh</span>, a B.Tech Computer Science (AI/ML) student at <span class="font-bold text-slate-900 dark:text-white">RV University, Bengaluru</span>, with a CGPA of <span class="font-bold text-blue-600 dark:text-blue-400">8.58</span>, passionate about building intelligent systems and data-driven solutions.
+                    I'm <span class="font-bold text-slate-900 dark:text-white">Kunal Singh</span>, a B.Tech Computer
+                    Science (AI/ML) student at <span class="font-bold text-slate-900 dark:text-white">RV University,
+                        Bengaluru</span>, with a CGPA of <span
+                        class="font-bold text-blue-600 dark:text-blue-400">8.58</span>, passionate about building
+                    intelligent systems and data-driven solutions.
                 </p>
                 <p>
-                    My core interests lie in Artificial Intelligence, Machine Learning, Data Science, and Software Development. I enjoy working on projects that combine data, algorithms, and practical applications.
+                    My core interests lie in Artificial Intelligence, Machine Learning, Data Science, and Software
+                    Development. I enjoy working on projects that combine data, algorithms, and practical applications.
                 </p>
                 <p>
-                    When I'm not experimenting with ML models or building software, I'm exploring new technologies, contributing to projects, and engaging with tech and sports communities through clubs like <span class="font-medium text-slate-900 dark:text-white">Ethereum Club</span> and <span class="font-medium text-slate-900 dark:text-white">MMFC</span> at RVU. I enjoy learning by building and believe that the best solutions emerge from curiosity, collaboration, and continuous improvement.
+                    When I'm not experimenting with ML models or building software, I'm exploring new technologies,
+                    contributing to projects, and engaging with tech and sports communities through clubs like <span
+                        class="font-medium text-slate-900 dark:text-white">Ethereum Club</span> and <span
+                        class="font-medium text-slate-900 dark:text-white">MMFC</span> at RVU. I enjoy learning by
+                    building and believe that the best solutions emerge from curiosity, collaboration, and continuous
+                    improvement.
                 </p>
             </div>
 
@@ -323,7 +433,7 @@
         <!-- Skills Section -->
         <section id="skills">
             <h2 class="section-header text-slate-900 dark:text-white">Skills</h2>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 <div class="glass-panel p-8 rounded-3xl">
                     <div class="flex items-center gap-4 mb-8 text-blue-500">
@@ -384,62 +494,79 @@
         <!-- Projects Section -->
         <section id="projects">
             <h2 class="section-header text-slate-900 dark:text-white">Projects</h2>
-            
+
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                
+
                 <!-- Project Box -->
                 <div class="glass-panel p-8 rounded-3xl flex flex-col h-full relative group">
                     <div class="absolute top-8 right-8">
-                        <a href="https://github.com/kunnalsinngh14" target="_blank" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-all text-xl">
+                        <a href="https://github.com/kunnalsinngh14" target="_blank"
+                            class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-all text-xl">
                             <i class="fa-brands fa-github"></i>
                         </a>
                     </div>
                     <div class="mb-4 text-blue-500 text-3xl"><i class="fa-solid fa-gamepad"></i></div>
                     <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 pr-12">Snake Game</h3>
                     <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-sm flex-grow">
-                        Built a classic Snake Game using Java Swing and AWT with real-time rendering and keyboard controls. Implemented collision detection, score tracking, and game loop logic for smooth gameplay. Applied object-oriented programming concepts and event-driven programming in Java.
+                        Built a classic Snake Game using Java Swing and AWT with real-time rendering and keyboard
+                        controls. Implemented collision detection, score tracking, and game loop logic for smooth
+                        gameplay. Applied object-oriented programming concepts and event-driven programming in Java.
                     </p>
                 </div>
 
                 <!-- Project Box -->
                 <div class="glass-panel p-8 rounded-3xl flex flex-col h-full relative group">
                     <div class="absolute top-8 right-8">
-                        <a href="https://github.com/kunnalsinngh14" target="_blank" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-all text-xl">
+                        <a href="https://github.com/kunnalsinngh14" target="_blank"
+                            class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-all text-xl">
                             <i class="fa-brands fa-github"></i>
                         </a>
                     </div>
                     <div class="mb-4 text-purple-500 text-3xl"><i class="fa-solid fa-graduation-cap"></i></div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 pr-12">Student Performance Predictor</h3>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 pr-12">Student Performance
+                        Predictor</h3>
                     <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-sm flex-grow">
-                        Developed an ML model using RandomForestClassifier. Predicted student performance (pass/fail) based on quiz, midterm, and assignment scores. Integrated LLaMA into the project for insights. Achieved accuracy score of 94.5.
+                        Developed an ML model using RandomForestClassifier. Predicted student performance (pass/fail)
+                        based on quiz, midterm, and assignment scores. Integrated LLaMA into the project for insights.
+                        Achieved accuracy score of 94.5.
                     </p>
                 </div>
 
                 <!-- Project Box -->
                 <div class="glass-panel p-8 rounded-3xl flex flex-col h-full relative group">
                     <div class="absolute top-8 right-8">
-                        <a href="https://github.com/kunnalsinngh14" target="_blank" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-all text-xl">
+                        <a href="https://github.com/kunnalsinngh14" target="_blank"
+                            class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-all text-xl">
                             <i class="fa-brands fa-github"></i>
                         </a>
                     </div>
                     <div class="mb-4 text-teal-500 text-3xl"><i class="fa-solid fa-traffic-light"></i></div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 pr-12">AI-Based Traffic Sign Recognition</h3>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 pr-12">AI-Based Traffic Sign
+                        Recognition</h3>
                     <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-sm flex-grow">
-                        Developed a computer vision system that detects and classifies traffic signs in real-time using a webcam. Implemented a Convolutional Neural Network (CNN) to recognize multiple traffic sign categories. Processed live video frames to identify traffic signs and display their meanings to assist drivers. Utilized Python, OpenCV, and Deep Learning techniques for image preprocessing and model prediction.
+                        Developed a computer vision system that detects and classifies traffic signs in real-time using
+                        a webcam. Implemented a Convolutional Neural Network (CNN) to recognize multiple traffic sign
+                        categories. Processed live video frames to identify traffic signs and display their meanings to
+                        assist drivers. Utilized Python, OpenCV, and Deep Learning techniques for image preprocessing
+                        and model prediction.
                     </p>
                 </div>
 
                 <!-- Project Box -->
                 <div class="glass-panel p-8 rounded-3xl flex flex-col h-full relative group">
                     <div class="absolute top-8 right-8">
-                        <a href="https://github.com/kunnalsinngh14" target="_blank" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-all text-xl">
+                        <a href="https://github.com/kunnalsinngh14" target="_blank"
+                            class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-all text-xl">
                             <i class="fa-brands fa-github"></i>
                         </a>
                     </div>
                     <div class="mb-4 text-pink-500 text-3xl"><i class="fa-solid fa-laptop-code"></i></div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 pr-12">Personal Portfolio Website</h3>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 pr-12">Personal Portfolio Website
+                    </h3>
                     <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-sm flex-grow">
-                        Designed and developed a responsive personal portfolio website using HTML and CSS. Implemented a structured section-based design, including an about section, skills showcase, social media links. Currently enhancing the website with JavaScript and responsive design techniques.
+                        Designed and developed a responsive personal portfolio website using HTML and CSS. Implemented a
+                        structured section-based design, including an about section, skills showcase, social media
+                        links. Currently enhancing the website with JavaScript and responsive design techniques.
                     </p>
                 </div>
 
@@ -455,12 +582,16 @@
                 <div class="cert-card p-6 md:p-8 flex items-center shadow-lg gap-6">
                     <div class="flex-shrink-0">
                         <svg class="w-10 h-10 text-yellow-500 drop-shadow-md" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            <path
+                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 leading-snug">Data Analysis with Pandas and Python</h3>
-                        <a href="https://drive.google.com/file/d/1YPHDHwLX3-XqS0MxwfKveUU1BZcUasYm/view?usp=sharing" target="_blank" class="text-blue-500 hover:text-blue-400 font-semibold flex items-center gap-2 text-[0.95rem] w-max">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 leading-snug">Data Analysis
+                            with Pandas and Python</h3>
+                        <a href="https://drive.google.com/file/d/1YPHDHwLX3-XqS0MxwfKveUU1BZcUasYm/view?usp=sharing"
+                            target="_blank"
+                            class="text-blue-500 hover:text-blue-400 font-semibold flex items-center gap-2 text-[0.95rem] w-max">
                             View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                         </a>
                     </div>
@@ -470,12 +601,16 @@
                 <div class="cert-card p-6 md:p-8 flex items-center shadow-lg gap-6">
                     <div class="flex-shrink-0">
                         <svg class="w-10 h-10 text-yellow-500 drop-shadow-md" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            <path
+                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 leading-snug">Java Features</h3>
-                        <a href="https://drive.google.com/file/d/14br43hWg2lrhoRrgm5dsvVVdg492Nigb/view?usp=drive_link" target="_blank" class="text-blue-500 hover:text-blue-400 font-semibold flex items-center gap-2 text-[0.95rem] w-max">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 leading-snug">Java Features
+                        </h3>
+                        <a href="https://drive.google.com/file/d/14br43hWg2lrhoRrgm5dsvVVdg492Nigb/view?usp=drive_link"
+                            target="_blank"
+                            class="text-blue-500 hover:text-blue-400 font-semibold flex items-center gap-2 text-[0.95rem] w-max">
                             View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                         </a>
                     </div>
@@ -485,30 +620,42 @@
 
         <!-- Contact Section -->
         <section id="contact" class="pb-10">
-            <div class="glass-panel rounded-[3rem] p-12 md:p-20 text-center max-w-5xl mx-auto border-t-4 border-blue-500">
+            <div
+                class="glass-panel rounded-[3rem] p-12 md:p-20 text-center max-w-5xl mx-auto border-t-4 border-blue-500">
                 <h2 class="section-header text-slate-900 dark:text-white mb-6 !text-5xl">GET IN TOUCH</h2>
-                
+
                 <p class="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-16 font-medium">
-                    "I'm always open to internships, collaborations, and interesting project ideas — feel free to connect!"
+                    "I'm always open to internships, collaborations, and interesting project ideas — feel free to
+                    connect!"
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <a href="mailto:kunal14072005@gmail.com" class="glass-panel p-6 rounded-2xl flex flex-col items-center hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors group">
-                        <i class="fa-solid fa-envelope text-4xl text-slate-400 group-hover:text-blue-500 mb-4 transition-colors"></i>
+                    <a href="mailto:kunal14072005@gmail.com"
+                        class="glass-panel p-6 rounded-2xl flex flex-col items-center hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors group">
+                        <i
+                            class="fa-solid fa-envelope text-4xl text-slate-400 group-hover:text-blue-500 mb-4 transition-colors"></i>
                         <span class="font-bold text-slate-900 dark:text-white">Email</span>
-                        <span class="text-sm border-t border-slate-200 dark:border-slate-700 w-full mt-4 pt-4 text-slate-500 dark:text-slate-400 group-hover:text-blue-500 transition-colors truncate w-full px-2">kunal14072005@gmail.com</span>
+                        <span
+                            class="text-sm border-t border-slate-200 dark:border-slate-700 w-full mt-4 pt-4 text-slate-500 dark:text-slate-400 group-hover:text-blue-500 transition-colors truncate w-full px-2">kunal14072005@gmail.com</span>
                     </a>
 
-                    <a href="https://github.com/kunnalsinngh14" target="_blank" class="glass-panel p-6 rounded-2xl flex flex-col items-center hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors group">
-                        <i class="fa-brands fa-github text-4xl text-slate-400 group-hover:text-blue-500 mb-4 transition-colors"></i>
+                    <a href="https://github.com/kunnalsinngh14" target="_blank"
+                        class="glass-panel p-6 rounded-2xl flex flex-col items-center hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors group">
+                        <i
+                            class="fa-brands fa-github text-4xl text-slate-400 group-hover:text-blue-500 mb-4 transition-colors"></i>
                         <span class="font-bold text-slate-900 dark:text-white">GitHub</span>
-                        <span class="text-sm border-t border-slate-200 dark:border-slate-700 w-full mt-4 pt-4 text-slate-500 dark:text-slate-400 group-hover:text-blue-500 transition-colors">kunnalsinngh14</span>
+                        <span
+                            class="text-sm border-t border-slate-200 dark:border-slate-700 w-full mt-4 pt-4 text-slate-500 dark:text-slate-400 group-hover:text-blue-500 transition-colors">kunnalsinngh14</span>
                     </a>
 
-                    <a href="https://www.linkedin.com/in/kunal-singh-8741a03b7" target="_blank" class="glass-panel p-6 rounded-2xl flex flex-col items-center hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors group">
-                        <i class="fa-brands fa-linkedin text-4xl text-slate-400 group-hover:text-blue-500 mb-4 transition-colors"></i>
+                    <a href="https://www.linkedin.com/in/kunal-singh-8741a03b7" target="_blank"
+                        class="glass-panel p-6 rounded-2xl flex flex-col items-center hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors group">
+                        <i
+                            class="fa-brands fa-linkedin text-4xl text-slate-400 group-hover:text-blue-500 mb-4 transition-colors"></i>
                         <span class="font-bold text-slate-900 dark:text-white">LinkedIn</span>
-                        <span class="text-sm border-t border-slate-200 dark:border-slate-700 w-full mt-4 pt-4 text-slate-500 dark:text-slate-400 group-hover:text-blue-500 transition-colors">Kunal Singh</span>
+                        <span
+                            class="text-sm border-t border-slate-200 dark:border-slate-700 w-full mt-4 pt-4 text-slate-500 dark:text-slate-400 group-hover:text-blue-500 transition-colors">Kunal
+                            Singh</span>
                     </a>
                 </div>
             </div>
@@ -521,7 +668,7 @@
         // --- Theme Toggle Logic ---
         const themeToggle = document.getElementById('theme-toggle');
         const htmlNode = document.documentElement;
-        
+
         // Check local storage or system preference on load
         if (localStorage.getItem('theme') === 'light') {
             htmlNode.classList.remove('dark');
@@ -549,21 +696,21 @@
             "Software Developer",
             "Data Science Explorer"
         ];
-        
+
         const typeEl = document.getElementById('typewriter-text');
         let currentPhraseIndex = 0;
         let currentCharIndex = 0;
         let isDeleting = false;
-        
+
         // Settings
         const typingSpeed = 60;
         const deletingSpeed = 40;
         const pauseEnd = 1500; // Stay for 1.5 seconds
         const pauseStart = 300;
-        
+
         function type() {
             const currentPhrase = phrases[currentPhraseIndex];
-            
+
             if (isDeleting) {
                 typeEl.textContent = currentPhrase.substring(0, currentCharIndex - 1);
                 currentCharIndex--;
@@ -571,9 +718,9 @@
                 typeEl.textContent = currentPhrase.substring(0, currentCharIndex + 1);
                 currentCharIndex++;
             }
-            
+
             let typeSpeed = isDeleting ? deletingSpeed : typingSpeed;
-            
+
             if (!isDeleting && currentCharIndex === currentPhrase.length) {
                 // finished typing phrase
                 typeSpeed = pauseEnd;
@@ -584,12 +731,13 @@
                 currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
                 typeSpeed = pauseStart;
             }
-            
+
             setTimeout(type, typeSpeed);
         }
-        
+
         // Start the effect
         setTimeout(type, 1000); // Initial delay
     </script>
 </body>
+
 </html>
