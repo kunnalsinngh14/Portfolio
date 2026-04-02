@@ -1,23 +1,17 @@
-# Kunal Singh | Modern Portfolio
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+# Kunal Singh | Personal Portfolio Website
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 
-A high-performance, single-page personal portfolio featuring **Glassmorphism** design, dynamic theme switching, and AI/ML project showcases. Built with a focus on modern UI/UX and smooth transitions.
+A modern, responsive portfolio website showcasing my journey as a B.Tech Computer Science (AI/ML) student at RV University. This project highlights my expertise in Artificial Intelligence, Machine Learning, and Software Development through a clean, interactive user interface.
 
-## 🌐 Live Demo
-**[kunnalsinngh14.github.io/Portfolio](https://kunnalsinngh14.github.io/Portfolio/)**
 
----
-
-## ✨ Features
-
-- **Glassmorphism UI:** Translucent panels with backdrop-blur effects for a premium feel.
-- **Ambient Background:** Animated radial gradients that respond to theme changes.
-- **Dynamic Typewriter:** Interactive hero section cycling through technical roles.
-- **Dark/Light Mode:** Custom-engineered slider toggle with local storage persistence.
-- **Responsive Architecture:** Mobile-first design using Tailwind CSS Grid and Flexbox.
-- **Sectional Design:**
+## ✨ Key Features
+* **Dynamic Theme Toggle:** Seamlessly switch between Light and Dark modes with a custom-built UI toggle.
+* **Interactive Hero Section:** Typewriter animation highlighting roles: AI/ML Enthusiast, Software Developer, and Data Science Explorer.
+* **Project Showcase:** A curated grid of technical projects featuring tech-stack badges and direct GitHub links.
+* **Responsive Design:** Fully optimized for all devices (Mobile, Tablet, Desktop) using CSS Flexbox and Grid.
+* **Scroll Animations:** Smooth reveal effects using AOS (Animate on Scroll) for an engaging UX.
+* **Sectional Design:**
   - **About:** Personal bio and high-impact stat boxes (CGPA, Projects).
   - **Skills:** Categorized technical stack including AI/ML frameworks.
   - **Projects:** Interactive cards with GitHub integration and custom icons.
@@ -36,4 +30,4 @@ This is a lightweight, optimized project consisting of a single core file for ma
 ```text
 Portfolio/
 ├── index.html        # Contains all HTML, Tailwind Config, CSS, and JS
-└── hero-bg.png       # Thematic background asset
+└── hero-bg.png       # background img
