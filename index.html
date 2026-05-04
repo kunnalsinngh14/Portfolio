@@ -98,6 +98,14 @@
             color: #475569;
         }
 
+        /* Hero solid background to hide Three.js dots */
+        #hero {
+            background: linear-gradient(to bottom, #0A0F1A 85%, transparent 100%);
+        }
+        .light #hero {
+            background: linear-gradient(to bottom, #F8FAFC 85%, transparent 100%);
+        }
+
         .light .border-white\/10 {
             border-color: rgba(0, 0, 0, 0.1);
         }
@@ -150,6 +158,16 @@
             60% {
                 transform: translateY(-10px);
             }
+        }
+
+        /* Orbit Animation */
+        @keyframes float {
+            0% { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+        }
+        .animate-float {
+            animation: float linear infinite;
+            will-change: transform;
         }
 
         /* Gradient Text */
@@ -357,7 +375,24 @@
 
         <!-- Hero Section -->
         <section id="hero"
-            class="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20 relative">
+            class="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20 relative overflow-hidden">
+            
+            <!-- Floating Devicons -->
+            <div class="absolute inset-0 pointer-events-none z-0 opacity-40 dark:opacity-60 hidden md:block">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" class="absolute w-12 h-12 animate-float" style="top: 15%; left: 15%; animation-delay: -0s; animation-duration: 18s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg" class="absolute w-14 h-14 animate-float" style="top: 60%; left: 10%; animation-delay: -2s; animation-duration: 22s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/r/r-original.svg" class="absolute w-10 h-10 animate-float" style="top: 25%; left: 80%; animation-delay: -5s; animation-duration: 16s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ruby/ruby-original.svg" class="absolute w-12 h-12 animate-float" style="top: 75%; left: 85%; animation-delay: -1s; animation-duration: 20s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" class="absolute w-16 h-16 animate-float" style="top: 40%; left: 5%; animation-delay: -7s; animation-duration: 24s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" class="absolute w-14 h-14 animate-float" style="top: 85%; left: 30%; animation-delay: -3s; animation-duration: 19s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="absolute w-10 h-10 animate-float" style="top: 35%; left: 90%; animation-delay: -6s; animation-duration: 17s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" class="absolute w-16 h-16 animate-float" style="top: 80%; left: 70%; animation-delay: -4s; animation-duration: 21s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg" class="absolute w-14 h-14 animate-float" style="top: 50%; left: 92%; animation-delay: -8s; animation-duration: 25s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" class="absolute w-12 h-12 animate-float" style="top: 10%; left: 60%; animation-delay: -2s; animation-duration: 18s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg" class="absolute w-12 h-12 animate-float" style="top: 20%; left: 35%; animation-delay: -9s; animation-duration: 20s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg" class="absolute w-10 h-10 animate-float" style="top: 70%; left: 50%; animation-delay: -1s; animation-duration: 16s;">
+            </div>
+
             <div
                 class="w-32 h-32 rounded-full mb-8 p-1 bg-gradient-to-br from-emeraldAccent to-blueAccent shadow-[0_0_30px_rgba(16,185,129,0.3)]">
                 <div
@@ -366,7 +401,8 @@
                 </div>
             </div>
 
-            <h1 id="hero-title" class="font-bold mb-6 tracking-[0.15em] uppercase" style="opacity:0; font-family: 'Archivo', 'Space Grotesk', sans-serif; font-size: clamp(2.8rem, 8vw, 6rem); font-weight: 900; background: linear-gradient(120deg, #F1F5F9 0%, #F1F5F9 45%, #10B981 75%, #34D399 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+            <h1 id="hero-title" class="font-bold mb-6 tracking-[0.15em] uppercase"
+                style="opacity:0; font-family: 'Archivo', 'Space Grotesk', sans-serif; font-size: clamp(2.8rem, 8vw, 6rem); font-weight: 900; background: linear-gradient(120deg, #F1F5F9 0%, #F1F5F9 45%, #10B981 75%, #34D399 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
                 KUNAL SINGH
             </h1>
 
@@ -458,165 +494,187 @@
 
             <!-- Languages -->
             <div class="mb-14 gsap-reveal skill-track">
-                <h3 class="text-xs font-bold tracking-[0.25em] uppercase text-emeraldAccent mb-8 flex items-center gap-3">
-                    <span class="inline-block w-5 h-px bg-emeraldAccent"></span>Languages<span class="inline-block w-5 h-px bg-emeraldAccent"></span>
+                <h3
+                    class="text-xs font-bold tracking-[0.25em] uppercase text-emeraldAccent mb-8 flex items-center gap-3">
+                    <span class="inline-block w-5 h-px bg-emeraldAccent"></span>Languages<span
+                        class="inline-block w-5 h-px bg-emeraldAccent"></span>
                 </h3>
                 <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-x-6 gap-y-8">
                     <!-- Python -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+                                alt="Python" class="w-8 h-8" />
                         </div>
                         <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Python</span>
                     </div>
                     <!-- Java -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
+                                alt="Java" class="w-8 h-8" />
                         </div>
                         <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Java</span>
                     </div>
                     <!-- C++ -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" alt="C++" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"
+                                alt="C++" class="w-8 h-8" />
                         </div>
                         <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">C / C++</span>
                     </div>
                     <!-- SQL -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="SQL" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+                                alt="SQL" class="w-8 h-8" />
                         </div>
                         <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">SQL</span>
                     </div>
                     <!-- HTML -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
+                                alt="HTML5" class="w-8 h-8" />
                         </div>
                         <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">HTML5</span>
                     </div>
                     <!-- CSS -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS3" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"
+                                alt="CSS3" class="w-8 h-8" />
                         </div>
                         <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">CSS3</span>
                     </div>
                     <!-- JavaScript -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
+                                alt="JavaScript" class="w-8 h-8" />
                         </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">JavaScript</span>
+                        <span
+                            class="text-xs text-textMuted group-hover:text-textMain transition-colors">JavaScript</span>
                     </div>
                 </div>
             </div>
 
             <!-- Frameworks & Libs -->
             <div class="mb-14 gsap-reveal skill-track">
-                <h3 class="text-xs font-bold tracking-[0.25em] uppercase text-emeraldAccent mb-8 flex items-center gap-3">
-                    <span class="inline-block w-5 h-px bg-emeraldAccent"></span>Frameworks &amp; Libraries<span class="inline-block w-5 h-px bg-emeraldAccent"></span>
+                <h3
+                    class="text-xs font-bold tracking-[0.25em] uppercase text-emeraldAccent mb-8 flex items-center gap-3">
+                    <span class="inline-block w-5 h-px bg-emeraldAccent"></span>Frameworks &amp; Libraries<span
+                        class="inline-block w-5 h-px bg-emeraldAccent"></span>
                 </h3>
                 <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-x-6 gap-y-8">
                     <!-- Pandas -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="Pandas" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg"
+                                alt="Pandas" class="w-8 h-8" />
                         </div>
                         <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Pandas</span>
                     </div>
                     <!-- NumPy -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" alt="NumPy" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg"
+                                alt="NumPy" class="w-8 h-8" />
                         </div>
                         <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">NumPy</span>
                     </div>
                     <!-- Matplotlib -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg" alt="Matplotlib" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg"
+                                alt="Matplotlib" class="w-8 h-8" />
                         </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Matplotlib</span>
+                        <span
+                            class="text-xs text-textMuted group-hover:text-textMain transition-colors">Matplotlib</span>
                     </div>
                     <!-- Scikit-Learn -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg" alt="Scikit-Learn" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg"
+                                alt="Scikit-Learn" class="w-8 h-8" />
                         </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Scikit-Learn</span>
-                    </div>
-                    <!-- React -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React" class="w-8 h-8" />
-                        </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">React</span>
-                    </div>
-                    <!-- TensorFlow -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" class="w-8 h-8" />
-                        </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">TensorFlow</span>
-                    </div>
-                    <!-- OpenCV -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg" alt="OpenCV" class="w-8 h-8" />
-                        </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">OpenCV</span>
+                        <span
+                            class="text-xs text-textMuted group-hover:text-textMain transition-colors">Scikit-Learn</span>
                     </div>
                 </div>
             </div>
 
             <!-- Tools -->
             <div class="gsap-reveal skill-track">
-                <h3 class="text-xs font-bold tracking-[0.25em] uppercase text-emeraldAccent mb-8 flex items-center gap-3">
-                    <span class="inline-block w-5 h-px bg-emeraldAccent"></span>Tools &amp; Platforms<span class="inline-block w-5 h-px bg-emeraldAccent"></span>
+                <h3
+                    class="text-xs font-bold tracking-[0.25em] uppercase text-emeraldAccent mb-8 flex items-center gap-3">
+                    <span class="inline-block w-5 h-px bg-emeraldAccent"></span>Tools &amp; Platforms<span
+                        class="inline-block w-5 h-px bg-emeraldAccent"></span>
                 </h3>
                 <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-x-6 gap-y-8">
                     <!-- Git -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+                                alt="Git" class="w-8 h-8" />
                         </div>
                         <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Git</span>
                     </div>
                     <!-- GitHub -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" class="w-8 h-8 invert opacity-80" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
+                                alt="GitHub" class="w-8 h-8 invert opacity-80" />
                         </div>
                         <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">GitHub</span>
                     </div>
                     <!-- VS Code -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VS Code" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"
+                                alt="VS Code" class="w-8 h-8" />
                         </div>
                         <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">VS Code</span>
                     </div>
                     <!-- Jupyter -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original.svg" alt="Jupyter" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original.svg"
+                                alt="Jupyter" class="w-8 h-8" />
                         </div>
                         <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Jupyter</span>
                     </div>
                     <!-- Google Colab -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecolab/googlecolab-original.svg" alt="Google Colab" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecolab/googlecolab-original.svg"
+                                alt="Google Colab" class="w-8 h-8" />
                         </div>
                         <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Colab</span>
                     </div>
                     <!-- Power BI -->
                     <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg" alt="Power BI" class="w-8 h-8" />
+                        <div
+                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg"
+                                alt="Power BI" class="w-8 h-8" />
                         </div>
                         <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Power BI</span>
                     </div>
@@ -642,10 +700,14 @@
 
                 <!-- Card 1: Snake Game -->
                 <!-- Card 1 inner: Snake Game -->
-                <div class="project-card group gsap-reveal relative bg-surfaceBg border border-white/[0.08] rounded-2xl p-8 flex flex-col gap-5 cursor-pointer hover:border-emeraldAccent/40 hover:shadow-[0_0_40px_rgba(16,185,129,0.12)] transition-all duration-300 overflow-hidden">
-                    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emeraldAccent/50 to-transparent"></div>
+                <div
+                    class="project-card group gsap-reveal relative bg-surfaceBg border border-white/[0.08] rounded-2xl p-8 flex flex-col gap-5 cursor-pointer hover:border-emeraldAccent/40 hover:shadow-[0_0_40px_rgba(16,185,129,0.12)] transition-all duration-300 overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emeraldAccent/50 to-transparent">
+                    </div>
                     <div class="flex items-start justify-between">
-                        <div class="w-14 h-14 rounded-xl bg-emeraldAccent/10 border border-emeraldAccent/20 flex items-center justify-center text-emeraldAccent group-hover:bg-emeraldAccent/20 transition-colors duration-300">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-emeraldAccent/10 border border-emeraldAccent/20 flex items-center justify-center text-emeraldAccent group-hover:bg-emeraldAccent/20 transition-colors duration-300">
                             <i class="fa-solid fa-gamepad text-2xl"></i>
                         </div>
                         <a href="https://github.com/kunnalsinngh14" target="_blank" rel="noopener noreferrer"
@@ -654,23 +716,34 @@
                         </a>
                     </div>
                     <div class="flex-1">
-                        <h3 class="text-xl font-display font-bold mb-3 group-hover:text-emeraldAccent transition-colors duration-200">Snake Game</h3>
+                        <h3
+                            class="text-xl font-display font-bold mb-3 group-hover:text-emeraldAccent transition-colors duration-200">
+                            Snake Game</h3>
                         <p class="text-textMuted text-sm leading-relaxed">
-                            Classic Snake Game built with Java Swing and AWT. Features real-time rendering, keyboard controls, collision detection, score tracking, and a complete game loop using OOP and event-driven programming.
+                            Classic Snake Game built with Java Swing and AWT. Features real-time rendering, keyboard
+                            controls, collision detection, score tracking, and a complete game loop using OOP and
+                            event-driven programming.
                         </p>
                     </div>
                     <div class="flex flex-wrap gap-2">
-                        <span class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">Java</span>
-                        <span class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">Swing</span>
-                        <span class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">AWT</span>
+                        <span
+                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">Java</span>
+                        <span
+                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">Swing</span>
+                        <span
+                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">AWT</span>
                     </div>
                 </div>
 
                 <!-- Card 2: Student Performance Predictor -->
-                <div class="project-card group gsap-reveal relative bg-surfaceBg border border-white/[0.08] rounded-2xl p-8 flex flex-col gap-5 cursor-pointer hover:border-emeraldAccent/40 hover:shadow-[0_0_40px_rgba(16,185,129,0.12)] transition-all duration-300 overflow-hidden">
-                    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emeraldAccent/50 to-transparent"></div>
+                <div
+                    class="project-card group gsap-reveal relative bg-surfaceBg border border-white/[0.08] rounded-2xl p-8 flex flex-col gap-5 cursor-pointer hover:border-emeraldAccent/40 hover:shadow-[0_0_40px_rgba(16,185,129,0.12)] transition-all duration-300 overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emeraldAccent/50 to-transparent">
+                    </div>
                     <div class="flex items-start justify-between">
-                        <div class="w-14 h-14 rounded-xl bg-emeraldAccent/10 border border-emeraldAccent/20 flex items-center justify-center text-emeraldAccent group-hover:bg-emeraldAccent/20 transition-colors duration-300">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-emeraldAccent/10 border border-emeraldAccent/20 flex items-center justify-center text-emeraldAccent group-hover:bg-emeraldAccent/20 transition-colors duration-300">
                             <i class="fa-solid fa-graduation-cap text-2xl"></i>
                         </div>
                         <a href="https://github.com/kunnalsinngh14" target="_blank" rel="noopener noreferrer"
@@ -679,16 +752,23 @@
                         </a>
                     </div>
                     <div class="flex-1">
-                        <h3 class="text-xl font-display font-bold mb-3 group-hover:text-emeraldAccent transition-colors duration-200">Student Performance Predictor</h3>
+                        <h3
+                            class="text-xl font-display font-bold mb-3 group-hover:text-emeraldAccent transition-colors duration-200">
+                            Student Performance Predictor</h3>
                         <p class="text-textMuted text-sm leading-relaxed">
-                            ML model using RandomForestClassifier to predict student pass/fail from quiz, midterm, and assignment scores. Integrated LLaMA for natural language insights. Achieved 94.5% accuracy.
+                            ML model using RandomForestClassifier to predict student pass/fail from quiz, midterm, and
+                            assignment scores. Integrated LLaMA for natural language insights. Achieved 94.5% accuracy.
                         </p>
                     </div>
                     <div class="flex flex-wrap gap-2">
-                        <span class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">Python</span>
-                        <span class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">ML</span>
-                        <span class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">RandomForest</span>
-                        <span class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">LLaMA</span>
+                        <span
+                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">Python</span>
+                        <span
+                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">ML</span>
+                        <span
+                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">RandomForest</span>
+                        <span
+                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">LLaMA</span>
                     </div>
                 </div>
 
@@ -696,10 +776,14 @@
 
             <!-- Bottom row: 1 card centered -->
             <div class="flex justify-center">
-                <div class="project-card group gsap-reveal relative bg-surfaceBg border border-white/[0.08] rounded-2xl p-8 flex flex-col gap-5 cursor-pointer hover:border-emeraldAccent/40 hover:shadow-[0_0_40px_rgba(16,185,129,0.12)] transition-all duration-300 overflow-hidden w-full md:w-[calc(50%-12px)]">
-                    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emeraldAccent/50 to-transparent"></div>
+                <div
+                    class="project-card group gsap-reveal relative bg-surfaceBg border border-white/[0.08] rounded-2xl p-8 flex flex-col gap-5 cursor-pointer hover:border-emeraldAccent/40 hover:shadow-[0_0_40px_rgba(16,185,129,0.12)] transition-all duration-300 overflow-hidden w-full md:w-[calc(50%-12px)]">
+                    <div
+                        class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emeraldAccent/50 to-transparent">
+                    </div>
                     <div class="flex items-start justify-between">
-                        <div class="w-14 h-14 rounded-xl bg-emeraldAccent/10 border border-emeraldAccent/20 flex items-center justify-center text-emeraldAccent group-hover:bg-emeraldAccent/20 transition-colors duration-300">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-emeraldAccent/10 border border-emeraldAccent/20 flex items-center justify-center text-emeraldAccent group-hover:bg-emeraldAccent/20 transition-colors duration-300">
                             <i class="fa-solid fa-traffic-light text-2xl"></i>
                         </div>
                         <a href="https://github.com/kunnalsinngh14/RoadLens" target="_blank" rel="noopener noreferrer"
@@ -708,16 +792,23 @@
                         </a>
                     </div>
                     <div class="flex-1">
-                        <h3 class="text-xl font-display font-bold mb-3 group-hover:text-emeraldAccent transition-colors duration-200">RoadLens: Traffic Sign Recognition</h3>
+                        <h3
+                            class="text-xl font-display font-bold mb-3 group-hover:text-emeraldAccent transition-colors duration-200">
+                            RoadLens: Traffic Sign Recognition</h3>
                         <p class="text-textMuted text-sm leading-relaxed">
-                            Real-time computer vision system for webcam-based traffic sign detection and classification. Built a CNN for multi-class recognition using Python, OpenCV, and TensorFlow.
+                            Real-time computer vision system for webcam-based traffic sign detection and classification.
+                            Built a CNN for multi-class recognition using Python, OpenCV, and TensorFlow.
                         </p>
                     </div>
                     <div class="flex flex-wrap gap-2">
-                        <span class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">Python</span>
-                        <span class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">CNN</span>
-                        <span class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">OpenCV</span>
-                        <span class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">TensorFlow</span>
+                        <span
+                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">Python</span>
+                        <span
+                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">CNN</span>
+                        <span
+                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">OpenCV</span>
+                        <span
+                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">TensorFlow</span>
                     </div>
                 </div>
             </div>
@@ -941,11 +1032,11 @@
 
         // --- Splash Screen Animation ---
         (function () {
-            const splashTop    = document.getElementById('splash-top');
+            const splashTop = document.getElementById('splash-top');
             const splashBottom = document.getElementById('splash-bottom');
-            const splashName   = document.getElementById('splash-name');
-            const heroTitle    = document.getElementById('hero-title');
-            const easing       = 'cubic-bezier(0.77, 0, 0.175, 1)';
+            const splashName = document.getElementById('splash-name');
+            const heroTitle = document.getElementById('hero-title');
+            const easing = 'cubic-bezier(0.77, 0, 0.175, 1)';
 
             // Stage 1: Fade + scale name in
             splashName.animate([
@@ -957,18 +1048,18 @@
             setTimeout(() => {
                 // Measure where the real h1 sits on screen
                 const splashRect = splashName.getBoundingClientRect();
-                const heroRect   = heroTitle.getBoundingClientRect();
+                const heroRect = heroTitle.getBoundingClientRect();
 
                 // Delta between splash center and h1 center
-                const deltaX = (heroRect.left + heroRect.width  / 2) - (splashRect.left + splashRect.width  / 2);
-                const deltaY = (heroRect.top  + heroRect.height / 2) - (splashRect.top  + splashRect.height / 2);
+                const deltaX = (heroRect.left + heroRect.width / 2) - (splashRect.left + splashRect.width / 2);
+                const deltaY = (heroRect.top + heroRect.height / 2) - (splashRect.top + splashRect.height / 2);
 
                 // Scale ratio: shrink splash name to match h1 rendered size
                 const scaleRatio = Math.min(heroRect.height / splashRect.height, 1);
 
                 // Morph: shrink + fly to h1 position in sync with split
                 splashName.animate([
-                    { transform: 'translate(-50%, -50%) scale(1)',           opacity: 1 },
+                    { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
                     { transform: `translate(calc(-50% + ${deltaX}px), calc(-50% + ${deltaY}px)) scale(${scaleRatio})`, opacity: 0.9 }
                 ], { duration: 950, easing, fill: 'forwards' });
 
@@ -987,7 +1078,7 @@
                 // At landing: reveal real h1, then clean up overlay
                 setTimeout(() => {
                     heroTitle.style.transition = 'opacity 0.15s ease';
-                    heroTitle.style.opacity    = '1';
+                    heroTitle.style.opacity = '1';
                     splashTop.remove();
                     splashBottom.remove();
                     splashName.remove();
