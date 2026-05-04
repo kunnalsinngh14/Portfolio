@@ -102,6 +102,7 @@
         #hero {
             background: linear-gradient(to bottom, #0A0F1A 85%, transparent 100%);
         }
+
         .light #hero {
             background: linear-gradient(to bottom, #F8FAFC 85%, transparent 100%);
         }
@@ -162,9 +163,15 @@
 
         /* Orbit Animation */
         @keyframes float {
-            0% { transform: rotate(0deg) translateX(150px) rotate(0deg); }
-            100% { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+            0% {
+                transform: rotate(0deg) translateX(150px) rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg) translateX(150px) rotate(-360deg);
+            }
         }
+
         .animate-float {
             animation: float linear infinite;
             will-change: transform;
@@ -376,21 +383,45 @@
         <!-- Hero Section -->
         <section id="hero"
             class="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20 relative overflow-hidden">
-            
+
             <!-- Floating Devicons -->
             <div class="absolute inset-0 pointer-events-none z-0 opacity-40 dark:opacity-60 hidden md:block">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" class="absolute w-12 h-12 animate-float" style="top: 15%; left: 15%; animation-delay: -0s; animation-duration: 18s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg" class="absolute w-14 h-14 animate-float" style="top: 60%; left: 10%; animation-delay: -2s; animation-duration: 22s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/r/r-original.svg" class="absolute w-10 h-10 animate-float" style="top: 25%; left: 80%; animation-delay: -5s; animation-duration: 16s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ruby/ruby-original.svg" class="absolute w-12 h-12 animate-float" style="top: 75%; left: 85%; animation-delay: -1s; animation-duration: 20s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" class="absolute w-16 h-16 animate-float" style="top: 40%; left: 5%; animation-delay: -7s; animation-duration: 24s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" class="absolute w-14 h-14 animate-float" style="top: 85%; left: 30%; animation-delay: -3s; animation-duration: 19s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="absolute w-10 h-10 animate-float" style="top: 35%; left: 90%; animation-delay: -6s; animation-duration: 17s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" class="absolute w-16 h-16 animate-float" style="top: 80%; left: 70%; animation-delay: -4s; animation-duration: 21s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg" class="absolute w-14 h-14 animate-float" style="top: 50%; left: 92%; animation-delay: -8s; animation-duration: 25s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" class="absolute w-12 h-12 animate-float" style="top: 10%; left: 60%; animation-delay: -2s; animation-duration: 18s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg" class="absolute w-12 h-12 animate-float" style="top: 20%; left: 35%; animation-delay: -9s; animation-duration: 20s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg" class="absolute w-10 h-10 animate-float" style="top: 70%; left: 50%; animation-delay: -1s; animation-duration: 16s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+                    class="absolute w-12 h-12 animate-float"
+                    style="top: 15%; left: 15%; animation-delay: -0s; animation-duration: 18s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg"
+                    class="absolute w-14 h-14 animate-float"
+                    style="top: 60%; left: 10%; animation-delay: -2s; animation-duration: 22s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/r/r-original.svg"
+                    class="absolute w-10 h-10 animate-float"
+                    style="top: 25%; left: 80%; animation-delay: -5s; animation-duration: 16s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ruby/ruby-original.svg"
+                    class="absolute w-12 h-12 animate-float"
+                    style="top: 75%; left: 85%; animation-delay: -1s; animation-duration: 20s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"
+                    class="absolute w-16 h-16 animate-float"
+                    style="top: 40%; left: 5%; animation-delay: -7s; animation-duration: 24s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+                    class="absolute w-14 h-14 animate-float"
+                    style="top: 85%; left: 30%; animation-delay: -3s; animation-duration: 19s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+                    class="absolute w-10 h-10 animate-float"
+                    style="top: 35%; left: 90%; animation-delay: -6s; animation-duration: 17s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
+                    class="absolute w-16 h-16 animate-float"
+                    style="top: 80%; left: 70%; animation-delay: -4s; animation-duration: 21s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg"
+                    class="absolute w-14 h-14 animate-float"
+                    style="top: 50%; left: 92%; animation-delay: -8s; animation-duration: 25s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg"
+                    class="absolute w-12 h-12 animate-float"
+                    style="top: 10%; left: 60%; animation-delay: -2s; animation-duration: 18s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg"
+                    class="absolute w-12 h-12 animate-float"
+                    style="top: 20%; left: 35%; animation-delay: -9s; animation-duration: 20s;">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg"
+                    class="absolute w-10 h-10 animate-float"
+                    style="top: 70%; left: 50%; animation-delay: -1s; animation-duration: 16s;">
             </div>
 
             <div
