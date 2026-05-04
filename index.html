@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark" style="scroll-behavior: smooth;">
+<html lang="en" class="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -12,124 +12,101 @@
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                    },
                     colors: {
-                        darkBg: '#050810',
-                        lightBg: '#f8fafc',
+                        darkBg: '#0A0F1A',
+                        surfaceBg: '#111827',
+                        emeraldAccent: '#10B981',
+                        blueAccent: '#10B981',
+                        goldAccent: '#F59E0B',
+                        textMain: '#F1F5F9',
+                        textMuted: '#94A3B8'
+                    },
+                    fontFamily: {
+                        display: ['Space Grotesk', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif']
                     }
                 }
             }
         }
     </script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 0;
+            overflow-x: hidden;
         }
 
-        /* Ambient glowing background */
-        .ambient-glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        /* Three.js Background Container */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at center, rgba(34, 211, 238, 0.08) 0%, rgba(59, 130, 246, 0.03) 40%, transparent 60%);
             z-index: -1;
             pointer-events: none;
         }
 
-        .dark .ambient-glow {
-            background: radial-gradient(circle at center, rgba(56, 189, 248, 0.15) 0%, rgba(14, 165, 233, 0.05) 50%, transparent 70%);
-        }
-
-        /* Glassmorphism Cards */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.7);
+        /* Glassmorphism Defaults */
+        .glass-nav {
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, background 0.3s ease;
+            background: rgba(10, 15, 26, 0.85);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.3);
         }
 
-        .dark .glass-panel {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
-        .glass-panel:hover {
-            transform: translateY(-3px);
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px -10px rgba(16, 185, 129, 0.25);
+            border-color: rgba(16, 185, 129, 0.35);
         }
 
-        /* Theme Toggle Slider */
-        .theme-toggle {
-            cursor: pointer;
-            width: 60px;
-            height: 30px;
-            background-color: #e2e8f0;
-            border-radius: 30px;
-            position: relative;
-            transition: background-color 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 6px;
+        /* Light Mode Overrides */
+        .light body {
+            background-color: #F8FAFC;
+            color: #0F172A;
         }
 
-        .dark .theme-toggle {
-            background-color: #1e293b;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .light .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 2px solid #10B981;
         }
 
-        .theme-toggle .toggle-ball {
-            position: absolute;
-            left: 3px;
-            width: 24px;
-            height: 24px;
-            background-color: white;
-            border-radius: 50%;
-            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            z-index: 2;
+        .light .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        .dark .theme-toggle .toggle-ball {
-            transform: translateX(30px);
-            background-color: #0f172a;
+        .light .text-textMain {
+            color: #0F172A;
         }
 
-        .theme-toggle i {
-            font-size: 14px;
-            z-index: 1;
-        }
-
-        .fa-moon {
-            color: #94a3b8;
-        }
-
-        .fa-sun {
-            color: #f59e0b;
-        }
-
-        .dark .fa-moon {
-            color: #60a5fa;
-        }
-
-        .dark .fa-sun {
+        .light .text-textMuted {
             color: #475569;
         }
 
-        /* Typewriter Cursor */
+        .light .border-white\/10 {
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .light .bg-white\/5 {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Typewriter Caret */
         .caret {
             display: inline-block;
             width: 2px;
@@ -151,484 +128,623 @@
             }
         }
 
-        /* Designer Buttons */
-        .btn-designer {
-            padding: 12px 28px;
-            border-radius: 9999px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        /* Bouncing Arrow */
+        .bounce {
+            animation: bounce 2s infinite;
         }
 
-        .btn-designer::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(rgba(255, 255, 255, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
+        @keyframes bounce {
 
-        .btn-designer:hover::after {
-            opacity: 1;
-        }
-
-        .btn-designer:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-resume {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            color: white;
-            border: none;
-        }
-
-        .btn-github {
-            background: #18181b;
-            color: white;
-            border: 1px solid #3f3f46;
-        }
-
-        .light .btn-github {
-            background: #f4f4f5;
-            color: #18181b;
-            border: 1px solid #e4e4e7;
-        }
-
-        .btn-linkedin {
-            background: #0077b5;
-            color: white;
-            border: none;
-        }
-
-        /* Typography */
-        .section-header {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-
-        .tag-pill {
-            background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 4px 12px;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .dark .tag-pill {
-            color: #60a5fa;
-            border: 1px solid rgba(96, 165, 250, 0.3);
-        }
-
-        /* Nav Link Hover */
-        .nav-link {
-            position: relative;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: currentColor;
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* Fade-in-up animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
                 transform: translateY(0);
             }
+
+            40% {
+                transform: translateY(-20px);
+            }
+
+            60% {
+                transform: translateY(-10px);
+            }
         }
 
-        .animate-fade-in-up {
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #10B981 0%, #34D399 50%, #6EE7B7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Theme Toggle Styling */
+        .theme-toggle-slider {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .light .theme-toggle-slider {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle-slider .ball {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #10B981;
+            border-radius: 50%;
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            left: 3px;
+        }
+
+        .light .theme-toggle-slider .ball {
+            transform: translateX(24px);
+        }
+
+        .theme-toggle-slider i {
+            font-size: 12px;
+            z-index: 10;
+            color: #fff;
+        }
+
+        .light .theme-toggle-slider i {
+            color: #000;
+        }
+
+        /* Marquee Animations */
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes scroll-right {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .scroll-left {
+            animation: scroll-left 35s linear infinite;
+        }
+
+        .scroll-right {
+            animation: scroll-right 35s linear infinite;
+        }
+
+        .pause-on-hover:hover .scroll-left,
+        .pause-on-hover:hover .scroll-right {
+            animation-play-state: paused;
+        }
+
+        /* Fade Masks */
+        .fade-mask-left {
+            background: linear-gradient(to right, #0A0F1A, transparent);
+        }
+
+        .fade-mask-right {
+            background: linear-gradient(to left, #0A0F1A, transparent);
+        }
+
+        .light .fade-mask-left {
+            background: linear-gradient(to right, #F8FAFC, transparent);
+        }
+
+        .light .fade-mask-right {
+            background: linear-gradient(to left, #F8FAFC, transparent);
+        }
+
+        /* Hide elements initially for GSAP */
+        .gsap-reveal {
             opacity: 0;
         }
 
-        .anim-delay-100 {
-            animation-delay: 100ms;
+        /* ── Splash Screen ── */
+        #splash-top,
+        #splash-bottom {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 50vh;
+            background: #0A0F1A;
+            z-index: 9999;
+            will-change: transform;
         }
 
-        .anim-delay-200 {
-            animation-delay: 200ms;
+        #splash-top {
+            top: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 4px;
         }
 
-        .anim-delay-300 {
-            animation-delay: 300ms;
+        #splash-bottom {
+            bottom: 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 4px;
         }
 
-        /* Certificate solid cards matching reference */
-        .cert-card {
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 1rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        #splash-name {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            z-index: 10000;
+            font-family: 'Archivo', 'Space Grotesk', sans-serif;
+            font-weight: 900;
+            font-size: clamp(2.2rem, 7vw, 5.5rem);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #F1F5F9 30%, #10B981 70%, #34D399 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            pointer-events: none;
+            white-space: nowrap;
         }
 
-        .dark .cert-card {
-            background-color: #0b1121;
-            border: 1px solid #1e293b;
-        }
-
-        .cert-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+        #splash-bar {
+            width: 1px;
+            height: 40px;
+            background: rgba(16, 185, 129, 0.4);
         }
     </style>
 </head>
 
-<body class="bg-lightBg dark:bg-darkBg text-slate-800 dark:text-slate-200 font-sans relative">
+<body class="bg-darkBg text-textMain font-sans transition-colors duration-300">
 
-    <div class="ambient-glow fixed"></div>
+    <!-- ── Splash Screen ── -->
+    <div id="splash-name">KUNAL SINGH</div>
+    <div id="splash-top">
+        <div id="splash-bar"></div>
+    </div>
+    <div id="splash-bottom">
+        <div style="width:1px;height:40px;background:rgba(16,185,129,0.4);"></div>
+    </div>
+
+    <!-- Three.js Background -->
+    <div id="canvas-container"></div>
 
     <!-- Navbar -->
-    <nav
-        class="fixed top-0 left-0 right-0 z-50 glass-panel mx-6 mt-6 px-8 py-4 flex items-center justify-between rounded-full max-w-7xl xl:mx-auto">
-        <div class="font-display font-bold text-2xl tracking-tighter cursor-pointer" onclick="window.scrollTo(0,0)">
-            KS<span class="text-blue-500">.</span>
+    <nav id="navbar"
+        class="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-6xl glass-nav rounded-full px-6 py-3 flex items-center justify-between z-50 transition-transform duration-300">
+        <a href="#" class="font-display font-bold text-2xl tracking-tight">KS<span
+                class="text-emeraldAccent">.</span></a>
+
+        <div class="hidden md:flex space-x-8 text-sm font-medium">
+            <a href="#about" class="hover:text-emeraldAccent transition-colors">About</a>
+            <a href="#skills" class="hover:text-emeraldAccent transition-colors">Skills</a>
+            <a href="#projects" class="hover:text-emeraldAccent transition-colors">Projects</a>
+            <a href="#certs" class="hover:text-emeraldAccent transition-colors">Certs</a>
+            <a href="#contact" class="hover:text-emeraldAccent transition-colors">Contact</a>
         </div>
 
-        <div class="hidden md:flex space-x-8 text-sm text-slate-600 dark:text-slate-300">
-            <a href="#about" class="nav-link hover:text-blue-600 dark:hover:text-white">About</a>
-            <a href="#skills" class="nav-link hover:text-blue-600 dark:hover:text-white">Skills</a>
-            <a href="#projects" class="nav-link hover:text-blue-600 dark:hover:text-white">Projects</a>
-            <a href="#certs" class="nav-link hover:text-blue-600 dark:hover:text-white">Certs</a>
-            <a href="#contact" class="nav-link hover:text-blue-600 dark:hover:text-white">Contact</a>
-        </div>
-
-        <div>
-            <div class="theme-toggle" id="theme-toggle">
-                <i class="fa-solid fa-moon pl-1"></i>
-                <div class="toggle-ball"></div>
-                <i class="fa-solid fa-sun pr-1"></i>
+        <div class="flex items-center gap-4">
+            <div id="theme-toggle" class="theme-toggle-slider">
+                <i class="fa-solid fa-moon"></i>
+                <div class="ball"></div>
+                <i class="fa-solid fa-sun"></i>
             </div>
+            <!-- Mobile Menu Button (Optional, omitted for simplicity, relying on smooth scrolling) -->
         </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto px-6 relative pt-40 pb-32 space-y-40">
+    <main class="relative z-10">
 
         <!-- Hero Section -->
-        <section
-            class="min-h-[70vh] flex flex-col items-center justify-center text-center relative pointer-events-auto">
-            <!-- Background Data Analytics Image -->
-            <div class="absolute inset-[-80px] z-[-1] pointer-events-none flex items-center justify-center">
-                <img src="hero-bg.png" alt="3D Data Analytics Graphics"
-                    class="w-full h-full object-cover opacity-0 animate-fade-in-up dark:opacity-40"
-                    style="animation-fill-mode: forwards; -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 70%); mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 70%);">
-            </div>
-
-            <!-- Profile initial avatar (matches reference structure) -->
+        <section id="hero"
+            class="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20 relative">
             <div
-                class="w-32 h-32 rounded-full mb-8 bg-gradient-to-br from-blue-400 to-purple-500 p-1 shadow-2xl animate-fade-in-up">
-                <div class="w-full h-full bg-white dark:bg-slate-900 rounded-full flex items-center justify-center">
-                    <span
-                        class="text-4xl font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600">KS</span>
+                class="w-32 h-32 rounded-full mb-8 p-1 bg-gradient-to-br from-emeraldAccent to-blueAccent shadow-[0_0_30px_rgba(16,185,129,0.3)]">
+                <div
+                    class="w-full h-full bg-surfaceBg rounded-full flex items-center justify-center border border-white/10">
+                    <span class="text-4xl font-display font-bold text-gradient">KS</span>
                 </div>
             </div>
 
-            <h1
-                class="text-5xl md:text-7xl font-display font-bold mb-4 tracking-tight text-slate-900 dark:text-white animate-fade-in-up anim-delay-100">
-                Hi, I'm Kunal Singh
+            <h1 id="hero-title" class="text-5xl md:text-7xl font-display font-bold mb-6 tracking-tight" style="opacity:0;">
+                KUNAL SINGH
             </h1>
 
-            <div class="animate-fade-in-up anim-delay-200 mb-12 flex justify-center">
-                <div
-                    class="inline-flex items-center justify-center px-6 py-2 rounded-full bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-lg ring-1 ring-black/5 dark:ring-white/10">
-                    <div
-                        class="text-lg md:text-xl text-black dark:text-white font-medium h-8 flex items-center justify-center">
-                        <span id="typewriter-text"></span><span class="caret"></span>
-                    </div>
-                </div>
+            <div class="mb-10 inline-flex items-center justify-center px-6 py-2 rounded-full glass-card">
+                <span class="text-lg md:text-xl font-medium text-emeraldAccent">
+                    <span id="typewriter-text"></span><span class="caret"></span>
+                </span>
             </div>
 
-            <div class="flex flex-wrap justify-center gap-4 animate-fade-in-up anim-delay-300">
+            <div class="flex flex-wrap justify-center gap-4 mb-16">
                 <a href="https://drive.google.com/file/d/1XpauRfGmHc1D7bUFWNPWPWgXulCoIm1v/view?usp=drive_link"
-                    target="_blank" class="btn-designer btn-resume">
+                    target="_blank" rel="noopener noreferrer"
+                    class="px-6 py-3 rounded-full bg-emeraldAccent text-darkBg font-semibold hover:bg-emerald-400 transition-colors flex items-center gap-2">
                     <i class="fa-solid fa-file-pdf"></i> RESUME
                 </a>
-                <a href="https://github.com/kunnalsinngh14" target="_blank"
-                    class="btn-designer btn-github dark:bg-[#18181b] dark:text-white dark:border-[#3f3f46] bg-white text-slate-900 border-slate-300">
+                <a href="https://github.com/kunnalsinngh14" target="_blank" rel="noopener noreferrer"
+                    class="px-6 py-3 rounded-full border border-white/20 hover:border-emeraldAccent hover:text-emeraldAccent transition-colors flex items-center gap-2">
                     <i class="fa-brands fa-github text-lg"></i> GITHUB
                 </a>
-                <a href="https://www.linkedin.com/in/kunal-singh-8741a03b7" target="_blank"
-                    class="btn-designer btn-linkedin">
+                <a href="https://www.linkedin.com/in/kunal-singh-8741a03b7" target="_blank" rel="noopener noreferrer"
+                    class="px-6 py-3 rounded-full border border-white/20 hover:border-emeraldAccent hover:text-emeraldAccent transition-colors flex items-center gap-2">
                     <i class="fa-brands fa-linkedin text-lg"></i> LINKEDIN
                 </a>
             </div>
+
+            <a href="#about"
+                class="absolute bottom-10 text-textMuted hover:text-emeraldAccent transition-colors bounce">
+                <i class="fa-solid fa-chevron-down text-2xl"></i>
+            </a>
         </section>
 
         <!-- About Section -->
-        <section id="about">
-            <h2 class="section-header text-slate-900 dark:text-white">About</h2>
+        <section id="about" class="py-24 px-6 max-w-6xl mx-auto">
+            <h2 class="text-4xl font-display font-bold mb-12 text-center gsap-reveal section-title">ABOUT</h2>
 
-            <div
-                class="glass-panel rounded-[2rem] p-8 md:p-12 leading-relaxed text-lg text-slate-700 dark:text-slate-300 space-y-6 max-w-4xl mx-auto">
-                <p>
-                    I'm <span class="font-bold text-slate-900 dark:text-white">Kunal Singh</span>, a B.Tech Computer
-                    Science (AI/ML) student at <span class="font-bold text-slate-900 dark:text-white">RV University,
-                        Bengaluru</span>, with a CGPA of <span
-                        class="font-bold text-blue-600 dark:text-blue-400">8.58</span>, passionate about building
-                    intelligent systems and data-driven solutions.
-                </p>
-                <p>
-                    My core interests lie in Artificial Intelligence, Machine Learning, Data Science, and Software
-                    Development. I enjoy working on projects that combine data, algorithms, and practical applications.
-                </p>
-                <p>
-                    When I'm not experimenting with ML models or building software, I'm exploring new technologies,
-                    contributing to projects, and engaging with tech and sports communities through clubs like <span
-                        class="font-medium text-slate-900 dark:text-white">Ethereum Club</span> and <span
-                        class="font-medium text-slate-900 dark:text-white">MMFC</span> at RVU. I enjoy learning by
-                    building and believe that the best solutions emerge from curiosity, collaboration, and continuous
-                    improvement.
-                </p>
-            </div>
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <!-- Text Content -->
+                <div class="lg:w-2/3 gsap-reveal about-text">
+                    <p class="text-textMuted leading-relaxed text-2xl mb-8 border-l-4 border-emeraldAccent pl-6">
+                        I'm <span class="text-textMain font-bold">Kunal Singh</span>, a B.Tech Computer Science (AI/ML)
+                        student at RV University, Bengaluru, passionate about building intelligent systems and
+                        data-driven solutions.
+                    </p>
+                    <p class="text-textMuted leading-relaxed text-lg mb-6 pl-7">
+                        My core interests lie in Artificial Intelligence, Machine Learning, Data Science, and Software
+                        Development. I enjoy working on projects that combine data, algorithms, and practical
+                        applications.
+                    </p>
+                    <p class="text-textMuted leading-relaxed text-lg pl-7">
+                        When I'm not experimenting with ML models or building software, I'm exploring new technologies
+                        through clubs like the <span class="text-emeraldAccent font-medium">Ethereum Club</span> and
+                        <span class="text-emeraldAccent font-medium">MMFC</span> at RVU.
+                    </p>
+                </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-8">
-                <div class="glass-panel flex flex-col items-center justify-center py-10 rounded-3xl">
-                    <div class="text-5xl font-display font-bold text-blue-500 mb-2">8.58</div>
-                    <div class="text-sm font-semibold tracking-widest uppercase text-slate-500">CGPA</div>
-                </div>
-                <div class="glass-panel flex flex-col items-center justify-center py-10 rounded-3xl">
-                    <div class="text-5xl font-display font-bold text-purple-500 mb-2">5+</div>
-                    <div class="text-sm font-semibold tracking-widest uppercase text-slate-500">Projects</div>
-                </div>
-                <div class="glass-panel flex flex-col items-center justify-center py-10 rounded-3xl">
-                    <div class="text-5xl font-display font-bold text-teal-500 mb-2">RV</div>
-                    <div class="text-sm font-semibold tracking-widest uppercase text-slate-500">University</div>
+                <!-- Stats -->
+                <div class="lg:w-1/3 flex flex-col sm:flex-row lg:flex-col gap-6 w-full">
+                    <div
+                        class="flex-1 flex flex-col justify-center items-center py-6 px-4 rounded-3xl bg-emeraldAccent/5 border border-emeraldAccent/10 gsap-reveal hover:border-emeraldAccent/50 hover:bg-emeraldAccent/10 transition-colors">
+                        <span
+                            class="text-5xl font-display font-bold text-emeraldAccent mb-1 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]">8.58</span>
+                        <span class="text-xs font-bold tracking-widest uppercase text-textMain">CGPA</span>
+                    </div>
+                    <div
+                        class="flex-1 flex flex-col justify-center items-center py-6 px-4 rounded-3xl bg-emeraldAccent/5 border border-emeraldAccent/10 gsap-reveal hover:border-emeraldAccent/50 hover:bg-emeraldAccent/10 transition-colors">
+                        <span
+                            class="text-5xl font-display font-bold text-emeraldAccent mb-1 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]">5+</span>
+                        <span class="text-xs font-bold tracking-widest uppercase text-textMain">Projects</span>
+                    </div>
+                    <div
+                        class="flex-1 flex flex-col justify-center items-center py-6 px-4 rounded-3xl bg-goldAccent/5 border border-goldAccent/10 gsap-reveal hover:border-goldAccent/50 hover:bg-goldAccent/10 transition-colors sm:col-span-2 lg:col-span-1">
+                        <span
+                            class="text-5xl font-display font-bold text-goldAccent mb-1 drop-shadow-[0_0_15px_rgba(217,119,6,0.5)]">RV</span>
+                        <span class="text-xs font-bold tracking-widest uppercase text-textMain">University</span>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Skills Section -->
-        <section id="skills">
-            <h2 class="section-header text-slate-900 dark:text-white">Skills</h2>
+        <section id="skills" class="py-24 px-6 max-w-4xl mx-auto">
+            <h2 class="text-4xl font-display font-bold mb-16 text-center gsap-reveal section-title">SKILLS</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <div class="glass-panel p-8 rounded-3xl">
-                    <div class="flex items-center gap-4 mb-8 text-blue-500">
-                        <i class="fa-solid fa-code text-2xl"></i>
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Languages</h3>
+            <div class="space-y-8">
+                <!-- Languages -->
+                <div
+                    class="flex flex-col md:flex-row gap-6 md:items-center py-6 border-b border-white/10 gsap-reveal skill-track group">
+                    <div class="md:w-1/3 flex items-center gap-4 text-emeraldAccent">
+                        <div
+                            class="w-12 h-12 rounded-full bg-emeraldAccent/10 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-code"></i></div>
+                        <h3 class="text-xl font-display font-bold">Languages</h3>
                     </div>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="tag-pill">Python</span>
-                        <span class="tag-pill">Java</span>
-                        <span class="tag-pill">C/C++</span>
-                        <span class="tag-pill">SQL</span>
-                        <span class="tag-pill">HTML/CSS</span>
-                        <span class="tag-pill">JS</span>
+                    <div class="md:w-2/3 flex flex-wrap gap-3">
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">Python</span>
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">Java</span>
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">C/C++</span>
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">SQL</span>
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">HTML/CSS</span>
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">JS</span>
                     </div>
                 </div>
 
-                <div class="glass-panel p-8 rounded-3xl">
-                    <div class="flex items-center gap-4 mb-8 text-purple-500">
-                        <i class="fa-solid fa-layer-group text-2xl"></i>
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Frameworks & Libs</h3>
+                <!-- Frameworks -->
+                <div
+                    class="flex flex-col md:flex-row gap-6 md:items-center py-6 border-b border-white/10 gsap-reveal skill-track group">
+                    <div class="md:w-1/3 flex items-center gap-4 text-emeraldAccent">
+                        <div
+                            class="w-12 h-12 rounded-full bg-emeraldAccent/10 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-layer-group"></i></div>
+                        <h3 class="text-xl font-display font-bold">Frameworks & Libs</h3>
                     </div>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="tag-pill">Pandas</span>
-                        <span class="tag-pill">NumPy</span>
-                        <span class="tag-pill">Matplotlib</span>
-                        <span class="tag-pill">ReactJS</span>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-8 rounded-3xl">
-                    <div class="flex items-center gap-4 mb-8 text-teal-500">
-                        <i class="fa-solid fa-wrench text-2xl"></i>
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Tools</h3>
-                    </div>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="tag-pill">Git</span>
-                        <span class="tag-pill">PowerBI</span>
-                        <span class="tag-pill">VSCode</span>
-                        <span class="tag-pill">Google Colab</span>
-                        <span class="tag-pill">Jupyter</span>
+                    <div class="md:w-2/3 flex flex-wrap gap-3">
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">Pandas</span>
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">NumPy</span>
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">Matplotlib</span>
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">Scikit-Learn</span>
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">ReactJS</span>
                     </div>
                 </div>
 
-                <div class="glass-panel p-8 rounded-3xl">
-                    <div class="flex items-center gap-4 mb-8 text-amber-500">
-                        <i class="fa-solid fa-people-group text-2xl"></i>
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Soft Skills</h3>
+                <!-- Tools -->
+                <div
+                    class="flex flex-col md:flex-row gap-6 md:items-center py-6 border-b border-white/10 gsap-reveal skill-track group">
+                    <div class="md:w-1/3 flex items-center gap-4 text-emeraldAccent">
+                        <div
+                            class="w-12 h-12 rounded-full bg-emeraldAccent/10 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wrench"></i></div>
+                        <h3 class="text-xl font-display font-bold">Tools</h3>
                     </div>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="tag-pill">Time Management</span>
-                        <span class="tag-pill">Team Player</span>
-                        <span class="tag-pill">Strong Communication</span>
+                    <div class="md:w-2/3 flex flex-wrap gap-3">
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">Git</span>
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">PowerBI</span>
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">VSCode</span>
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">Google
+                            Colab</span>
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-emeraldAccent/20 text-sm font-medium hover:bg-emeraldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(16,185,129,0.1)]">Jupyter</span>
+                    </div>
+                </div>
+
+                <!-- Soft Skills -->
+                <div
+                    class="flex flex-col md:flex-row gap-6 md:items-center py-6 border-b border-white/10 gsap-reveal skill-track group">
+                    <div class="md:w-1/3 flex items-center gap-4 text-goldAccent">
+                        <div
+                            class="w-12 h-12 rounded-full bg-goldAccent/10 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-users"></i></div>
+                        <h3 class="text-xl font-display font-bold">Soft Skills</h3>
+                    </div>
+                    <div class="md:w-2/3 flex flex-wrap gap-3">
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-goldAccent/20 text-sm font-medium hover:bg-goldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(217,119,6,0.1)]">Time
+                            Management</span>
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-goldAccent/20 text-sm font-medium hover:bg-goldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(217,119,6,0.1)]">Team
+                            Player</span>
+                        <span
+                            class="px-4 py-2 rounded-full bg-surfaceBg border border-goldAccent/20 text-sm font-medium hover:bg-goldAccent hover:text-darkBg transition-colors shadow-[0_0_10px_rgba(217,119,6,0.1)]">Strong
+                            Communication</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section id="projects">
-            <h2 class="section-header text-slate-900 dark:text-white">Projects</h2>
+        <section id="projects" class="py-24 px-6 max-w-5xl mx-auto">
+            <h2 class="text-4xl font-display font-bold mb-20 text-center gsap-reveal section-title">PROJECTS</h2>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="flex flex-col gap-24">
 
-                <!-- Project Box -->
-                <div class="glass-panel p-8 rounded-3xl flex flex-col h-full relative group">
-                    <div class="absolute top-8 right-8">
-                        <a href="https://github.com/kunnalsinngh14" target="_blank"
-                            class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-all text-xl">
-                            <i class="fa-brands fa-github"></i>
-                        </a>
+                <!-- Project 1 -->
+                <div class="flex flex-col md:flex-row gap-10 items-center gsap-reveal project-card group">
+                    <div class="md:w-1/3 flex justify-center">
+                        <div
+                            class="w-40 h-40 rounded-full bg-emeraldAccent/5 border border-emeraldAccent/20 flex items-center justify-center shadow-[0_0_40px_rgba(16,185,129,0.15)] group-hover:shadow-[0_0_60px_rgba(16,185,129,0.3)] transition-all duration-500">
+                            <i
+                                class="fa-solid fa-gamepad text-6xl text-emeraldAccent group-hover:scale-110 transition-transform duration-500"></i>
+                        </div>
                     </div>
-                    <div class="mb-4 text-blue-500 text-3xl"><i class="fa-solid fa-gamepad"></i></div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 pr-12">Snake Game</h3>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-sm flex-grow">
-                        Built a classic Snake Game using Java Swing and AWT with real-time rendering and keyboard
-                        controls. Implemented collision detection, score tracking, and game loop logic for smooth
-                        gameplay. Applied object-oriented programming concepts and event-driven programming in Java.
-                    </p>
+                    <div class="md:w-2/3">
+                        <div class="flex items-center gap-4 mb-4">
+                            <h3 class="text-3xl font-display font-bold">Snake Game</h3>
+                            <a href="https://github.com/kunnalsinngh14" target="_blank" rel="noopener noreferrer"
+                                class="text-textMuted hover:text-emeraldAccent transition-colors text-2xl">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                        </div>
+                        <p class="text-textMuted text-lg leading-relaxed mb-6">
+                            Built a classic Snake Game using Java Swing and AWT with real-time rendering and keyboard
+                            controls. Implemented collision detection, score tracking, and game loop logic. Applied OOP
+                            and event-driven programming in Java.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <span
+                                class="text-xs font-bold px-3 py-1 bg-emeraldAccent/10 text-emeraldAccent uppercase tracking-widest rounded">Java</span>
+                            <span
+                                class="text-xs font-bold px-3 py-1 bg-emeraldAccent/10 text-emeraldAccent uppercase tracking-widest rounded">Swing</span>
+                            <span
+                                class="text-xs font-bold px-3 py-1 bg-emeraldAccent/10 text-emeraldAccent uppercase tracking-widest rounded">AWT</span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Project Box -->
-                <div class="glass-panel p-8 rounded-3xl flex flex-col h-full relative group">
-                    <div class="absolute top-8 right-8">
-                        <a href="https://github.com/kunnalsinngh14" target="_blank"
-                            class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-all text-xl">
-                            <i class="fa-brands fa-github"></i>
-                        </a>
+                <!-- Project 2 -->
+                <div class="flex flex-col md:flex-row-reverse gap-10 items-center gsap-reveal project-card group">
+                    <div class="md:w-1/3 flex justify-center">
+                        <div
+                            class="w-40 h-40 rounded-full bg-emeraldAccent/5 border border-emeraldAccent/20 flex items-center justify-center shadow-[0_0_40px_rgba(16,185,129,0.15)] group-hover:shadow-[0_0_60px_rgba(16,185,129,0.3)] transition-all duration-500">
+                            <i
+                                class="fa-solid fa-graduation-cap text-6xl text-emeraldAccent group-hover:scale-110 transition-transform duration-500"></i>
+                        </div>
                     </div>
-                    <div class="mb-4 text-purple-500 text-3xl"><i class="fa-solid fa-graduation-cap"></i></div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 pr-12">Student Performance
-                        Predictor</h3>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-sm flex-grow">
-                        Developed an ML model using RandomForestClassifier. Predicted student performance (pass/fail)
-                        based on quiz, midterm, and assignment scores. Integrated LLaMA into the project for insights.
-                        Achieved accuracy score of 94.5.
-                    </p>
+                    <div class="md:w-2/3 text-left md:text-right">
+                        <div class="flex items-center md:justify-end gap-4 mb-4">
+                            <h3 class="text-3xl font-display font-bold">Student Performance Predictor</h3>
+                            <a href="https://github.com/kunnalsinngh14" target="_blank" rel="noopener noreferrer"
+                                class="text-textMuted hover:text-emeraldAccent transition-colors text-2xl">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                        </div>
+                        <p class="text-textMuted text-lg leading-relaxed mb-6">
+                            Developed an ML model using RandomForestClassifier to predict student performance
+                            (pass/fail) based on quiz, midterm, and assignment scores. Integrated LLaMA for insights.
+                            Achieved 94.5% accuracy.
+                        </p>
+                        <div class="flex flex-wrap md:justify-end gap-3">
+                            <span
+                                class="text-xs font-bold px-3 py-1 bg-emeraldAccent/10 text-emeraldAccent uppercase tracking-widest rounded">Python</span>
+                            <span
+                                class="text-xs font-bold px-3 py-1 bg-emeraldAccent/10 text-emeraldAccent uppercase tracking-widest rounded">ML</span>
+                            <span
+                                class="text-xs font-bold px-3 py-1 bg-emeraldAccent/10 text-emeraldAccent uppercase tracking-widest rounded">RandomForest</span>
+                            <span
+                                class="text-xs font-bold px-3 py-1 bg-emeraldAccent/10 text-emeraldAccent uppercase tracking-widest rounded">LLaMA</span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Project Box -->
-                <div class="glass-panel p-8 rounded-3xl flex flex-col h-full relative group">
-                    <div class="absolute top-8 right-8">
-                        <a href="https://github.com/kunnalsinngh14" target="_blank"
-                            class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-all text-xl">
-                            <i class="fa-brands fa-github"></i>
-                        </a>
+                <!-- Project 3 -->
+                <div class="flex flex-col md:flex-row gap-10 items-center gsap-reveal project-card group">
+                    <div class="md:w-1/3 flex justify-center">
+                        <div
+                            class="w-40 h-40 rounded-full bg-emeraldAccent/5 border border-emeraldAccent/20 flex items-center justify-center shadow-[0_0_40px_rgba(16,185,129,0.15)] group-hover:shadow-[0_0_60px_rgba(16,185,129,0.3)] transition-all duration-500">
+                            <i
+                                class="fa-solid fa-traffic-light text-6xl text-emeraldAccent group-hover:scale-110 transition-transform duration-500"></i>
+                        </div>
                     </div>
-                    <div class="mb-4 text-teal-500 text-3xl"><i class="fa-solid fa-traffic-light"></i></div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 pr-12">RoadLens: Real-Time Traffic
-                        Sign Recognition</h3>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-sm flex-grow">
-                        Developed a computer vision system that detects and classifies traffic signs in real-time using
-                        a webcam. Implemented a Convolutional Neural Network (CNN) to recognize multiple traffic sign
-                        categories. Processed live video frames to identify traffic signs and display their meanings to
-                        assist drivers. Utilized Python, OpenCV, and Deep Learning techniques for image preprocessing
-                        and model prediction.
-                    </p>
+                    <div class="md:w-2/3">
+                        <div class="flex items-center gap-4 mb-4">
+                            <h3 class="text-3xl font-display font-bold">RoadLens: Traffic Sign Recognition</h3>
+                            <a href="https://github.com/kunnalsinngh14/RoadLens" target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-textMuted hover:text-emeraldAccent transition-colors text-2xl">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                        </div>
+                        <p class="text-textMuted text-lg leading-relaxed mb-6">
+                            Developed a real-time computer vision system that detects and classifies traffic signs using
+                            a webcam. Implemented a CNN to recognize multiple categories. Utilized Python, OpenCV, and
+                            Deep Learning for image preprocessing and prediction.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <span
+                                class="text-xs font-bold px-3 py-1 bg-emeraldAccent/10 text-emeraldAccent uppercase tracking-widest rounded">Python</span>
+                            <span
+                                class="text-xs font-bold px-3 py-1 bg-emeraldAccent/10 text-emeraldAccent uppercase tracking-widest rounded">CNN</span>
+                            <span
+                                class="text-xs font-bold px-3 py-1 bg-emeraldAccent/10 text-emeraldAccent uppercase tracking-widest rounded">OpenCV</span>
+                            <span
+                                class="text-xs font-bold px-3 py-1 bg-emeraldAccent/10 text-emeraldAccent uppercase tracking-widest rounded">TensorFlow</span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Project Box -->
-                <div class="glass-panel p-8 rounded-3xl flex flex-col h-full relative group">
-                    <div class="absolute top-8 right-8">
-                        <a href="https://github.com/kunnalsinngh14" target="_blank"
-                            class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-all text-xl">
-                            <i class="fa-brands fa-github"></i>
-                        </a>
+                <!-- Project 4 -->
+                <div class="flex flex-col md:flex-row-reverse gap-10 items-center gsap-reveal project-card group">
+                    <div class="md:w-1/3 flex justify-center">
+                        <div
+                            class="w-40 h-40 rounded-full bg-emeraldAccent/5 border border-emeraldAccent/20 flex items-center justify-center shadow-[0_0_40px_rgba(16,185,129,0.15)] group-hover:shadow-[0_0_60px_rgba(16,185,129,0.3)] transition-all duration-500">
+                            <i
+                                class="fa-solid fa-laptop-code text-6xl text-emeraldAccent group-hover:scale-110 transition-transform duration-500"></i>
+                        </div>
                     </div>
-                    <div class="mb-4 text-pink-500 text-3xl"><i class="fa-solid fa-laptop-code"></i></div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 pr-12">Personal Portfolio Website
-                    </h3>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-sm flex-grow">
-                        Designed and developed a responsive personal portfolio website using HTML and CSS. Implemented a
-                        structured section-based design, including an about section, skills showcase, social media
-                        links. Currently enhancing the website with JavaScript and responsive design techniques.
-                    </p>
+                    <div class="md:w-2/3 text-left md:text-right">
+                        <div class="flex items-center md:justify-end gap-4 mb-4">
+                            <h3 class="text-3xl font-display font-bold">Personal Portfolio Website</h3>
+                            <a href="https://github.com/kunnalsinngh14" target="_blank" rel="noopener noreferrer"
+                                class="text-textMuted hover:text-emeraldAccent transition-colors text-2xl">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                        </div>
+                        <p class="text-textMuted text-lg leading-relaxed mb-6">
+                            Designed and developed this responsive personal portfolio website with a premium dark-mode
+                            aesthetic, AI-driven 3D background, GSAP animations, and typewriter effects.
+                        </p>
+                        <div class="flex flex-wrap md:justify-end gap-3">
+                            <span
+                                class="text-xs font-bold px-3 py-1 bg-emeraldAccent/10 text-emeraldAccent uppercase tracking-widest rounded">HTML/CSS</span>
+                            <span
+                                class="text-xs font-bold px-3 py-1 bg-emeraldAccent/10 text-emeraldAccent uppercase tracking-widest rounded">JS</span>
+                            <span
+                                class="text-xs font-bold px-3 py-1 bg-emeraldAccent/10 text-emeraldAccent uppercase tracking-widest rounded">Three.js</span>
+                            <span
+                                class="text-xs font-bold px-3 py-1 bg-emeraldAccent/10 text-emeraldAccent uppercase tracking-widest rounded">GSAP</span>
+                        </div>
+                    </div>
                 </div>
 
             </div>
         </section>
 
         <!-- Certifications Section -->
-        <section id="certs">
-            <h2 class="section-header text-slate-900 dark:text-white">Certifications</h2>
+        <section id="certs" class="py-24 px-6 max-w-4xl mx-auto">
+            <h2 class="text-4xl font-display font-bold mb-12 text-center gsap-reveal section-title">CERTIFICATIONS</h2>
 
-            <div class="flex flex-col gap-6 max-w-4xl mx-auto w-full">
-                <!-- Certificate Row 1 -->
-                <div class="cert-card p-6 md:p-8 flex items-center shadow-lg gap-6">
-                    <div class="flex-shrink-0">
-                        <svg class="w-10 h-10 text-yellow-500 drop-shadow-md" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                        </svg>
+            <div class="flex flex-col gap-10">
+                <!-- Cert 1 -->
+                <div class="flex items-center gap-6 py-4 border-b border-white/5 gsap-reveal cert-card group">
+                    <div
+                        class="flex-shrink-0 w-16 h-16 rounded-full bg-goldAccent/5 border border-goldAccent/20 flex items-center justify-center text-goldAccent group-hover:bg-goldAccent group-hover:text-darkBg transition-all duration-300">
+                        <i class="fa-solid fa-certificate text-2xl"></i>
                     </div>
-                    <div class="flex flex-col text-left">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 leading-snug">Data Analysis
-                            with Pandas and Python</h3>
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-display font-bold mb-1 group-hover:text-goldAccent transition-colors">
+                            Data Analysis with Pandas and Python</h3>
                         <a href="https://drive.google.com/file/d/1YPHDHwLX3-XqS0MxwfKveUU1BZcUasYm/view?usp=sharing"
-                            target="_blank"
-                            class="text-blue-500 hover:text-blue-400 font-semibold flex items-center gap-2 text-[0.95rem] w-max">
+                            target="_blank" rel="noopener noreferrer"
+                            class="text-textMuted hover:text-goldAccent font-medium text-sm flex items-center gap-2 group-hover:underline w-fit transition-colors">
                             View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- Certificate Row 2 -->
-                <div class="cert-card p-6 md:p-8 flex items-center shadow-lg gap-6">
-                    <div class="flex-shrink-0">
-                        <svg class="w-10 h-10 text-yellow-500 drop-shadow-md" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                        </svg>
+                <!-- Cert 2 -->
+                <div class="flex items-center gap-6 py-4 border-b border-white/5 gsap-reveal cert-card group">
+                    <div
+                        class="flex-shrink-0 w-16 h-16 rounded-full bg-goldAccent/5 border border-goldAccent/20 flex items-center justify-center text-goldAccent group-hover:bg-goldAccent group-hover:text-darkBg transition-all duration-300">
+                        <i class="fa-solid fa-certificate text-2xl"></i>
                     </div>
-                    <div class="flex flex-col text-left">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 leading-snug">Java Features
-                        </h3>
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-display font-bold mb-1 group-hover:text-goldAccent transition-colors">
+                            Java Features</h3>
                         <a href="https://drive.google.com/file/d/14br43hWg2lrhoRrgm5dsvVVdg492Nigb/view?usp=drive_link"
-                            target="_blank"
-                            class="text-blue-500 hover:text-blue-400 font-semibold flex items-center gap-2 text-[0.95rem] w-max">
+                            target="_blank" rel="noopener noreferrer"
+                            class="text-textMuted hover:text-goldAccent font-medium text-sm flex items-center gap-2 group-hover:underline w-fit transition-colors">
                             View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- Certificate Row 3 -->
-                <div class="cert-card p-6 md:p-8 flex items-center shadow-lg gap-6">
-                    <div class="flex-shrink-0">
-                        <svg class="w-10 h-10 text-yellow-500 drop-shadow-md" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                        </svg>
+                <!-- Cert 3 -->
+                <div class="flex items-center gap-6 py-4 border-b border-white/5 gsap-reveal cert-card group">
+                    <div
+                        class="flex-shrink-0 w-16 h-16 rounded-full bg-goldAccent/5 border border-goldAccent/20 flex items-center justify-center text-goldAccent group-hover:bg-goldAccent group-hover:text-darkBg transition-all duration-300">
+                        <i class="fa-solid fa-certificate text-2xl"></i>
                     </div>
-                    <div class="flex flex-col text-left">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 leading-snug">PowerBI Course
-                        </h3>
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-display font-bold mb-1 group-hover:text-goldAccent transition-colors">
+                            PowerBI Course</h3>
                         <a href="https://drive.google.com/file/d/1uZh8AXOlVt9vRKZpgv85HSIuQJg1NeFt/view" target="_blank"
-                            class="text-blue-500 hover:text-blue-400 font-semibold flex items-center gap-2 text-[0.95rem] w-max">
+                            rel="noopener noreferrer"
+                            class="text-textMuted hover:text-goldAccent font-medium text-sm flex items-center gap-2 group-hover:underline w-fit transition-colors">
                             View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                         </a>
                     </div>
@@ -637,43 +753,78 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="pb-10">
+        <section id="contact" class="py-32 px-6 max-w-6xl mx-auto pb-32 border-t border-white/5 relative">
             <div
-                class="glass-panel rounded-[3rem] p-12 md:p-20 text-center max-w-5xl mx-auto border-t-4 border-blue-500">
-                <h2 class="section-header text-slate-900 dark:text-white mb-6 !text-5xl">GET IN TOUCH</h2>
+                class="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-40 bg-emeraldAccent/5 blur-[100px] rounded-full pointer-events-none">
+            </div>
 
-                <p class="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-16 font-medium">
-                    "I'm always open to internships, collaborations, and interesting project ideas — feel free to
-                    connect!"
-                </p>
+            <div class="flex flex-col md:flex-row gap-16 items-center gsap-reveal relative z-10">
+                <!-- Left Side: Header & Text -->
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h2 class="text-6xl md:text-8xl font-display font-bold mb-6 tracking-tighter">Let's <br /><span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-emeraldAccent to-[#34D399]">Connect</span>
+                    </h2>
+                    <p class="text-xl text-textMuted max-w-md mx-auto md:mx-0">
+                        "I'm always open to internships, collaborations, and interesting project ideas."
+                    </p>
+                </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Right Side: Contact Links -->
+                <div class="md:w-1/2 flex flex-col gap-6 w-full">
                     <a href="mailto:kunal14072005@gmail.com"
-                        class="glass-panel p-6 rounded-2xl flex flex-col items-center hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors group">
+                        class="flex items-center justify-between p-6 rounded-2xl bg-white/5 hover:bg-emeraldAccent/10 border border-white/10 hover:border-emeraldAccent/30 transition-all duration-300 group">
+                        <div class="flex items-center gap-6">
+                            <div
+                                class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-emeraldAccent/20 transition-colors">
+                                <i
+                                    class="fa-solid fa-envelope text-2xl text-textMuted group-hover:text-emeraldAccent transition-colors"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-1 group-hover:text-emeraldAccent transition-colors">
+                                    Email</h3>
+                                <p class="text-textMuted group-hover:text-white transition-colors">
+                                    kunal14072005@gmail.com</p>
+                            </div>
+                        </div>
                         <i
-                            class="fa-solid fa-envelope text-4xl text-slate-400 group-hover:text-blue-500 mb-4 transition-colors"></i>
-                        <span class="font-bold text-slate-900 dark:text-white">Email</span>
-                        <span
-                            class="text-sm border-t border-slate-200 dark:border-slate-700 w-full mt-4 pt-4 text-slate-500 dark:text-slate-400 group-hover:text-blue-500 transition-colors truncate w-full px-2">kunal14072005@gmail.com</span>
+                            class="fa-solid fa-arrow-right -rotate-45 text-2xl text-white/20 group-hover:text-emeraldAccent group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
                     </a>
 
-                    <a href="https://github.com/kunnalsinngh14" target="_blank"
-                        class="glass-panel p-6 rounded-2xl flex flex-col items-center hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors group">
+                    <a href="https://github.com/kunnalsinngh14" target="_blank" rel="noopener noreferrer"
+                        class="flex items-center justify-between p-6 rounded-2xl bg-white/5 hover:bg-emeraldAccent/10 border border-white/10 hover:border-emeraldAccent/30 transition-all duration-300 group">
+                        <div class="flex items-center gap-6">
+                            <div
+                                class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-emeraldAccent/20 transition-colors">
+                                <i
+                                    class="fa-brands fa-github text-2xl text-textMuted group-hover:text-emeraldAccent transition-colors"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-1 group-hover:text-emeraldAccent transition-colors">
+                                    GitHub</h3>
+                                <p class="text-textMuted group-hover:text-white transition-colors">kunnalsinngh14</p>
+                            </div>
+                        </div>
                         <i
-                            class="fa-brands fa-github text-4xl text-slate-400 group-hover:text-blue-500 mb-4 transition-colors"></i>
-                        <span class="font-bold text-slate-900 dark:text-white">GitHub</span>
-                        <span
-                            class="text-sm border-t border-slate-200 dark:border-slate-700 w-full mt-4 pt-4 text-slate-500 dark:text-slate-400 group-hover:text-blue-500 transition-colors">kunnalsinngh14</span>
+                            class="fa-solid fa-arrow-right -rotate-45 text-2xl text-white/20 group-hover:text-emeraldAccent group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
                     </a>
 
                     <a href="https://www.linkedin.com/in/kunal-singh-8741a03b7" target="_blank"
-                        class="glass-panel p-6 rounded-2xl flex flex-col items-center hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors group">
+                        rel="noopener noreferrer"
+                        class="flex items-center justify-between p-6 rounded-2xl bg-white/5 hover:bg-emeraldAccent/10 border border-white/10 hover:border-emeraldAccent/30 transition-all duration-300 group">
+                        <div class="flex items-center gap-6">
+                            <div
+                                class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-emeraldAccent/20 transition-colors">
+                                <i
+                                    class="fa-brands fa-linkedin text-2xl text-textMuted group-hover:text-emeraldAccent transition-colors"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-1 group-hover:text-emeraldAccent transition-colors">
+                                    LinkedIn</h3>
+                                <p class="text-textMuted group-hover:text-white transition-colors">Kunal Singh</p>
+                            </div>
+                        </div>
                         <i
-                            class="fa-brands fa-linkedin text-4xl text-slate-400 group-hover:text-blue-500 mb-4 transition-colors"></i>
-                        <span class="font-bold text-slate-900 dark:text-white">LinkedIn</span>
-                        <span
-                            class="text-sm border-t border-slate-200 dark:border-slate-700 w-full mt-4 pt-4 text-slate-500 dark:text-slate-400 group-hover:text-blue-500 transition-colors">Kunal
-                            Singh</span>
+                            class="fa-solid fa-arrow-right -rotate-45 text-2xl text-white/20 group-hover:text-emeraldAccent group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
                     </a>
                 </div>
             </div>
@@ -681,50 +832,52 @@
 
     </main>
 
-    <!-- Theme Toggle and Typewriter Logic -->
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
     <script>
         // --- Theme Toggle Logic ---
         const themeToggle = document.getElementById('theme-toggle');
         const htmlNode = document.documentElement;
 
-        // Check local storage or system preference on load
         if (localStorage.getItem('theme') === 'light') {
             htmlNode.classList.remove('dark');
-        } else if (localStorage.getItem('theme') === 'dark') {
-            htmlNode.classList.add('dark');
-        } else if (!window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            // Un-comment the line below if you want light mode as default for users without dark mode OS
-            // htmlNode.classList.remove('dark');
+            htmlNode.classList.add('light');
+        } else {
+            htmlNode.classList.add('dark'); // Default to dark
+            htmlNode.classList.remove('light');
         }
 
         themeToggle.addEventListener('click', () => {
             if (htmlNode.classList.contains('dark')) {
                 htmlNode.classList.remove('dark');
+                htmlNode.classList.add('light');
                 localStorage.setItem('theme', 'light');
+                updateThreeJsColor(false);
             } else {
                 htmlNode.classList.add('dark');
+                htmlNode.classList.remove('light');
                 localStorage.setItem('theme', 'dark');
+                updateThreeJsColor(true);
             }
         });
 
-        // --- Typewriter Logic ---
+        // --- Navbar Scroll Logic Removed (Always on top) ---
+
+        // --- Typewriter Effect ---
         const phrases = [
             "Computer Science Student",
             "AI/ML Enthusiast",
             "Software Developer",
             "Data Science Explorer"
         ];
-
         const typeEl = document.getElementById('typewriter-text');
         let currentPhraseIndex = 0;
         let currentCharIndex = 0;
         let isDeleting = false;
-
-        // Settings
-        const typingSpeed = 60;
-        const deletingSpeed = 40;
-        const pauseEnd = 1500; // Stay for 1.5 seconds
-        const pauseStart = 300;
 
         function type() {
             const currentPhrase = phrases[currentPhraseIndex];
@@ -737,24 +890,222 @@
                 currentCharIndex++;
             }
 
-            let typeSpeed = isDeleting ? deletingSpeed : typingSpeed;
+            let typeSpeed = isDeleting ? 40 : 60;
 
             if (!isDeleting && currentCharIndex === currentPhrase.length) {
-                // finished typing phrase
-                typeSpeed = pauseEnd;
+                typeSpeed = 1500; // Pause end
                 isDeleting = true;
             } else if (isDeleting && currentCharIndex === 0) {
-                // finished deleting phrase
                 isDeleting = false;
                 currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-                typeSpeed = pauseStart;
+                typeSpeed = 300; // Pause start
             }
 
             setTimeout(type, typeSpeed);
         }
+        setTimeout(type, 1000);
 
-        // Start the effect
-        setTimeout(type, 1000); // Initial delay
+        // --- Splash Screen Animation ---
+        (function () {
+            const splashTop    = document.getElementById('splash-top');
+            const splashBottom = document.getElementById('splash-bottom');
+            const splashName   = document.getElementById('splash-name');
+            const heroTitle    = document.getElementById('hero-title');
+            const easing       = 'cubic-bezier(0.77, 0, 0.175, 1)';
+
+            // Stage 1: Fade + scale name in
+            splashName.animate([
+                { opacity: 0, transform: 'translate(-50%, -50%) scale(0.88)' },
+                { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' }
+            ], { duration: 600, delay: 150, easing: 'ease-out', fill: 'forwards' });
+
+            // Stage 2: Morph to hero + split panels (after 1.5s)
+            setTimeout(() => {
+                // Measure where the real h1 sits on screen
+                const splashRect = splashName.getBoundingClientRect();
+                const heroRect   = heroTitle.getBoundingClientRect();
+
+                // Delta between splash center and h1 center
+                const deltaX = (heroRect.left + heroRect.width  / 2) - (splashRect.left + splashRect.width  / 2);
+                const deltaY = (heroRect.top  + heroRect.height / 2) - (splashRect.top  + splashRect.height / 2);
+
+                // Scale ratio: shrink splash name to match h1 rendered size
+                const scaleRatio = Math.min(heroRect.height / splashRect.height, 1);
+
+                // Morph: shrink + fly to h1 position in sync with split
+                splashName.animate([
+                    { transform: 'translate(-50%, -50%) scale(1)',           opacity: 1 },
+                    { transform: `translate(calc(-50% + ${deltaX}px), calc(-50% + ${deltaY}px)) scale(${scaleRatio})`, opacity: 0.9 }
+                ], { duration: 950, easing, fill: 'forwards' });
+
+                // Split top panel up
+                splashTop.animate([
+                    { transform: 'translateY(0)' },
+                    { transform: 'translateY(-100%)' }
+                ], { duration: 1000, easing, fill: 'forwards' });
+
+                // Split bottom panel down
+                splashBottom.animate([
+                    { transform: 'translateY(0)' },
+                    { transform: 'translateY(100%)' }
+                ], { duration: 1000, easing, fill: 'forwards' });
+
+                // At landing: reveal real h1, then clean up overlay
+                setTimeout(() => {
+                    heroTitle.style.transition = 'opacity 0.15s ease';
+                    heroTitle.style.opacity    = '1';
+                    splashTop.remove();
+                    splashBottom.remove();
+                    splashName.remove();
+                }, 980);
+            }, 1500);
+        })();
+
+        // --- GSAP Animations ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Check for reduced motion
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!prefersReducedMotion) {
+            // Section Titles
+            gsap.utils.toArray('.section-title').forEach(title => {
+                gsap.fromTo(title,
+                    { opacity: 0, y: 30 },
+                    {
+                        opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
+                        scrollTrigger: { trigger: title, start: "top 85%" }
+                    }
+                );
+            });
+
+            // About Section (Universal for new layout)
+            gsap.fromTo('#about .gsap-reveal:not(.section-title)',
+                { opacity: 0, y: 30 },
+                { opacity: 1, y: 0, duration: 0.8, stagger: 0.2, ease: "power2.out", scrollTrigger: { trigger: '#about', start: "top 75%" } }
+            );
+
+            // Skill Tracks (Fly in)
+            gsap.fromTo('.skill-track',
+                { opacity: 0, y: 30 },
+                { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: "power2.out", scrollTrigger: { trigger: '#skills', start: "top 75%" } }
+            );
+
+            // Project Cards (Slide in)
+            gsap.fromTo('.project-card',
+                { opacity: 0, y: 50 },
+                { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power3.out", scrollTrigger: { trigger: '#projects', start: "top 75%" } }
+            );
+
+            // Cert Cards
+            gsap.fromTo('.cert-card',
+                { opacity: 0, x: -50 },
+                { opacity: 1, x: 0, duration: 0.6, stagger: 0.2, ease: "power2.out", scrollTrigger: { trigger: '#certs', start: "top 75%" } }
+            );
+
+            // Contact Section
+            gsap.fromTo('#contact .gsap-reveal',
+                { opacity: 0, y: 30 },
+                { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", scrollTrigger: { trigger: '#contact', start: "top 80%" } }
+            );
+        } else {
+            // Remove hidden class if reduced motion
+            document.querySelectorAll('.gsap-reveal').forEach(el => {
+                el.style.opacity = 1;
+                el.style.visibility = 'visible';
+            });
+        }
+
+        // --- Three.js Background ---
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 30;
+
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // optimize for high DPI
+        container.appendChild(renderer.domElement);
+
+        // Floating Data Nodes only (globe removed)
+        const nodesGeometry = new THREE.BufferGeometry();
+        const nodesCount = 250;
+        const posArray = new Float32Array(nodesCount * 3);
+
+        for (let i = 0; i < nodesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 120;
+        }
+
+        nodesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const nodesMaterial = new THREE.PointsMaterial({
+            size: 0.35,
+            color: 0x10B981,
+            transparent: true,
+            opacity: 0.55,
+            blending: THREE.AdditiveBlending
+        });
+
+        const dataNodes = new THREE.Points(nodesGeometry, nodesMaterial);
+        scene.add(dataNodes);
+
+        // Function to update color on theme toggle
+        function updateThreeJsColor(isDarkTheme) {
+            nodesMaterial.color.setHex(0x10B981);
+        }
+
+        // Mouse Interaction
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+        const windowHalfX = window.innerWidth / 2;
+        const windowHalfY = window.innerHeight / 2;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX - windowHalfX) * 0.05;
+            mouseY = (event.clientY - windowHalfY) * 0.05;
+        });
+
+        // Animation Loop
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            // Gently drift nodes
+            dataNodes.rotation.y = elapsedTime * 0.015;
+            dataNodes.rotation.x = elapsedTime * 0.008;
+
+            // Mouse parallax
+            targetX = mouseX * 0.0005;
+            targetY = mouseY * 0.0005;
+            dataNodes.rotation.y += 0.03 * (targetX - dataNodes.rotation.y);
+            dataNodes.rotation.x += 0.03 * (targetY - dataNodes.rotation.x);
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // --- Vanilla Tilt 3D Effects ---
+        VanillaTilt.init(document.querySelectorAll(".glass-card"), {
+            max: 8,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.1,
+            perspective: 1000,
+            scale: 1.02
+        });
+
     </script>
 </body>
 
