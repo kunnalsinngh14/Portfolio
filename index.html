@@ -13,13 +13,13 @@
             theme: {
                 extend: {
                     colors: {
-                        darkBg: '#0A0F1A',
-                        surfaceBg: '#111827',
-                        emeraldAccent: '#10B981',
-                        blueAccent: '#10B981',
-                        goldAccent: '#F59E0B',
-                        textMain: '#F1F5F9',
-                        textMuted: '#94A3B8'
+                        darkBg: '#0E0F12',
+                        surfaceBg: 'rgba(24, 24, 27, 0.45)',
+                        primaryAccent: '#E4E4E7',
+                        blueAccent: '#E4E4E7',
+                        goldAccent: '#E4E4E7',
+                        textMain: '#FAFAFA',
+                        textMuted: '#A1A1AA'
                     },
                     fontFamily: {
                         display: ['Space Grotesk', 'sans-serif'],
@@ -35,84 +35,364 @@
         rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         body {
             margin: 0;
             overflow-x: hidden;
         }
 
-        /* Three.js Background Container */
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
-        }
-
         /* Glassmorphism Defaults */
         .glass-nav {
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            background: rgba(10, 15, 26, 0.85);
-            border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+            background: rgba(14, 15, 18, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .glass-card {
-            background: rgba(17, 24, 39, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(24, 24, 27, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
         .glass-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 40px -10px rgba(16, 185, 129, 0.25);
-            border-color: rgba(16, 185, 129, 0.35);
+            box-shadow: 0 10px 40px -10px rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         /* Light Mode Overrides */
         .light body {
-            background-color: #F8FAFC;
-            color: #0F172A;
+            background-color: #FAF6EE !important;
+            color: #1A1C20 !important;
         }
 
         .light .glass-nav {
-            background: rgba(255, 255, 255, 0.8);
-            border-bottom: 2px solid #10B981;
+            background: rgba(250, 246, 238, 0.85) !important;
+            border-bottom: 1px solid rgba(139, 90, 43, 0.12) !important;
         }
 
         .light .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.8) !important;
+            border: 1px solid rgba(139, 90, 43, 0.12) !important;
+            box-shadow: 0 10px 30px -10px rgba(139, 90, 43, 0.12) !important;
+        }
+
+        .light .glass-card:hover {
+            box-shadow: 0 12px 40px -8px rgba(139, 90, 43, 0.2) !important;
+            border-color: rgba(139, 90, 43, 0.25) !important;
         }
 
         .light .text-textMain {
-            color: #0F172A;
+            color: #1A1C20 !important;
         }
 
         .light .text-textMuted {
-            color: #475569;
-        }
-
-        /* Hero solid background to hide Three.js dots */
-        #hero {
-            background: linear-gradient(to bottom, #0A0F1A 85%, transparent 100%);
-        }
-
-        .light #hero {
-            background: linear-gradient(to bottom, #F8FAFC 85%, transparent 100%);
+            color: #4A4C52 !important;
         }
 
         .light .border-white\/10 {
-            border-color: rgba(0, 0, 0, 0.1);
+            border-color: rgba(139, 90, 43, 0.12) !important;
+        }
+
+        .light .border-white\/5 {
+            border-color: rgba(139, 90, 43, 0.08) !important;
         }
 
         .light .bg-white\/5 {
-            background-color: rgba(0, 0, 0, 0.05);
+            background-color: rgba(139, 90, 43, 0.05) !important;
+        }
+
+        /* Light mode - Navbar */
+        .light nav#navbar {
+            background: rgba(250, 246, 238, 0.9) !important;
+            border-bottom-color: rgba(139, 90, 43, 0.12) !important;
+            backdrop-filter: blur(12px) !important;
+        }
+
+        .light nav#navbar a.font-display {
+            color: #1A1C20 !important;
+        }
+
+        .light nav#navbar .nav-link {
+            color: #4A4C52 !important;
+        }
+
+        .light nav#navbar .nav-link:hover {
+            color: #1A1C20 !important;
+        }
+
+        .light .nav-link.active {
+            color: #1A1C20 !important;
+            text-shadow: none !important;
+            font-weight: 700;
+        }
+
+        .light nav#navbar .text-blue-500 {
+            color: #1A1C20 !important;
+        }
+
+        .light #theme-toggle {
+            background: rgba(139, 90, 43, 0.08) !important;
+            border-color: rgba(139, 90, 43, 0.15) !important;
+        }
+
+        .light #theme-toggle .ball {
+            background: #1A1C20 !important;
+        }
+
+        .light #theme-toggle i {
+            color: #4A4C52 !important;
+        }
+
+        /* Light mode - Hero text */
+        .light #hero {
+            background: transparent;
+        }
+
+        .light #hero-title {
+            color: #1A1C20 !important;
+        }
+
+        .light #hero .text-gray-300,
+        .light #hero .text-gray-500,
+        .light #hero .caret {
+            color: #4A4C52 !important;
+        }
+
+        /* Light mode - Hero buttons */
+        .light #hero .flex.flex-col.gap-3 a {
+            background: rgba(255, 255, 255, 0.8) !important;
+            backdrop-filter: blur(12px) !important;
+            border-color: rgba(139, 90, 43, 0.12) !important;
+            color: #1A1C20 !important;
+            box-shadow: 0 4px 20px -5px rgba(139, 90, 43, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+        }
+
+        .light #hero .flex.flex-col.gap-3 a:hover {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border-color: rgba(139, 90, 43, 0.25) !important;
+            box-shadow: 0 6px 24px -4px rgba(139, 90, 43, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+        }
+
+        .light #hero .flex.flex-col.gap-3 a i {
+            color: #1A1C20 !important;
+        }
+
+        /* Light mode - Glass About box */
+        .light .glass-about-box {
+            background: rgba(255, 255, 255, 0.8) !important;
+            border-color: rgba(139, 90, 43, 0.12) !important;
+            box-shadow: 0 10px 30px -10px rgba(139, 90, 43, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+        }
+
+        .light .glass-about-box .text-gray-400,
+        .light .glass-about-box .text-gray-500 {
+            color: #4A4C52 !important;
+        }
+
+        .light .glass-about-box h3 {
+            color: #1A1C20 !important;
+        }
+
+        .light .glass-about-box .text-gray-200 {
+            color: #1A1C20 !important;
+        }
+
+        .light .glass-about-box p {
+            color: #4A4C52 !important;
+        }
+
+        .light .glass-about-box a.text-white {
+            color: #1A1C20 !important;
+            border-color: rgba(139, 90, 43, 0.15) !important;
+        }
+
+        .light .glass-about-box a.text-white:hover {
+            color: #1A1C20 !important;
+            border-color: #1A1C20 !important;
+        }
+
+        .light .glass-about-box a.text-white i {
+            color: #1A1C20 !important;
+        }
+
+        /* Light mode - Section headings & content */
+        .light h1,
+        .light h2,
+        .light h3,
+        .light h1.text-white,
+        .light h2.text-white,
+        .light h3.text-white {
+            color: #1A1C20 !important;
+        }
+
+        .light .section-title p {
+            color: #4A4C52 !important;
+        }
+
+        /* Light mode - skill cards, project cards, cert cards */
+        .light .project-card,
+        .light .cert-card {
+            background: rgba(255, 255, 255, 0.8) !important;
+            border-color: rgba(139, 90, 43, 0.12) !important;
+            box-shadow: 0 10px 30px -10px rgba(139, 90, 43, 0.12) !important;
+        }
+
+        .light .bg-surfaceBg {
+            background: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .light .border-white\/\[0\.08\] {
+            border-color: rgba(139, 90, 43, 0.12) !important;
+        }
+
+        .light .cert-card {
+            border-color: rgba(139, 90, 43, 0.12) !important;
+        }
+
+        /* High contrast tag color overrides */
+        .light .text-\[\#E2B870\] {
+            color: #9A6A15 !important;
+        }
+
+        .light .text-\[\#FF7A00\] {
+            color: #C2410C !important;
+        }
+
+        .light .text-\[\#0A84FF\] {
+            color: #1E40AF !important;
+        }
+
+        .light .text-\[\#10B981\] {
+            color: #065F46 !important;
+        }
+
+        /* Verified badge overrides */
+        .light .border-emerald-500\/20 {
+            border-color: rgba(6, 95, 70, 0.3) !important;
+        }
+
+        .light .bg-emerald-500\/10 {
+            background-color: rgba(6, 95, 70, 0.08) !important;
+        }
+
+        .light .text-emerald-400 {
+            color: #065F46 !important;
+        }
+
+        /* Skill pill overrides */
+        .light .skill-pill span {
+            color: #1A1C20 !important;
+        }
+
+        .light .project-card a.w-8.h-8 {
+            background: rgba(139, 90, 43, 0.06) !important;
+            color: #4A4C52 !important;
+        }
+
+        .light .project-card a.w-8.h-8:hover {
+            background: rgba(139, 90, 43, 0.15) !important;
+            color: #1A1C20 !important;
+        }
+
+        .light .cert-card a:hover {
+            color: #1A1C20 !important;
+        }
+
+        /* Accent overrides for hover states & decorations */
+        .light .bg-primaryAccent {
+            background-color: #9A6A15 !important;
+        }
+
+        .light .group:hover .group-hover\:text-primaryAccent {
+            color: #9A6A15 !important;
+        }
+
+        .light .group:hover .group-hover\:bg-primaryAccent\/10 {
+            background-color: rgba(154, 106, 21, 0.1) !important;
+        }
+
+        .light a.hover\:border-primaryAccent\/20:hover {
+            border-color: rgba(154, 106, 21, 0.2) !important;
+        }
+
+        /* Glowing Resume Button */
+        .resume-button-glow {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        .resume-button-glow:hover {
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.22);
+        }
+        .light .resume-button-glow {
+            background-color: #1A1C20 !important;
+            color: #FAF6EE !important;
+            box-shadow: 0 0 20px rgba(139, 90, 43, 0.15);
+        }
+        .light .resume-button-glow:hover {
+            background-color: #2D3037 !important;
+            box-shadow: 0 0 30px rgba(139, 90, 43, 0.25);
+        }
+
+        /* --- Dot Grid Background --- */
+        .dot-grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .light .dot-grid-bg {
+            background-image: radial-gradient(circle, rgba(0, 0, 0, 0.045) 1px, transparent 1px);
+        }
+
+        /* --- Cursor Glow Spotlight --- */
+        .cursor-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 35%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: opacity 0.4s ease;
+            opacity: 0;
+        }
+
+        .cursor-glow.active {
+            opacity: 1;
+        }
+
+        .light .cursor-glow {
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, rgba(0, 0, 0, 0.01) 35%, transparent 70%);
+        }
+
+        /* Glass box entry animation (CSS only, no GSAP) */
+        @keyframes glassSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .glass-about-entry {
+            animation: glassSlideUp 1.2s ease-out 0.4s both;
         }
 
         /* Typewriter Caret */
@@ -161,25 +441,11 @@
             }
         }
 
-        /* Orbit Animation */
-        @keyframes float {
-            0% {
-                transform: rotate(0deg) translateX(150px) rotate(0deg);
-            }
 
-            100% {
-                transform: rotate(360deg) translateX(150px) rotate(-360deg);
-            }
-        }
-
-        .animate-float {
-            animation: float linear infinite;
-            will-change: transform;
-        }
 
         /* Gradient Text */
         .text-gradient {
-            background: linear-gradient(135deg, #10B981 0%, #34D399 50%, #6EE7B7 100%);
+            background: linear-gradient(135deg, #FAFAFA 0%, #D4D4D8 50%, #A1A1AA 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -188,34 +454,37 @@
         /* Theme Toggle Styling */
         .theme-toggle-slider {
             position: relative;
-            width: 50px;
-            height: 26px;
+            width: 56px;
+            height: 28px;
             background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 9999px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 5px;
+            padding: 0 6px;
             transition: background-color 0.3s ease;
         }
 
         .light .theme-toggle-slider {
-            background-color: rgba(0, 0, 0, 0.1);
+            background-color: rgba(0, 0, 0, 0.06);
+            border-color: rgba(0, 0, 0, 0.1);
         }
 
         .theme-toggle-slider .ball {
             position: absolute;
             width: 20px;
             height: 20px;
-            background-color: #10B981;
+            background-color: #E4E4E7;
             border-radius: 50%;
             transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             left: 3px;
         }
 
         .light .theme-toggle-slider .ball {
-            transform: translateX(24px);
+            transform: translateX(28px);
+            background-color: #111827;
         }
 
         .theme-toggle-slider i {
@@ -264,19 +533,19 @@
 
         /* Fade Masks */
         .fade-mask-left {
-            background: linear-gradient(to right, #0A0F1A, transparent);
+            background: linear-gradient(to right, #0E0F12, transparent);
         }
 
         .fade-mask-right {
-            background: linear-gradient(to left, #0A0F1A, transparent);
+            background: linear-gradient(to left, #0E0F12, transparent);
         }
 
         .light .fade-mask-left {
-            background: linear-gradient(to right, #F8FAFC, transparent);
+            background: linear-gradient(to right, #F3F4F6, transparent);
         }
 
         .light .fade-mask-right {
-            background: linear-gradient(to left, #F8FAFC, transparent);
+            background: linear-gradient(to left, #F3F4F6, transparent);
         }
 
         /* Hide elements initially for GSAP */
@@ -284,434 +553,440 @@
             opacity: 0;
         }
 
-        /* ── Splash Screen ── */
-        #splash-top,
-        #splash-bottom {
-            position: fixed;
-            left: 0;
+        /* Active Nav Link */
+        .nav-link {
+            transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .nav-link.active {
+            color: #FFFFFF;
+            transform: scale(1.1);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6), 0 0 16px rgba(255, 255, 255, 0.2);
+            font-weight: 600;
+        }
+
+        .skills-container {
+            position: relative;
             width: 100%;
-            height: 50vh;
-            background: #0A0F1A;
-            z-index: 9999;
-            will-change: transform;
-        }
-
-        #splash-top {
-            top: 0;
             display: flex;
-            align-items: flex-end;
             justify-content: center;
-            padding-bottom: 4px;
+            align-items: center;
+            min-height: 440px;
+            perspective: 1200px;
+            overflow: visible;
         }
 
-        #splash-bottom {
-            bottom: 0;
+        .skills-orbit-ring {
+            width: 820px;
+            height: 820px;
+            border-radius: 50%;
+            border: 1.5px dashed rgba(255, 255, 255, 0.08);
+            transform: rotateX(75deg);
+        }
+
+        .light .skills-orbit-ring {
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .skills-pane-card.left {
+            transform: translate3d(-280px, 15px, -200px) rotateY(55deg) scale(0.85);
+            opacity: 0.35;
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        .skills-pane-card.center {
+            transform: translate3d(0, 0, 0) rotateY(0deg) scale(1.02);
+            opacity: 1;
+            z-index: 30;
+            box-shadow: 0 20px 50px -15px rgba(255, 255, 255, 0.15), 0 0 35px rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.25);
+            pointer-events: auto;
+        }
+
+        .skills-pane-card.right {
+            transform: translate3d(280px, 15px, -200px) rotateY(-55deg) scale(0.85);
+            opacity: 0.35;
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        /* Grab cursors for drag functionality */
+        .skills-pane-card {
+            position: absolute;
+            width: 320px;
+            height: 440px;
+            border-radius: 20px;
+            padding: 28px;
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+            cursor: grab;
+            backface-visibility: hidden;
             display: flex;
-            align-items: flex-start;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+
+        .skills-container.dragging {
+            cursor: grabbing;
+        }
+
+        .skills-container.dragging .skills-pane-card {
+            cursor: grabbing;
+            user-select: none;
+        }
+
+        /* Skills icon circles matching the design in sample image */
+        .skills-icon-circle {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
             justify-content: center;
-            padding-top: 4px;
+            background: rgba(255, 255, 255, 0.02);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
-        #splash-name {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            z-index: 10000;
-            font-family: 'Archivo', 'Space Grotesk', sans-serif;
-            font-weight: 900;
-            font-size: clamp(2.2rem, 7vw, 5.5rem);
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, #F1F5F9 30%, #10B981 70%, #34D399 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            opacity: 0;
-            pointer-events: none;
-            white-space: nowrap;
+        .skills-icon-badge {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: #18181B;
+            color: #FAFAFA;
+            font-size: 8px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        #splash-bar {
-            width: 1px;
-            height: 40px;
-            background: rgba(16, 185, 129, 0.4);
+        .light .skills-icon-circle {
+            border-color: rgba(0, 0, 0, 0.08);
+            background: rgba(0, 0, 0, 0.02);
+            box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.03);
+        }
+
+        .light .skills-icon-badge {
+            background: #E4E4E7;
+            color: #111827;
+            border-color: rgba(0, 0, 0, 0.15);
+        }
+
+        /* Mini pill grid inside cards */
+        .skill-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 9999px;
+            padding: 4px 10px;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .skill-pill:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .light .skill-pill {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .light .skill-pill:hover {
+            background: rgba(0, 0, 0, 0.06);
+            border-color: rgba(0, 0, 0, 0.12);
+        }
+
+
+        section[id] {
+            scroll-margin-top: 100px;
         }
     </style>
 </head>
 
-<body class="bg-darkBg text-textMain font-sans transition-colors duration-300">
-
-    <!-- ── Splash Screen ── -->
-    <div id="splash-name">KUNAL SINGH</div>
-    <div id="splash-top">
-        <div id="splash-bar"></div>
-    </div>
-    <div id="splash-bottom">
-        <div style="width:1px;height:40px;background:rgba(16,185,129,0.4);"></div>
-    </div>
-
-    <!-- Three.js Background -->
-    <div id="canvas-container"></div>
+<body class="bg-[#0E0F12] text-textMain font-display transition-colors duration-300">
 
     <!-- Navbar -->
     <nav id="navbar"
-        class="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-6xl glass-nav rounded-full px-6 py-3 flex items-center justify-between z-50 transition-transform duration-300">
-        <a href="#" class="font-display font-bold text-2xl tracking-tight">KS<span
-                class="text-emeraldAccent">.</span></a>
+        class="glass-nav fixed top-0 left-0 w-full px-8 md:px-14 py-6 flex items-center justify-between z-50 transition-transform duration-300 shadow-sm">
+        <a href="#" class="font-display font-bold text-2xl tracking-wide text-white flex items-center">
+            KS<span class="text-zinc-400 ml-0.5">.</span>
+        </a>
 
-        <div class="hidden md:flex space-x-8 text-sm font-medium">
-            <a href="#about" class="hover:text-emeraldAccent transition-colors">About</a>
-            <a href="#skills" class="hover:text-emeraldAccent transition-colors">Skills</a>
-            <a href="#projects" class="hover:text-emeraldAccent transition-colors">Projects</a>
-            <a href="#certs" class="hover:text-emeraldAccent transition-colors">Certs</a>
-            <a href="#contact" class="hover:text-emeraldAccent transition-colors">Contact</a>
+        <div class="hidden md:flex items-center space-x-10 text-[15px] font-medium text-gray-400">
+            <a href="#skills" class="nav-link hover:text-white transition-colors" data-section="skills">Skills</a>
+            <a href="#projects" class="nav-link hover:text-white transition-colors" data-section="projects">Projects</a>
+            <a href="#certs" class="nav-link hover:text-white transition-colors" data-section="certs">Certs</a>
+            <a href="#contact" class="nav-link hover:text-white transition-colors" data-section="contact">Contacts</a>
         </div>
 
         <div class="flex items-center gap-4">
             <div id="theme-toggle" class="theme-toggle-slider">
-                <i class="fa-solid fa-moon"></i>
+                <i class="fa-solid fa-sun text-[10px] text-zinc-400"></i>
+                <i class="fa-solid fa-moon text-[10px] text-zinc-400"></i>
                 <div class="ball"></div>
-                <i class="fa-solid fa-sun"></i>
             </div>
-            <!-- Mobile Menu Button (Optional, omitted for simplicity, relying on smooth scrolling) -->
         </div>
     </nav>
 
     <main class="relative z-10">
 
+        <!-- Dot Grid Background -->
+        <div class="dot-grid-bg" aria-hidden="true"></div>
+        <!-- Cursor Glow Spotlight -->
+        <div id="cursor-glow" class="cursor-glow" aria-hidden="true"></div>
+
+        <!-- Hero Section -->
         <!-- Hero Section -->
         <section id="hero"
-            class="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20 relative overflow-hidden">
+            class="h-screen flex items-center justify-center pt-20 pb-4 px-6 lg:px-12 relative overflow-hidden">
 
-            <!-- Floating Devicons -->
-            <div class="absolute inset-0 pointer-events-none z-0 opacity-40 dark:opacity-60 hidden md:block">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
-                    class="absolute w-12 h-12 animate-float"
-                    style="top: 15%; left: 15%; animation-delay: -0s; animation-duration: 18s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg"
-                    class="absolute w-14 h-14 animate-float"
-                    style="top: 60%; left: 10%; animation-delay: -2s; animation-duration: 22s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/r/r-original.svg"
-                    class="absolute w-10 h-10 animate-float"
-                    style="top: 25%; left: 80%; animation-delay: -5s; animation-duration: 16s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ruby/ruby-original.svg"
-                    class="absolute w-12 h-12 animate-float"
-                    style="top: 75%; left: 85%; animation-delay: -1s; animation-duration: 20s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"
-                    class="absolute w-16 h-16 animate-float"
-                    style="top: 40%; left: 5%; animation-delay: -7s; animation-duration: 24s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
-                    class="absolute w-14 h-14 animate-float"
-                    style="top: 85%; left: 30%; animation-delay: -3s; animation-duration: 19s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
-                    class="absolute w-10 h-10 animate-float"
-                    style="top: 35%; left: 90%; animation-delay: -6s; animation-duration: 17s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
-                    class="absolute w-16 h-16 animate-float"
-                    style="top: 80%; left: 70%; animation-delay: -4s; animation-duration: 21s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg"
-                    class="absolute w-14 h-14 animate-float"
-                    style="top: 50%; left: 92%; animation-delay: -8s; animation-duration: 25s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg"
-                    class="absolute w-12 h-12 animate-float"
-                    style="top: 10%; left: 60%; animation-delay: -2s; animation-duration: 18s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg"
-                    class="absolute w-12 h-12 animate-float"
-                    style="top: 20%; left: 35%; animation-delay: -9s; animation-duration: 20s;">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg"
-                    class="absolute w-10 h-10 animate-float"
-                    style="top: 70%; left: 50%; animation-delay: -1s; animation-duration: 16s;">
+            <!-- Radial warm glow at top center -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full pointer-events-none"
+                style="background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.03) 0%, transparent 70%); filter: blur(60px);">
             </div>
 
-            <div
-                class="w-32 h-32 rounded-full mb-8 p-1 bg-gradient-to-br from-emeraldAccent to-blueAccent shadow-[0_0_30px_rgba(16,185,129,0.3)]">
-                <div
-                    class="w-full h-full bg-surfaceBg rounded-full flex items-center justify-center border border-white/10">
-                    <span class="text-4xl font-display font-bold text-gradient">KS</span>
+            <!-- Bento Box Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 w-full max-w-7xl mx-auto relative z-10">
+
+                <!-- Left Column (Hero Content) -->
+                <div class="flex flex-col justify-center text-left gsap-hero">
+                    <h1 id="hero-title" class="font-bold mb-6 tracking-tight text-white"
+                        style="font-family: 'Archivo', sans-serif; font-size: clamp(3.5rem, 8vw, 6.5rem); font-weight: 900; letter-spacing: 0.01em; line-height: 1.05;">
+                        KUNAL<br>SINGH
+                    </h1>
+
+                    <div class="mb-14">
+                        <span class="text-xl md:text-2xl font-sans font-light text-gray-300 tracking-wide">
+                            <span id="typewriter-text"></span><span class="caret text-gray-500">|</span>
+                        </span>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col gap-3 max-w-md w-full">
+                        <div class="grid grid-cols-2 gap-3">
+                            <a href="https://drive.google.com/file/d/1XpauRfGmHc1D7bUFWNPWPWgXulCoIm1v/view?usp=drive_link"
+                                target="_blank" rel="noopener noreferrer"
+                                class="glass-card group px-6 py-3.5 rounded-[14px] text-gray-200 hover:text-white transition-all duration-300 flex items-center justify-center gap-2.5 text-[15px] font-medium hover:-translate-y-0.5">
+                                <i class="fa-solid fa-file-lines text-sm opacity-60 group-hover:opacity-100"></i>
+                                <span>Resume</span>
+                            </a>
+                            <a href="#projects"
+                                class="glass-card group px-6 py-3.5 rounded-[14px] text-gray-200 hover:text-white transition-all duration-300 flex items-center justify-center gap-2.5 text-[15px] font-medium hover:-translate-y-0.5">
+                                <i class="fa-solid fa-briefcase text-sm opacity-60 group-hover:opacity-100"></i>
+                                <span>My Work</span>
+                            </a>
+                        </div>
+                        <a href="#contact"
+                            class="glass-card group w-full px-6 py-3.5 rounded-[14px] text-white transition-all duration-300 flex items-center justify-center gap-2.5 text-[15px] font-semibold hover:-translate-y-0.5">
+                            <i class="fa-solid fa-link text-sm opacity-70"></i>
+                            Connect
+                        </a>
+                    </div>
                 </div>
+
+                <!-- Right Column (About Glass Box) -->
+                <div class="glass-about-entry flex flex-col justify-center mt-10 lg:mt-0">
+                    <div class="glass-about-box glass-card rounded-[20px] p-6 md:p-8">
+
+                        <div class="flex items-center justify-center gap-2.5 mb-7 text-gray-400">
+                            <span class="text-sm font-semibold tracking-widest uppercase">About</span>
+                            <i class="fa-solid fa-circle-info text-[11px] opacity-70"></i>
+                        </div>
+
+                        <!-- NOW Section -->
+                        <div class="mb-7">
+                            <p class="text-[10px] text-gray-500 font-bold tracking-[0.2em] uppercase mb-3">NOW</p>
+                            <h3 class="text-lg md:text-xl text-gray-200 font-bold uppercase tracking-wider mb-1.5"
+                                style="font-family: 'Archivo', sans-serif;">RV UNIVERSITY</h3>
+                            <p class="text-[12px] text-gray-400 font-medium tracking-wide leading-relaxed">
+                                B.TECH COMPUTER SCIENCE & ENG<br>
+                                AI/ML SPECIALIZATION &bull; CGPA 8.59
+                            </p>
+                        </div>
+
+                        <!-- INTERESTS Section -->
+                        <div class="mb-7">
+                            <p class="text-[10px] text-gray-500 font-bold tracking-[0.2em] uppercase mb-3">INTERESTS</p>
+                            <h3 class="text-lg md:text-xl text-gray-200 font-bold uppercase tracking-wider mb-1.5"
+                                style="font-family: 'Archivo', sans-serif;">ARTIFICIAL INTELLIGENCE</h3>
+                            <p class="text-[12px] text-gray-400 font-medium tracking-wide uppercase leading-relaxed">
+                                MACHINE LEARNING<br>
+                                DATA SCIENCE<br>
+                                COMPUTER VISION
+                            </p>
+                        </div>
+
+                        <!-- ELSEWHERE Section -->
+                        <div>
+                            <p class="text-[10px] text-gray-500 font-bold tracking-[0.2em] uppercase mb-4">ELSEWHERE</p>
+                            <div class="flex flex-col gap-3">
+                                <a href="mailto:kunnalsinngh14@gmail.com"
+                                    class="flex items-center gap-3 text-white font-bold uppercase tracking-widest text-[14px] hover:text-zinc-200 transition-colors border-b border-white/30 hover:border-zinc-200 pb-1.5 w-max"
+                                    style="font-family: 'Archivo', sans-serif;"><i
+                                        class="fa-solid fa-envelope text-sm opacity-60"></i>EMAIL</a>
+                                <a href="https://github.com/kunnalsinngh14" target="_blank"
+                                    class="flex items-center gap-3 text-white font-bold uppercase tracking-widest text-[14px] hover:text-zinc-200 transition-colors border-b border-white/30 hover:border-zinc-200 pb-1.5 w-max"
+                                    style="font-family: 'Archivo', sans-serif;"><i
+                                        class="fa-brands fa-github text-sm opacity-60"></i>GITHUB</a>
+                                <a href="https://www.linkedin.com/in/kunal-singh-8741a03b7" target="_blank"
+                                    class="flex items-center gap-3 text-white font-bold uppercase tracking-widest text-[14px] hover:text-zinc-200 transition-colors border-b border-white/30 hover:border-zinc-200 pb-1.5 w-max"
+                                    style="font-family: 'Archivo', sans-serif;"><i
+                                        class="fa-brands fa-linkedin-in text-sm opacity-60"></i>LINKEDIN</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
 
-            <h1 id="hero-title" class="font-bold mb-6 tracking-[0.15em] uppercase"
-                style="opacity:0; font-family: 'Archivo', 'Space Grotesk', sans-serif; font-size: clamp(2.8rem, 8vw, 6rem); font-weight: 900; background: linear-gradient(120deg, #F1F5F9 0%, #F1F5F9 45%, #10B981 75%, #34D399 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                KUNAL SINGH
-            </h1>
 
-            <div class="mb-10 inline-flex items-center justify-center px-6 py-2 rounded-full glass-card">
-                <span class="text-lg md:text-xl font-medium text-emeraldAccent">
-                    <span id="typewriter-text"></span><span class="caret"></span>
-                </span>
-            </div>
-
-            <div class="flex flex-wrap justify-center gap-4 mb-16">
-                <a href="https://drive.google.com/file/d/1XpauRfGmHc1D7bUFWNPWPWgXulCoIm1v/view?usp=drive_link"
-                    target="_blank" rel="noopener noreferrer"
-                    class="px-6 py-3 rounded-full bg-emeraldAccent text-darkBg font-semibold hover:bg-emerald-400 transition-colors flex items-center gap-2">
-                    <i class="fa-solid fa-file-pdf"></i> RESUME
-                </a>
-                <a href="https://github.com/kunnalsinngh14" target="_blank" rel="noopener noreferrer"
-                    class="px-6 py-3 rounded-full border border-white/20 hover:border-emeraldAccent hover:text-emeraldAccent transition-colors flex items-center gap-2">
-                    <i class="fa-brands fa-github text-lg"></i> GITHUB
-                </a>
-                <a href="https://www.linkedin.com/in/kunal-singh-8741a03b7" target="_blank" rel="noopener noreferrer"
-                    class="px-6 py-3 rounded-full border border-white/20 hover:border-emeraldAccent hover:text-emeraldAccent transition-colors flex items-center gap-2">
-                    <i class="fa-brands fa-linkedin text-lg"></i> LINKEDIN
-                </a>
-            </div>
-
-            <a href="#about"
-                class="absolute bottom-10 text-textMuted hover:text-emeraldAccent transition-colors bounce">
-                <i class="fa-solid fa-chevron-down text-2xl"></i>
-            </a>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="py-24 px-6 max-w-6xl mx-auto">
-            <h2 class="text-4xl font-display font-bold mb-12 text-center gsap-reveal section-title">ABOUT</h2>
 
-            <div class="flex flex-col lg:flex-row gap-16 items-center">
-                <!-- Text Content -->
-                <div class="lg:w-2/3 gsap-reveal about-text">
-                    <p class="text-textMuted leading-relaxed text-2xl mb-8 border-l-4 border-emeraldAccent pl-6">
-                        I'm <span class="text-textMain font-bold">Kunal Singh</span>, a B.Tech Computer Science (AI/ML)
-                        student at RV University, Bengaluru, passionate about building intelligent systems and
-                        data-driven solutions.
-                    </p>
-                    <p class="text-textMuted leading-relaxed text-lg mb-6 pl-7">
-                        My core interests lie in Artificial Intelligence, Machine Learning, Data Science, and Software
-                        Development. I enjoy working on projects that combine data, algorithms, and practical
-                        applications.
-                    </p>
-                    <p class="text-textMuted leading-relaxed text-lg pl-7">
-                        When I'm not experimenting with ML models or building software, I'm exploring new technologies
-                        through clubs like the <span class="text-emeraldAccent font-medium">Ethereum Club</span> and
-                        <span class="text-emeraldAccent font-medium">MMFC</span> at RVU.
-                    </p>
-                </div>
-
-                <!-- Stats -->
-                <div class="lg:w-1/3 flex flex-col sm:flex-row lg:flex-col gap-6 w-full">
-                    <div
-                        class="flex-1 flex flex-col justify-center items-center py-6 px-4 rounded-3xl bg-emeraldAccent/5 border border-emeraldAccent/10 gsap-reveal hover:border-emeraldAccent/50 hover:bg-emeraldAccent/10 transition-colors">
-                        <span
-                            class="text-5xl font-display font-bold text-emeraldAccent mb-1 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]">8.58</span>
-                        <span class="text-xs font-bold tracking-widest uppercase text-textMain">CGPA</span>
-                    </div>
-                    <div
-                        class="flex-1 flex flex-col justify-center items-center py-6 px-4 rounded-3xl bg-emeraldAccent/5 border border-emeraldAccent/10 gsap-reveal hover:border-emeraldAccent/50 hover:bg-emeraldAccent/10 transition-colors">
-                        <span
-                            class="text-5xl font-display font-bold text-emeraldAccent mb-1 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]">5+</span>
-                        <span class="text-xs font-bold tracking-widest uppercase text-textMain">Projects</span>
-                    </div>
-                    <div
-                        class="flex-1 flex flex-col justify-center items-center py-6 px-4 rounded-3xl bg-goldAccent/5 border border-goldAccent/10 gsap-reveal hover:border-goldAccent/50 hover:bg-goldAccent/10 transition-colors sm:col-span-2 lg:col-span-1">
-                        <span
-                            class="text-5xl font-display font-bold text-goldAccent mb-1 drop-shadow-[0_0_15px_rgba(217,119,6,0.5)]">RV</span>
-                        <span class="text-xs font-bold tracking-widest uppercase text-textMain">University</span>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="py-24 px-6 max-w-6xl mx-auto">
+        <section id="skills" class="py-12 px-6 max-w-6xl mx-auto overflow-visible">
 
             <!-- Section Header -->
-            <div class="text-center mb-16 gsap-reveal section-title">
-                <h2 class="text-4xl font-display font-bold mb-3">SKILLS</h2>
-                <p class="text-textMuted text-base tracking-widest uppercase">Tools I build with</p>
-                <div class="mt-5 mx-auto w-10 h-0.5 bg-emeraldAccent rounded-full"></div>
+            <div class="text-center mb-6 gsap-reveal section-title">
+                <h2 class="text-4xl font-display font-bold mb-2">SKILLS</h2>
+                <p class="text-textMuted text-base tracking-widest uppercase">the technologies i work with</p>
+                <div class="mt-3 mx-auto w-10 h-0.5 bg-primaryAccent rounded-full"></div>
             </div>
 
-            <!-- Languages -->
-            <div class="mb-14 gsap-reveal skill-track">
-                <h3
-                    class="text-xs font-bold tracking-[0.25em] uppercase text-emeraldAccent mb-8 flex items-center gap-3">
-                    <span class="inline-block w-5 h-px bg-emeraldAccent"></span>Languages<span
-                        class="inline-block w-5 h-px bg-emeraldAccent"></span>
-                </h3>
-                <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-x-6 gap-y-8">
-                    <!-- Python -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
-                                alt="Python" class="w-8 h-8" />
-                        </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Python</span>
+            <!-- 3D Skills Cards Stack -->
+            <div class="skills-container gsap-reveal">
+
+                <!-- Circular orbit ring backdrop -->
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-60 z-0"
+                    style="perspective: 1200px; transform: translateY(45px);">
+                    <div class="skills-orbit-ring"></div>
+                </div>
+
+                <!-- Card 1: Languages (Left) -->
+                <div class="skills-pane-card glass-card left" data-index="0">
+                    <div
+                        class="flex justify-between items-center text-[10px] text-textMuted font-bold tracking-widest uppercase mb-2">
+                        <span>No. 01</span>
+                        <span class="text-orange-400">LANG</span>
                     </div>
-                    <!-- Java -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
-                                alt="Java" class="w-8 h-8" />
+
+                    <div class="flex-1 flex flex-col justify-center items-center text-center mt-2">
+                        <h3 class="text-xl font-display font-bold mb-4 text-textMain tracking-wide"
+                            style="font-family: 'Archivo', sans-serif;">LANGUAGES</h3>
+                        <div class="flex flex-col gap-1.5 w-full max-w-[200px]">
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+                                    class="w-3.5 h-3.5" alt="Python" /><span
+                                    class="text-[12px] font-medium text-textMuted">Python</span></div>
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
+                                    class="w-3.5 h-3.5" alt="Java" /><span
+                                    class="text-[12px] font-medium text-textMuted">Java</span></div>
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"
+                                    class="w-3.5 h-3.5" alt="C/C++" /><span
+                                    class="text-[12px] font-medium text-textMuted">C / C++</span></div>
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+                                    class="w-3.5 h-3.5" alt="SQL" /><span
+                                    class="text-[12px] font-medium text-textMuted">SQL</span></div>
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
+                                    class="w-3.5 h-3.5" alt="HTML5" /><span
+                                    class="text-[12px] font-medium text-textMuted">HTML5</span></div>
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"
+                                    class="w-3.5 h-3.5" alt="CSS3" /><span
+                                    class="text-[12px] font-medium text-textMuted">CSS3</span></div>
                         </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Java</span>
-                    </div>
-                    <!-- C++ -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"
-                                alt="C++" class="w-8 h-8" />
-                        </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">C / C++</span>
-                    </div>
-                    <!-- SQL -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
-                                alt="SQL" class="w-8 h-8" />
-                        </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">SQL</span>
-                    </div>
-                    <!-- HTML -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
-                                alt="HTML5" class="w-8 h-8" />
-                        </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">HTML5</span>
-                    </div>
-                    <!-- CSS -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"
-                                alt="CSS3" class="w-8 h-8" />
-                        </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">CSS3</span>
-                    </div>
-                    <!-- JavaScript -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
-                                alt="JavaScript" class="w-8 h-8" />
-                        </div>
-                        <span
-                            class="text-xs text-textMuted group-hover:text-textMain transition-colors">JavaScript</span>
                     </div>
                 </div>
-            </div>
 
-            <!-- Frameworks & Libs -->
-            <div class="mb-14 gsap-reveal skill-track">
-                <h3
-                    class="text-xs font-bold tracking-[0.25em] uppercase text-emeraldAccent mb-8 flex items-center gap-3">
-                    <span class="inline-block w-5 h-px bg-emeraldAccent"></span>Frameworks &amp; Libraries<span
-                        class="inline-block w-5 h-px bg-emeraldAccent"></span>
-                </h3>
-                <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-x-6 gap-y-8">
-                    <!-- Pandas -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg"
-                                alt="Pandas" class="w-8 h-8" />
-                        </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Pandas</span>
+                <!-- Card 2: Frameworks & Libs (Center) -->
+                <div class="skills-pane-card glass-card center" data-index="1">
+                    <div
+                        class="flex justify-between items-center text-[10px] text-textMuted font-bold tracking-widest uppercase mb-2">
+                        <span>No. 02</span>
+                        <span class="text-emerald-400">LIBS</span>
                     </div>
-                    <!-- NumPy -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg"
-                                alt="NumPy" class="w-8 h-8" />
+
+                    <div class="flex-1 flex flex-col justify-center items-center text-center mt-2">
+                        <h3 class="text-xl font-display font-bold mb-4 text-textMain tracking-wide"
+                            style="font-family: 'Archivo', sans-serif;">LIBRARIES</h3>
+                        <div class="flex flex-col gap-1.5 w-full max-w-[200px]">
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg"
+                                    class="w-3.5 h-3.5" alt="Pandas" /><span
+                                    class="text-[12px] font-medium text-textMuted">Pandas</span></div>
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg"
+                                    class="w-3.5 h-3.5" alt="NumPy" /><span
+                                    class="text-[12px] font-medium text-textMuted">NumPy</span></div>
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg"
+                                    class="w-3.5 h-3.5" alt="Matplotlib" /><span
+                                    class="text-[12px] font-medium text-textMuted">Matplotlib</span></div>
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg"
+                                    class="w-3.5 h-3.5" alt="Scikit-Learn" /><span
+                                    class="text-[12px] font-medium text-textMuted">Scikit-Learn</span></div>
                         </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">NumPy</span>
-                    </div>
-                    <!-- Matplotlib -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg"
-                                alt="Matplotlib" class="w-8 h-8" />
-                        </div>
-                        <span
-                            class="text-xs text-textMuted group-hover:text-textMain transition-colors">Matplotlib</span>
-                    </div>
-                    <!-- Scikit-Learn -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg"
-                                alt="Scikit-Learn" class="w-8 h-8" />
-                        </div>
-                        <span
-                            class="text-xs text-textMuted group-hover:text-textMain transition-colors">Scikit-Learn</span>
                     </div>
                 </div>
-            </div>
 
-            <!-- Tools -->
-            <div class="gsap-reveal skill-track">
-                <h3
-                    class="text-xs font-bold tracking-[0.25em] uppercase text-emeraldAccent mb-8 flex items-center gap-3">
-                    <span class="inline-block w-5 h-px bg-emeraldAccent"></span>Tools &amp; Platforms<span
-                        class="inline-block w-5 h-px bg-emeraldAccent"></span>
-                </h3>
-                <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-x-6 gap-y-8">
-                    <!-- Git -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
-                                alt="Git" class="w-8 h-8" />
-                        </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Git</span>
+                <!-- Card 3: Tools & Platforms (Right) -->
+                <div class="skills-pane-card glass-card right" data-index="2">
+                    <div
+                        class="flex justify-between items-center text-[10px] text-textMuted font-bold tracking-widest uppercase mb-2">
+                        <span>No. 03</span>
+                        <span class="text-zinc-400">TOOLS</span>
                     </div>
-                    <!-- GitHub -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
-                                alt="GitHub" class="w-8 h-8 invert opacity-80" />
+
+                    <div class="flex-1 flex flex-col justify-center items-center text-center mt-2">
+                        <h3 class="text-xl font-display font-bold mb-4 text-textMain tracking-wide"
+                            style="font-family: 'Archivo', sans-serif;">PLATFORMS</h3>
+                        <div class="flex flex-col gap-1.5 w-full max-w-[200px]">
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+                                    class="w-3.5 h-3.5" alt="Git" /><span
+                                    class="text-[12px] font-medium text-textMuted">Git</span></div>
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
+                                    class="w-3.5 h-3.5 dark:invert opacity-80" alt="GitHub" /><span
+                                    class="text-[12px] font-medium text-textMuted">GitHub</span></div>
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"
+                                    class="w-3.5 h-3.5" alt="VS Code" /><span
+                                    class="text-[12px] font-medium text-textMuted">VS Code</span></div>
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original.svg"
+                                    class="w-3.5 h-3.5" alt="Jupyter" /><span
+                                    class="text-[12px] font-medium text-textMuted">Jupyter</span></div>
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecolab/googlecolab-original.svg"
+                                    class="w-3.5 h-3.5" alt="Colab" /><span
+                                    class="text-[12px] font-medium text-textMuted">Colab</span></div>
+                            <div class="skill-pill justify-center"><img
+                                    src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg"
+                                    class="w-3.5 h-3.5" alt="Power BI" /><span
+                                    class="text-[12px] font-medium text-textMuted">Power BI</span></div>
                         </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">GitHub</span>
-                    </div>
-                    <!-- VS Code -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"
-                                alt="VS Code" class="w-8 h-8" />
-                        </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">VS Code</span>
-                    </div>
-                    <!-- Jupyter -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original.svg"
-                                alt="Jupyter" class="w-8 h-8" />
-                        </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Jupyter</span>
-                    </div>
-                    <!-- Google Colab -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecolab/googlecolab-original.svg"
-                                alt="Google Colab" class="w-8 h-8" />
-                        </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Colab</span>
-                    </div>
-                    <!-- Power BI -->
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div
-                            class="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 border border-white/8 group-hover:border-emeraldAccent/30 group-hover:bg-emeraldAccent/5 transition-all duration-200">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg"
-                                alt="Power BI" class="w-8 h-8" />
-                        </div>
-                        <span class="text-xs text-textMuted group-hover:text-textMain transition-colors">Power BI</span>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </section>
 
 
@@ -722,128 +997,90 @@
             <!-- Section Header -->
             <div class="text-center mb-16 gsap-reveal section-title">
                 <h2 class="text-4xl font-display font-bold mb-3">PROJECTS</h2>
-                <p class="text-textMuted text-base tracking-widest uppercase">Some of my notable works</p>
-                <div class="mt-5 mx-auto w-10 h-0.5 bg-emeraldAccent rounded-full"></div>
+                <p class="text-textMuted text-base tracking-widest uppercase">some of my notable works</p>
+                <div class="mt-5 mx-auto w-10 h-0.5 bg-primaryAccent rounded-full"></div>
             </div>
 
-            <!-- Top row: 2 cards side by side -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Symmetric Grid mixing Rectangular, Square, and Long Boxes -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-                <!-- Card 1: Snake Game -->
-                <!-- Card 1 inner: Snake Game -->
-                <div
-                    class="project-card group gsap-reveal relative bg-surfaceBg border border-white/[0.08] rounded-2xl p-8 flex flex-col gap-5 cursor-pointer hover:border-emeraldAccent/40 hover:shadow-[0_0_40px_rgba(16,185,129,0.12)] transition-all duration-300 overflow-hidden">
-                    <div
-                        class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emeraldAccent/50 to-transparent">
-                    </div>
-                    <div class="flex items-start justify-between">
-                        <div
-                            class="w-14 h-14 rounded-xl bg-emeraldAccent/10 border border-emeraldAccent/20 flex items-center justify-center text-emeraldAccent group-hover:bg-emeraldAccent/20 transition-colors duration-300">
-                            <i class="fa-solid fa-gamepad text-2xl"></i>
+                <!-- Card 1: Student Performance Predictor (Rectangular Box - 2 Cols) -->
+                <div class="project-card glass-card group gsap-reveal relative rounded-2xl p-8 flex flex-col justify-between md:col-span-2 min-h-[340px] overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primaryAccent/30 to-transparent"></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-[10px] font-bold tracking-widest text-[#E2B870]" style="font-family: 'Space Grotesk', sans-serif;">MACHINE LEARNING / AI</span>
+                            <a href="https://github.com/kunnalsinngh14" target="_blank" rel="noopener noreferrer"
+                                class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-textMuted hover:text-white hover:bg-white/10 transition-all duration-200">
+                                <i class="fa-brands fa-github text-base"></i>
+                            </a>
                         </div>
-                        <a href="https://github.com/kunnalsinngh14" target="_blank" rel="noopener noreferrer"
-                            class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-textMuted hover:text-emeraldAccent hover:bg-emeraldAccent/10 transition-all duration-200">
-                            <i class="fa-brands fa-github text-lg"></i>
-                        </a>
-                    </div>
-                    <div class="flex-1">
-                        <h3
-                            class="text-xl font-display font-bold mb-3 group-hover:text-emeraldAccent transition-colors duration-200">
-                            Snake Game</h3>
-                        <p class="text-textMuted text-sm leading-relaxed">
-                            Classic Snake Game built with Java Swing and AWT. Features real-time rendering, keyboard
-                            controls, collision detection, score tracking, and a complete game loop using OOP and
-                            event-driven programming.
+                        <h3 class="text-2xl font-display font-bold mb-3 text-white group-hover:text-primaryAccent transition-colors duration-200">
+                            Student Performance Predictor
+                        </h3>
+                        <p class="text-textMuted text-[13px] leading-relaxed font-medium tracking-wide">
+                            ML model using RandomForestClassifier to predict student pass/fail from quiz, midterm, and assignment scores. Integrated LLaMA for natural language insights. Achieved 94.5% accuracy.
                         </p>
                     </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span
-                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">Java</span>
-                        <span
-                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">Swing</span>
-                        <span
-                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">AWT</span>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">Python</span>
+                        <span class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">ML</span>
+                        <span class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">RandomForest</span>
+                        <span class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">LLaMA</span>
                     </div>
                 </div>
 
-                <!-- Card 2: Student Performance Predictor -->
-                <div
-                    class="project-card group gsap-reveal relative bg-surfaceBg border border-white/[0.08] rounded-2xl p-8 flex flex-col gap-5 cursor-pointer hover:border-emeraldAccent/40 hover:shadow-[0_0_40px_rgba(16,185,129,0.12)] transition-all duration-300 overflow-hidden">
-                    <div
-                        class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emeraldAccent/50 to-transparent">
-                    </div>
-                    <div class="flex items-start justify-between">
-                        <div
-                            class="w-14 h-14 rounded-xl bg-emeraldAccent/10 border border-emeraldAccent/20 flex items-center justify-center text-emeraldAccent group-hover:bg-emeraldAccent/20 transition-colors duration-300">
-                            <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                <!-- Card 2: RoadLens (Square Box - 1 Col) -->
+                <div class="project-card glass-card group gsap-reveal relative rounded-2xl p-8 flex flex-col justify-between md:col-span-1 min-h-[340px] overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primaryAccent/30 to-transparent"></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-[10px] font-bold tracking-widest text-[#E2B870]" style="font-family: 'Space Grotesk', sans-serif;">COMPUTER VISION / DEEP LEARNING</span>
+                            <a href="https://github.com/kunnalsinngh14/RoadLens" target="_blank" rel="noopener noreferrer"
+                                class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-textMuted hover:text-white hover:bg-white/10 transition-all duration-200">
+                                <i class="fa-brands fa-github text-base"></i>
+                            </a>
                         </div>
-                        <a href="https://github.com/kunnalsinngh14" target="_blank" rel="noopener noreferrer"
-                            class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-textMuted hover:text-emeraldAccent hover:bg-emeraldAccent/10 transition-all duration-200">
-                            <i class="fa-brands fa-github text-lg"></i>
-                        </a>
-                    </div>
-                    <div class="flex-1">
-                        <h3
-                            class="text-xl font-display font-bold mb-3 group-hover:text-emeraldAccent transition-colors duration-200">
-                            Student Performance Predictor</h3>
-                        <p class="text-textMuted text-sm leading-relaxed">
-                            ML model using RandomForestClassifier to predict student pass/fail from quiz, midterm, and
-                            assignment scores. Integrated LLaMA for natural language insights. Achieved 94.5% accuracy.
-                        </p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span
-                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">Python</span>
-                        <span
-                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">ML</span>
-                        <span
-                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">RandomForest</span>
-                        <span
-                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">LLaMA</span>
-                    </div>
-                </div>
-
-            </div><!-- /top row -->
-
-            <!-- Bottom row: 1 card centered -->
-            <div class="flex justify-center">
-                <div
-                    class="project-card group gsap-reveal relative bg-surfaceBg border border-white/[0.08] rounded-2xl p-8 flex flex-col gap-5 cursor-pointer hover:border-emeraldAccent/40 hover:shadow-[0_0_40px_rgba(16,185,129,0.12)] transition-all duration-300 overflow-hidden w-full md:w-[calc(50%-12px)]">
-                    <div
-                        class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emeraldAccent/50 to-transparent">
-                    </div>
-                    <div class="flex items-start justify-between">
-                        <div
-                            class="w-14 h-14 rounded-xl bg-emeraldAccent/10 border border-emeraldAccent/20 flex items-center justify-center text-emeraldAccent group-hover:bg-emeraldAccent/20 transition-colors duration-300">
-                            <i class="fa-solid fa-traffic-light text-2xl"></i>
-                        </div>
-                        <a href="https://github.com/kunnalsinngh14/RoadLens" target="_blank" rel="noopener noreferrer"
-                            class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-textMuted hover:text-emeraldAccent hover:bg-emeraldAccent/10 transition-all duration-200">
-                            <i class="fa-brands fa-github text-lg"></i>
-                        </a>
-                    </div>
-                    <div class="flex-1">
-                        <h3
-                            class="text-xl font-display font-bold mb-3 group-hover:text-emeraldAccent transition-colors duration-200">
-                            RoadLens: Traffic Sign Recognition</h3>
-                        <p class="text-textMuted text-sm leading-relaxed">
+                        <h3 class="text-xl font-display font-bold mb-3 text-white group-hover:text-primaryAccent transition-colors duration-200">
+                            RoadLens: Traffic Sign Recognition
+                        </h3>
+                        <p class="text-textMuted text-[13px] leading-relaxed font-medium tracking-wide">
                             Real-time computer vision system for webcam-based traffic sign detection and classification.
-                            Built a CNN for multi-class recognition using Python, OpenCV, and TensorFlow.
                         </p>
                     </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span
-                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">Python</span>
-                        <span
-                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">CNN</span>
-                        <span
-                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">OpenCV</span>
-                        <span
-                            class="text-xs font-semibold px-3 py-1 bg-emeraldAccent/8 text-emeraldAccent border border-emeraldAccent/15 uppercase tracking-widest rounded-full">TensorFlow</span>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">Python</span>
+                        <span class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">CNN</span>
+                        <span class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">OpenCV</span>
                     </div>
                 </div>
-            </div>
 
+                <!-- Card 3: Snake Game (Long Box - 3 Cols) -->
+                <div class="project-card glass-card group gsap-reveal relative rounded-2xl p-8 flex flex-col justify-between md:col-span-3 min-h-[260px] overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primaryAccent/30 to-transparent"></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-[10px] font-bold tracking-widest text-[#E2B870]" style="font-family: 'Space Grotesk', sans-serif;">GAME DEVELOPMENT / JAVA</span>
+                            <a href="https://github.com/kunnalsinngh14" target="_blank" rel="noopener noreferrer"
+                                class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-textMuted hover:text-white hover:bg-white/10 transition-all duration-200">
+                                <i class="fa-brands fa-github text-base"></i>
+                            </a>
+                        </div>
+                        <h3 class="text-2xl font-display font-bold mb-3 text-white group-hover:text-primaryAccent transition-colors duration-200">
+                            Snake Game
+                        </h3>
+                        <p class="text-textMuted text-[13px] leading-relaxed font-medium tracking-wide">
+                            Classic Snake Game built with Java Swing and AWT. Features real-time rendering, keyboard controls, collision detection, score tracking, and a complete game loop using OOP and event-driven programming.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">Java</span>
+                        <span class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">Swing</span>
+                        <span class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">AWT</span>
+                    </div>
+                </div>
+
+            </div>
         </section>
 
 
@@ -851,145 +1088,207 @@
 
 
         <!-- Certifications Section -->
-        <section id="certs" class="py-24 px-6 max-w-4xl mx-auto">
-            <h2 class="text-4xl font-display font-bold mb-12 text-center gsap-reveal section-title">CERTIFICATIONS</h2>
+        <section id="certs" class="py-24 px-6 max-w-6xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16 gsap-reveal section-title">
+                <h2 class="text-4xl font-display font-bold mb-3">CERTIFICATIONS</h2>
+                <p class="text-textMuted text-base tracking-widest uppercase">My verified accomplishments</p>
+                <div class="mt-5 mx-auto w-10 h-0.5 bg-primaryAccent rounded-full"></div>
+            </div>
 
-            <div class="flex flex-col gap-10">
-                <!-- Cert 1 -->
-                <div class="flex items-center gap-6 py-4 border-b border-white/5 gsap-reveal cert-card group">
-                    <div
-                        class="flex-shrink-0 w-16 h-16 rounded-full bg-goldAccent/5 border border-goldAccent/20 flex items-center justify-center text-goldAccent group-hover:bg-goldAccent group-hover:text-darkBg transition-all duration-300">
-                        <i class="fa-solid fa-certificate text-2xl"></i>
+            <!-- Certifications Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Cert 1: Pandas -->
+                <div class="cert-card glass-card group gsap-reveal relative rounded-2xl flex flex-col cursor-pointer overflow-hidden">
+                    <!-- Thumbnail container -->
+                    <div class="w-full aspect-[4/3] overflow-hidden bg-zinc-950/20 border-b border-white/5 relative">
+                        <img src="cert-pandas.png" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500" alt="Data Analysis Certificate" />
                     </div>
-                    <div class="flex-grow">
-                        <h3 class="text-2xl font-display font-bold mb-1 group-hover:text-goldAccent transition-colors">
-                            Data Analysis with Pandas and Python</h3>
+                    <!-- Metadata container -->
+                    <div class="p-6 flex flex-col gap-4 flex-grow">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold tracking-widest text-[#FF7A00]" style="font-family: 'Archivo', sans-serif;">INFOSYS SPRINGBOARD</span>
+                            <div class="flex items-center gap-1 px-2 py-0.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-[9px] font-bold tracking-wider uppercase">
+                                <i class="fa-solid fa-check text-[8px]"></i> Verified
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-display font-bold mb-2 group-hover:text-primaryAccent transition-colors duration-200">
+                                Data Analysis with Pandas and Python
+                            </h3>
+                            <p class="text-textMuted text-[12px] font-medium">Issued Nov 2025</p>
+                        </div>
                         <a href="https://drive.google.com/file/d/1YPHDHwLX3-XqS0MxwfKveUU1BZcUasYm/view?usp=sharing"
                             target="_blank" rel="noopener noreferrer"
-                            class="text-textMuted hover:text-goldAccent font-medium text-sm flex items-center gap-2 group-hover:underline w-fit transition-colors">
-                            View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            class="mt-auto pt-4 text-xs font-semibold text-textMuted hover:text-white flex items-center gap-1.5 transition-colors border-t border-white/5 w-fit">
+                            View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-[9px] opacity-70"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- Cert 2 -->
-                <div class="flex items-center gap-6 py-4 border-b border-white/5 gsap-reveal cert-card group">
-                    <div
-                        class="flex-shrink-0 w-16 h-16 rounded-full bg-goldAccent/5 border border-goldAccent/20 flex items-center justify-center text-goldAccent group-hover:bg-goldAccent group-hover:text-darkBg transition-all duration-300">
-                        <i class="fa-solid fa-certificate text-2xl"></i>
+                <!-- Cert 2: Java Features -->
+                <div class="cert-card glass-card group gsap-reveal relative rounded-2xl flex flex-col cursor-pointer overflow-hidden">
+                    <!-- Thumbnail container -->
+                    <div class="w-full aspect-[4/3] overflow-hidden bg-zinc-950/20 border-b border-white/5 relative">
+                        <img src="cert-java.png" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500" alt="Java Features Certificate" />
                     </div>
-                    <div class="flex-grow">
-                        <h3 class="text-2xl font-display font-bold mb-1 group-hover:text-goldAccent transition-colors">
-                            Java Features</h3>
+                    <!-- Metadata container -->
+                    <div class="p-6 flex flex-col gap-4 flex-grow">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold tracking-widest text-[#0A84FF]" style="font-family: 'Archivo', sans-serif;">INFOSYS SPRINGBOARD</span>
+                            <div class="flex items-center gap-1 px-2 py-0.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-[9px] font-bold tracking-wider uppercase">
+                                <i class="fa-solid fa-check text-[8px]"></i> Verified
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-display font-bold mb-2 group-hover:text-primaryAccent transition-colors duration-200">
+                                Java Features
+                            </h3>
+                            <p class="text-textMuted text-[12px] font-medium">Issued Feb 2026</p>
+                        </div>
                         <a href="https://drive.google.com/file/d/14br43hWg2lrhoRrgm5dsvVVdg492Nigb/view?usp=drive_link"
                             target="_blank" rel="noopener noreferrer"
-                            class="text-textMuted hover:text-goldAccent font-medium text-sm flex items-center gap-2 group-hover:underline w-fit transition-colors">
-                            View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            class="mt-auto pt-4 text-xs font-semibold text-textMuted hover:text-white flex items-center gap-1.5 transition-colors border-t border-white/5 w-fit">
+                            View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-[9px] opacity-70"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- Cert 3 -->
-                <div class="flex items-center gap-6 py-4 border-b border-white/5 gsap-reveal cert-card group">
-                    <div
-                        class="flex-shrink-0 w-16 h-16 rounded-full bg-goldAccent/5 border border-goldAccent/20 flex items-center justify-center text-goldAccent group-hover:bg-goldAccent group-hover:text-darkBg transition-all duration-300">
-                        <i class="fa-solid fa-certificate text-2xl"></i>
+                <!-- Cert 3: PowerBI -->
+                <div class="cert-card glass-card group gsap-reveal relative rounded-2xl flex flex-col cursor-pointer overflow-hidden">
+                    <!-- Thumbnail container -->
+                    <div class="w-full aspect-[4/3] overflow-hidden bg-zinc-950/20 border-b border-white/5 relative">
+                        <img src="cert-powerbi.png" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500" alt="Power BI Certificate" />
                     </div>
-                    <div class="flex-grow">
-                        <h3 class="text-2xl font-display font-bold mb-1 group-hover:text-goldAccent transition-colors">
-                            PowerBI Course</h3>
-                        <a href="https://drive.google.com/file/d/1uZh8AXOlVt9vRKZpgv85HSIuQJg1NeFt/view" target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-textMuted hover:text-goldAccent font-medium text-sm flex items-center gap-2 group-hover:underline w-fit transition-colors">
-                            View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                    <!-- Metadata container -->
+                    <div class="p-6 flex flex-col gap-4 flex-grow">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold tracking-widest text-[#10B981]" style="font-family: 'Archivo', sans-serif;">SIMPLILEARN | SKILLUP</span>
+                            <div class="flex items-center gap-1 px-2 py-0.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-[9px] font-bold tracking-wider uppercase">
+                                <i class="fa-solid fa-check text-[8px]"></i> Verified
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-display font-bold mb-2 group-hover:text-primaryAccent transition-colors duration-200">
+                                Power BI for Beginners
+                            </h3>
+                            <p class="text-textMuted text-[12px] font-medium">Issued Apr 2026</p>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1uZh8AXOlVt9vRKZpgv85HSIuQJg1NeFt/view"
+                            target="_blank" rel="noopener noreferrer"
+                            class="mt-auto pt-4 text-xs font-semibold text-textMuted hover:text-white flex items-center gap-1.5 transition-colors border-t border-white/5 w-fit">
+                            View Certificate <i class="fa-solid fa-arrow-up-right-from-square text-[9px] opacity-70"></i>
                         </a>
                     </div>
                 </div>
+
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-32 px-6 max-w-6xl mx-auto pb-32 border-t border-white/5 relative">
-            <div
-                class="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-40 bg-emeraldAccent/5 blur-[100px] rounded-full pointer-events-none">
-            </div>
+        <section id="contact" class="pt-24 pb-12 px-6 max-w-6xl mx-auto border-t border-white/5 relative">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-40 bg-primaryAccent/5 blur-[100px] rounded-full pointer-events-none"></div>
 
-            <div class="flex flex-col md:flex-row gap-16 items-center gsap-reveal relative z-10">
-                <!-- Left Side: Header & Text -->
-                <div class="md:w-1/2 text-center md:text-left">
-                    <h2 class="text-6xl md:text-8xl font-display font-bold mb-6 tracking-tighter">Let's <br /><span
-                            class="text-transparent bg-clip-text bg-gradient-to-r from-emeraldAccent to-[#34D399]">Connect</span>
-                    </h2>
-                    <p class="text-xl text-textMuted max-w-md mx-auto md:mx-0">
-                        "I'm always open to internships, collaborations, and interesting project ideas."
+            <div class="flex flex-col gap-12 items-center gsap-reveal relative z-10">
+                <!-- Center Header & Text -->
+                <div class="text-center max-w-2xl mx-auto">
+                    <h2 class="text-5xl md:text-7xl font-display font-bold mb-6 tracking-tight text-white">Let's Connect</h2>
+                    <p class="text-lg text-textMuted leading-relaxed font-medium">
+                        I'm always open to internships, collaborations, and interesting project ideas.
                     </p>
                 </div>
 
-                <!-- Right Side: Contact Links -->
-                <div class="md:w-1/2 flex flex-col gap-6 w-full">
-                    <a href="mailto:kunal14072005@gmail.com"
-                        class="flex items-center justify-between p-6 rounded-2xl bg-white/5 hover:bg-emeraldAccent/10 border border-white/10 hover:border-emeraldAccent/30 transition-all duration-300 group">
-                        <div class="flex items-center gap-6">
-                            <div
-                                class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-emeraldAccent/20 transition-colors">
-                                <i
-                                    class="fa-solid fa-envelope text-2xl text-textMuted group-hover:text-emeraldAccent transition-colors"></i>
+                <!-- 3 Separate Boxes Side-by-Side -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mt-4">
+                    
+                    <!-- Email Card -->
+                    <a href="mailto:kunal14072005@gmail.com" class="project-card glass-card rounded-2xl p-6 flex flex-col justify-between items-start min-h-[140px] group transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primaryAccent/20 to-transparent"></div>
+                        <div class="flex justify-between items-start w-full">
+                            <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-textMuted group-hover:text-primaryAccent group-hover:bg-primaryAccent/10 transition-all duration-350">
+                                <i class="fa-solid fa-envelope text-base"></i>
                             </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-1 group-hover:text-emeraldAccent transition-colors">
-                                    Email</h3>
-                                <p class="text-textMuted group-hover:text-white transition-colors">
-                                    kunal14072005@gmail.com</p>
-                            </div>
+                            <i class="fa-solid fa-arrow-right -rotate-45 text-sm text-textMuted group-hover:text-primaryAccent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></i>
                         </div>
-                        <i
-                            class="fa-solid fa-arrow-right -rotate-45 text-2xl text-white/20 group-hover:text-emeraldAccent group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                        <div class="flex flex-col mt-4">
+                            <span class="text-[10px] text-textMuted font-bold uppercase tracking-wider">Email</span>
+                            <span class="text-sm font-semibold text-textMain group-hover:text-primaryAccent transition-colors">kunal14072005@gmail.com</span>
+                        </div>
                     </a>
 
-                    <a href="https://github.com/kunnalsinngh14" target="_blank" rel="noopener noreferrer"
-                        class="flex items-center justify-between p-6 rounded-2xl bg-white/5 hover:bg-emeraldAccent/10 border border-white/10 hover:border-emeraldAccent/30 transition-all duration-300 group">
-                        <div class="flex items-center gap-6">
-                            <div
-                                class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-emeraldAccent/20 transition-colors">
-                                <i
-                                    class="fa-brands fa-github text-2xl text-textMuted group-hover:text-emeraldAccent transition-colors"></i>
+                    <!-- GitHub Card -->
+                    <a href="https://github.com/kunnalsinngh14" target="_blank" rel="noopener noreferrer" class="project-card glass-card rounded-2xl p-6 flex flex-col justify-between items-start min-h-[140px] group transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primaryAccent/20 to-transparent"></div>
+                        <div class="flex justify-between items-start w-full">
+                            <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-textMuted group-hover:text-primaryAccent group-hover:bg-primaryAccent/10 transition-all duration-350">
+                                <i class="fa-brands fa-github text-lg"></i>
                             </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-1 group-hover:text-emeraldAccent transition-colors">
-                                    GitHub</h3>
-                                <p class="text-textMuted group-hover:text-white transition-colors">kunnalsinngh14</p>
-                            </div>
+                            <i class="fa-solid fa-arrow-right -rotate-45 text-sm text-textMuted group-hover:text-primaryAccent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></i>
                         </div>
-                        <i
-                            class="fa-solid fa-arrow-right -rotate-45 text-2xl text-white/20 group-hover:text-emeraldAccent group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                        <div class="flex flex-col mt-4">
+                            <span class="text-[10px] text-textMuted font-bold uppercase tracking-wider">GitHub</span>
+                            <span class="text-sm font-semibold text-textMain group-hover:text-primaryAccent transition-colors">kunnalsinngh14</span>
+                        </div>
                     </a>
 
-                    <a href="https://www.linkedin.com/in/kunal-singh-8741a03b7" target="_blank"
-                        rel="noopener noreferrer"
-                        class="flex items-center justify-between p-6 rounded-2xl bg-white/5 hover:bg-emeraldAccent/10 border border-white/10 hover:border-emeraldAccent/30 transition-all duration-300 group">
-                        <div class="flex items-center gap-6">
-                            <div
-                                class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-emeraldAccent/20 transition-colors">
-                                <i
-                                    class="fa-brands fa-linkedin text-2xl text-textMuted group-hover:text-emeraldAccent transition-colors"></i>
+                    <!-- LinkedIn Card -->
+                    <a href="https://www.linkedin.com/in/kunal-singh-8741a03b7" target="_blank" rel="noopener noreferrer" class="project-card glass-card rounded-2xl p-6 flex flex-col justify-between items-start min-h-[140px] group transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primaryAccent/20 to-transparent"></div>
+                        <div class="flex justify-between items-start w-full">
+                            <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-textMuted group-hover:text-primaryAccent group-hover:bg-primaryAccent/10 transition-all duration-350">
+                                <i class="fa-brands fa-linkedin-in text-lg"></i>
                             </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-1 group-hover:text-emeraldAccent transition-colors">
-                                    LinkedIn</h3>
-                                <p class="text-textMuted group-hover:text-white transition-colors">Kunal Singh</p>
-                            </div>
+                            <i class="fa-solid fa-arrow-right -rotate-45 text-sm text-textMuted group-hover:text-primaryAccent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></i>
                         </div>
-                        <i
-                            class="fa-solid fa-arrow-right -rotate-45 text-2xl text-white/20 group-hover:text-emeraldAccent group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                        <div class="flex flex-col mt-4">
+                            <span class="text-[10px] text-textMuted font-bold uppercase tracking-wider">LinkedIn</span>
+                            <span class="text-sm font-semibold text-textMain group-hover:text-primaryAccent transition-colors">Kunal Singh</span>
+                        </div>
+                    </a>
+
+                </div>
+
+                <!-- Glowing Long View Resume Button below the grid -->
+                <div class="w-full mt-4 flex justify-center">
+                    <a href="https://drive.google.com/file/d/1XpauRfGmHc1D7bUFWNPWPWgXulCoIm1v/view?usp=drive_link" target="_blank" rel="noopener noreferrer"
+                        class="w-full md:max-w-2xl py-4 rounded-xl font-bold text-center transition-all duration-300 block shadow-lg hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center gap-2 bg-zinc-100 hover:bg-zinc-200 text-zinc-950 dark:bg-zinc-200 dark:hover:bg-zinc-100 relative overflow-hidden group resume-button-glow">
+                        <i class="fa-solid fa-file-pdf text-base"></i>
+                        <span>View Resume</span>
+                        <!-- Glowing border light effect -->
+                        <div class="absolute inset-0 border border-white/20 rounded-xl pointer-events-none group-hover:border-white/40 transition-colors"></div>
                     </a>
                 </div>
+
             </div>
         </section>
 
     </main>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <!-- Footer -->
+    <footer class="bg-[#070708] border-t border-white/5 py-5 px-8 md:px-14 relative z-20">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-medium text-zinc-500">
+            <!-- Left: Copyright -->
+            <div class="w-full md:w-1/3 text-center md:text-left">
+                © 2026 KUNAL SINGH | ALL RIGHTS RESERVED
+            </div>
+            
+            <!-- Middle: Git commit -->
+            <div class="w-full md:w-1/3 text-center flex items-center justify-center">
+                <span class="font-mono text-[13px] tracking-wide text-zinc-300 dark:text-zinc-400 transition-all duration-300" style="text-shadow: 0 0 10px rgba(255, 255, 255, 0.35), 0 0 20px rgba(255, 255, 255, 0.15);">
+                    git commit -m "bye"
+                </span>
+            </div>
+            
+            <!-- Right: Clock Box -->
+            <div class="w-full md:w-1/3 flex justify-center md:justify-end">
+                <div class="px-4 py-2 rounded-lg bg-zinc-900/50 border border-white/5 font-mono text-[13px] text-zinc-400 min-w-[120px] text-center" id="footer-clock">
+                    00:00:00 IST
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
@@ -1012,12 +1311,10 @@
                 htmlNode.classList.remove('dark');
                 htmlNode.classList.add('light');
                 localStorage.setItem('theme', 'light');
-                updateThreeJsColor(false);
             } else {
                 htmlNode.classList.add('dark');
                 htmlNode.classList.remove('light');
                 localStorage.setItem('theme', 'dark');
-                updateThreeJsColor(true);
             }
         });
 
@@ -1049,7 +1346,7 @@
             let typeSpeed = isDeleting ? 40 : 60;
 
             if (!isDeleting && currentCharIndex === currentPhrase.length) {
-                typeSpeed = 1500; // Pause end
+                typeSpeed = 1500; // Pause end for 1.5 seconds
                 isDeleting = true;
             } else if (isDeleting && currentCharIndex === 0) {
                 isDeleting = false;
@@ -1061,64 +1358,16 @@
         }
         setTimeout(type, 1000);
 
-        // --- Splash Screen Animation ---
-        (function () {
-            const splashTop = document.getElementById('splash-top');
-            const splashBottom = document.getElementById('splash-bottom');
-            const splashName = document.getElementById('splash-name');
-            const heroTitle = document.getElementById('hero-title');
-            const easing = 'cubic-bezier(0.77, 0, 0.175, 1)';
 
-            // Stage 1: Fade + scale name in
-            splashName.animate([
-                { opacity: 0, transform: 'translate(-50%, -50%) scale(0.88)' },
-                { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' }
-            ], { duration: 600, delay: 150, easing: 'ease-out', fill: 'forwards' });
-
-            // Stage 2: Morph to hero + split panels (after 1.5s)
-            setTimeout(() => {
-                // Measure where the real h1 sits on screen
-                const splashRect = splashName.getBoundingClientRect();
-                const heroRect = heroTitle.getBoundingClientRect();
-
-                // Delta between splash center and h1 center
-                const deltaX = (heroRect.left + heroRect.width / 2) - (splashRect.left + splashRect.width / 2);
-                const deltaY = (heroRect.top + heroRect.height / 2) - (splashRect.top + splashRect.height / 2);
-
-                // Scale ratio: shrink splash name to match h1 rendered size
-                const scaleRatio = Math.min(heroRect.height / splashRect.height, 1);
-
-                // Morph: shrink + fly to h1 position in sync with split
-                splashName.animate([
-                    { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
-                    { transform: `translate(calc(-50% + ${deltaX}px), calc(-50% + ${deltaY}px)) scale(${scaleRatio})`, opacity: 0.9 }
-                ], { duration: 950, easing, fill: 'forwards' });
-
-                // Split top panel up
-                splashTop.animate([
-                    { transform: 'translateY(0)' },
-                    { transform: 'translateY(-100%)' }
-                ], { duration: 1000, easing, fill: 'forwards' });
-
-                // Split bottom panel down
-                splashBottom.animate([
-                    { transform: 'translateY(0)' },
-                    { transform: 'translateY(100%)' }
-                ], { duration: 1000, easing, fill: 'forwards' });
-
-                // At landing: reveal real h1, then clean up overlay
-                setTimeout(() => {
-                    heroTitle.style.transition = 'opacity 0.15s ease';
-                    heroTitle.style.opacity = '1';
-                    splashTop.remove();
-                    splashBottom.remove();
-                    splashName.remove();
-                }, 980);
-            }, 1500);
-        })();
 
         // --- GSAP Animations ---
         gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Entry Animation (Slide up & Fade in)
+        gsap.fromTo('.gsap-hero',
+            { opacity: 0, y: 40 },
+            { opacity: 1, y: 0, duration: 1.2, stagger: 0.2, ease: "power3.out", delay: 0.2, clearProps: "all" }
+        );
 
         // Check for reduced motion
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1141,10 +1390,10 @@
                 { opacity: 1, y: 0, duration: 0.8, stagger: 0.2, ease: "power2.out", scrollTrigger: { trigger: '#about', start: "top 75%" } }
             );
 
-            // Skill Tracks (Fly in)
-            gsap.fromTo('.skill-track',
-                { opacity: 0, y: 30 },
-                { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: "power2.out", scrollTrigger: { trigger: '#skills', start: "top 75%" } }
+            // Skills Stack Container
+            gsap.fromTo('.skills-container',
+                { opacity: 0, y: 40 },
+                { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: '#skills', start: "top 75%" } }
             );
 
             // Project Cards (Slide in)
@@ -1172,95 +1421,186 @@
             });
         }
 
-        // --- Three.js Background ---
-        const container = document.getElementById('canvas-container');
-        const scene = new THREE.Scene();
 
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 30;
 
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // optimize for high DPI
-        container.appendChild(renderer.domElement);
+        // --- Vanilla Tilt 3D Effects Removed ---
 
-        // Floating Data Nodes only (globe removed)
-        const nodesGeometry = new THREE.BufferGeometry();
-        const nodesCount = 250;
-        const posArray = new Float32Array(nodesCount * 3);
+        // --- Active Nav Section Scroll Spy ---
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section[id]');
 
-        for (let i = 0; i < nodesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 120;
+        function updateActiveNav() {
+            const scrollY = window.scrollY + 200;
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                const link = document.querySelector(`.nav-link[data-section="${sectionId}"]`);
+                if (link) {
+                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                }
+            });
+        }
+        window.addEventListener('scroll', updateActiveNav, { passive: true });
+        updateActiveNav();
+
+        // --- Cursor Glow Effect ---
+        const cursorGlow = document.getElementById('cursor-glow');
+        let glowX = 0, glowY = 0, targetX = 0, targetY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            targetX = e.clientX;
+            targetY = e.clientY;
+            cursorGlow.classList.add('active');
+        });
+
+        document.addEventListener('mouseleave', () => {
+            cursorGlow.classList.remove('active');
+        });
+
+        function animateGlow() {
+            // Smooth lerp for the glow follow
+            glowX += (targetX - glowX) * 0.08;
+            glowY += (targetY - glowY) * 0.08;
+            cursorGlow.style.left = glowX + 'px';
+            cursorGlow.style.top = glowY + 'px';
+            requestAnimationFrame(animateGlow);
+        }
+        animateGlow();
+
+        // --- Skills 3D Card Stack Carousel Logic ---
+        const skillsContainer = document.querySelector('.skills-container');
+        const skillCards = document.querySelectorAll('.skills-pane-card');
+
+        // Helper functions for card rotation
+        function rotateLeft() {
+            // Bring left card to center (counter-clockwise transition)
+            skillCards.forEach(c => {
+                if (c.classList.contains('left')) {
+                    c.classList.remove('left');
+                    c.classList.add('center');
+                } else if (c.classList.contains('center')) {
+                    c.classList.remove('center');
+                    c.classList.add('right');
+                } else if (c.classList.contains('right')) {
+                    c.classList.remove('right');
+                    c.classList.add('left');
+                }
+            });
         }
 
-        nodesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        const nodesMaterial = new THREE.PointsMaterial({
-            size: 0.35,
-            color: 0x10B981,
-            transparent: true,
-            opacity: 0.55,
-            blending: THREE.AdditiveBlending
-        });
-
-        const dataNodes = new THREE.Points(nodesGeometry, nodesMaterial);
-        scene.add(dataNodes);
-
-        // Function to update color on theme toggle
-        function updateThreeJsColor(isDarkTheme) {
-            nodesMaterial.color.setHex(0x10B981);
+        function rotateRight() {
+            // Bring right card to center (clockwise transition)
+            skillCards.forEach(c => {
+                if (c.classList.contains('right')) {
+                    c.classList.remove('right');
+                    c.classList.add('center');
+                } else if (c.classList.contains('center')) {
+                    c.classList.remove('center');
+                    c.classList.add('left');
+                } else if (c.classList.contains('left')) {
+                    c.classList.remove('left');
+                    c.classList.add('right');
+                }
+            });
         }
 
-        // Mouse Interaction
-        let mouseX = 0;
-        let mouseY = 0;
-        let targetX = 0;
-        let targetY = 0;
-        const windowHalfX = window.innerWidth / 2;
-        const windowHalfY = window.innerHeight / 2;
+        // Click-to-focus logic
+        skillCards.forEach((card) => {
+            card.addEventListener('click', (e) => {
+                // If clicking an inner interactive element like a link/pill, don't rotate
+                if (e.target.closest('.skill-pill') || e.target.closest('a')) return;
 
-        document.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX - windowHalfX) * 0.05;
-            mouseY = (event.clientY - windowHalfY) * 0.05;
+                if (card.classList.contains('left')) {
+                    rotateLeft();
+                } else if (card.classList.contains('right')) {
+                    rotateRight();
+                }
+            });
         });
 
-        // Animation Loop
-        const clock = new THREE.Clock();
+        // Swipe & Drag gesture logic
+        let isDragging = false;
+        let startX = 0;
+        let currentX = 0;
+        const dragThreshold = 50;
 
-        function animate() {
-            requestAnimationFrame(animate);
-            const elapsedTime = clock.getElapsedTime();
-
-            // Gently drift nodes
-            dataNodes.rotation.y = elapsedTime * 0.015;
-            dataNodes.rotation.x = elapsedTime * 0.008;
-
-            // Mouse parallax
-            targetX = mouseX * 0.0005;
-            targetY = mouseY * 0.0005;
-            dataNodes.rotation.y += 0.03 * (targetX - dataNodes.rotation.y);
-            dataNodes.rotation.x += 0.03 * (targetY - dataNodes.rotation.x);
-
-            renderer.render(scene, camera);
+        function handleDragStart(clientX) {
+            isDragging = true;
+            startX = clientX;
+            currentX = clientX;
+            skillsContainer.classList.add('dragging');
         }
 
-        animate();
+        function handleDragMove(clientX, e) {
+            if (!isDragging) return;
+            currentX = clientX;
+            // Prevent scrolling on touch screens when dragging
+            if (Math.abs(currentX - startX) > 10 && e.cancelable) {
+                e.preventDefault();
+            }
+        }
 
-        // Handle Resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+        function handleDragEnd() {
+            if (!isDragging) return;
+            isDragging = false;
+            skillsContainer.classList.remove('dragging');
+
+            const dx = currentX - startX;
+            if (dx > dragThreshold) {
+                // Swiped right -> bring left card to center
+                rotateLeft();
+            } else if (dx < -dragThreshold) {
+                // Swiped left -> bring right card to center
+                rotateRight();
+            }
+        }
+
+        // Mouse Events
+        skillsContainer.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.skill-pill') || e.target.closest('a')) return;
+            handleDragStart(e.clientX);
         });
 
-        // --- Vanilla Tilt 3D Effects ---
-        VanillaTilt.init(document.querySelectorAll(".glass-card"), {
-            max: 8,
-            speed: 400,
-            glare: true,
-            "max-glare": 0.1,
-            perspective: 1000,
-            scale: 1.02
+        window.addEventListener('mousemove', (e) => {
+            handleDragMove(e.clientX, e);
         });
+
+        window.addEventListener('mouseup', () => {
+            handleDragEnd();
+        });
+
+        // Touch Events
+        skillsContainer.addEventListener('touchstart', (e) => {
+            if (e.target.closest('.skill-pill') || e.target.closest('a')) return;
+            handleDragStart(e.touches[0].clientX);
+        }, { passive: true });
+
+        skillsContainer.addEventListener('touchmove', (e) => {
+            handleDragMove(e.touches[0].clientX, e);
+        }, { passive: false });
+
+        skillsContainer.addEventListener('touchend', () => {
+            handleDragEnd();
+        });
+
+        // --- Footer Clock Logic ---
+        function updateFooterClock() {
+            const clockEl = document.getElementById('footer-clock');
+            if (clockEl) {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                clockEl.textContent = `${hours}:${minutes}:${seconds} IST`;
+            }
+        }
+        setInterval(updateFooterClock, 1000);
+        updateFooterClock();
 
     </script>
 </body>
