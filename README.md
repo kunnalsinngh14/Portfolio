@@ -14,26 +14,29 @@ A modern, glassmorphism-inspired personal portfolio website with smooth interact
 
 ### ✨ Features
 
-   **Dynamic Theme System**
+#### Dynamic Theme System
 * Seamless Dark / Light Mode switching
 * Persistent theme state using localStorage
 * Custom light-mode glassmorphism overrides
-    **Premium Glassmorphism UI**
+
+#### Premium Glassmorphism UI
 * Frosted glass navigation and cards
 * Soft shadows and layered depth effects
 * Smooth hover animations and glow transitions
-    **Motion & Interaction Design**
+
+#### Motion & Interaction Design
 * Scroll-triggered reveal animations using GSAP
 * Cursor-follow glow spotlight effect
 * Animated typewriter role cycling
 * Active section scroll-spy navigation
 * Smooth micro-interactions throughout the UI
-    **Interactive Skills Showcase**
+
+#### Interactive Skills Showcase
 * 3D-inspired rotating skill card stack
 * Categorized technologies:
-    * Languages
-    * Libraries
-    * Platforms & Tools
+  * Languages
+  * Libraries
+  * Platforms & Tools
 
 ---
 **Sectional Design**
