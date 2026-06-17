@@ -800,7 +800,130 @@
         }
 
         #experience {
-            scroll-margin-top: 51px;
+            scroll-margin-top: 50px;
+        }
+
+        /* Mobile Menu Styles */
+        #mobile-menu {
+            background: rgba(14, 15, 18, 0.96);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .light #mobile-menu {
+            background: rgba(250, 246, 238, 0.96) !important;
+        }
+
+        .mobile-nav-link {
+            color: #A1A1AA;
+            letter-spacing: 0.15em;
+            font-size: 1.5rem;
+            font-weight: 700;
+            transition: color 0.25s ease, transform 0.25s ease;
+        }
+
+        .light .mobile-nav-link {
+            color: #4A4C52 !important;
+        }
+
+        .mobile-nav-link:hover,
+        .mobile-nav-link.active {
+            color: #FFFFFF;
+            transform: scale(1.05);
+        }
+
+        .light .mobile-nav-link:hover,
+        .light .mobile-nav-link.active {
+            color: #1A1C20 !important;
+        }
+
+        /* Hamburger Animation */
+        #mobile-menu-btn span {
+            background-color: #FFFFFF;
+        }
+
+        .light #mobile-menu-btn span {
+            background-color: #1A1C20 !important;
+        }
+
+        .light #mobile-menu-btn {
+            border-color: rgba(139, 90, 43, 0.15) !important;
+            background: rgba(139, 90, 43, 0.05) !important;
+            color: #1A1C20 !important;
+        }
+
+        #mobile-menu-btn .line-1,
+        #mobile-menu-btn .line-2,
+        #mobile-menu-btn .line-3 {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        #mobile-menu-btn.open .line-1 {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        #mobile-menu-btn.open .line-2 {
+            opacity: 0;
+        }
+
+        #mobile-menu-btn.open .line-3 {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+
+        @media (max-width: 768px) {
+            .skills-pane-card {
+                width: 290px;
+                height: 420px;
+                padding: 22px;
+            }
+
+            .skills-container {
+                min-height: 420px;
+            }
+
+            .skills-pane-card.left {
+                transform: translate3d(-100px, 10px, -150px) rotateY(45deg) scale(0.8);
+                opacity: 0.35;
+            }
+
+            .skills-pane-card.right {
+                transform: translate3d(100px, 10px, -150px) rotateY(-45deg) scale(0.8);
+                opacity: 0.35;
+            }
+
+            .skills-orbit-ring {
+                width: 600px;
+                height: 600px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .skills-pane-card {
+                width: 260px;
+                height: 390px;
+                padding: 18px;
+            }
+
+            .skills-container {
+                min-height: 390px;
+            }
+
+            .skills-pane-card.left {
+                transform: translate3d(-65px, 8px, -120px) rotateY(40deg) scale(0.75);
+                opacity: 0.3;
+            }
+
+            .skills-pane-card.right {
+                transform: translate3d(65px, 8px, -120px) rotateY(-40deg) scale(0.75);
+                opacity: 0.3;
+            }
+
+            .skills-orbit-ring {
+                width: 450px;
+                height: 450px;
+            }
         }
     </style>
 </head>
@@ -829,8 +952,26 @@
                 <i class="fa-solid fa-moon text-[10px] text-zinc-400"></i>
                 <div class="ball"></div>
             </div>
+
+            <!-- Hamburger Button (Mobile Only) -->
+            <button id="mobile-menu-btn" aria-label="Toggle Menu"
+                class="flex md:hidden flex-col justify-center items-center gap-1.5 w-8 h-8 rounded-full bg-white/5 border border-white/10 text-white z-50 focus:outline-none transition-all duration-300">
+                <span class="line-1 w-3.5 h-0.5 bg-white"></span>
+                <span class="line-2 w-3.5 h-0.5 bg-white"></span>
+                <span class="line-3 w-3.5 h-0.5 bg-white"></span>
+            </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu"
+        class="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-all duration-300 md:hidden">
+        <a href="#skills" class="mobile-nav-link" data-section="skills">SKILLS</a>
+        <a href="#experience" class="mobile-nav-link" data-section="experience">EXPERIENCE</a>
+        <a href="#projects" class="mobile-nav-link" data-section="projects">PROJECTS</a>
+        <a href="#certs" class="mobile-nav-link" data-section="certs">CERTIFICATIONS</a>
+        <a href="#contact" class="mobile-nav-link" data-section="contact">CONTACTS</a>
+    </div>
 
     <main class="relative z-10">
 
@@ -842,7 +983,7 @@
         <!-- Hero Section -->
         <!-- Hero Section -->
         <section id="hero"
-            class="h-screen flex items-center justify-center pt-20 pb-4 px-6 lg:px-12 relative overflow-hidden">
+            class="min-h-screen lg:h-screen flex items-center justify-center pt-28 pb-12 lg:py-20 px-6 lg:px-12 relative overflow-hidden">
 
             <!-- Radial warm glow at top center -->
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full pointer-events-none"
@@ -1088,7 +1229,7 @@
             <!-- Section Header -->
             <div class="text-center mb-16 gsap-reveal section-title">
                 <h2 class="text-4xl font-display font-bold mb-3">EXPERIENCE</h2>
-                <p class="text-textMuted text-base tracking-widest uppercase">PLACES I'VE BUILT</p>
+                <p class="text-textMuted text-base tracking-widest uppercase">PLACES I'VE BUILT AT</p>
                 <div class="mt-5 mx-auto w-10 h-0.5 bg-primaryAccent rounded-full"></div>
             </div>
 
@@ -1686,7 +1827,7 @@
         // --- Vanilla Tilt 3D Effects Removed ---
 
         // --- Active Nav Section Scroll Spy ---
-        const navLinks = document.querySelectorAll('.nav-link');
+        const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
         const sections = document.querySelectorAll('section[id]');
 
         function updateActiveNav() {
@@ -1695,12 +1836,12 @@
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.offsetHeight;
                 const sectionId = section.getAttribute('id');
-                const link = document.querySelector(`.nav-link[data-section="${sectionId}"]`);
-                if (link) {
+                const links = document.querySelectorAll(`.nav-link[data-section="${sectionId}"], .mobile-nav-link[data-section="${sectionId}"]`);
+                if (links.length > 0) {
                     if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                        link.classList.add('active');
+                        links.forEach(l => l.classList.add('active'));
                     } else {
-                        link.classList.remove('active');
+                        links.forEach(l => l.classList.remove('active'));
                     }
                 }
             });
@@ -1838,7 +1979,7 @@
         skillsContainer.addEventListener('touchstart', (e) => {
             if (e.target.closest('.skill-pill') || e.target.closest('a')) return;
             handleDragStart(e.touches[0].clientX);
-        }, { passive: true });
+        }, { passive: false });
 
         skillsContainer.addEventListener('touchmove', (e) => {
             handleDragMove(e.touches[0].clientX, e);
@@ -1848,7 +1989,37 @@
             handleDragEnd();
         });
 
+        // --- Mobile Menu Toggle Logic ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
+        function toggleMobileMenu() {
+            const isOpen = mobileMenuBtn.classList.toggle('open');
+            if (isOpen) {
+                mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+                document.body.classList.add('overflow-hidden'); // Prevent background scrolling
+            } else {
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                document.body.classList.remove('overflow-hidden');
+            }
+        }
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        }
+
+        // Close menu on link click
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('open');
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                document.body.classList.remove('overflow-hidden');
+            });
+        });
 
         // --- Footer Clock Logic ---
         function updateFooterClock() {
