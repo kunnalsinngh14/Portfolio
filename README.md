@@ -44,7 +44,7 @@ A modern, glassmorphism-inspired personal portfolio website with smooth interact
 * **Profile Panel:** A glassmorphism information card embedded directly inside the hero section showcasing education, AI/ML interests, CGPA, and external links including GitHub, LinkedIn, and Email.
 * **Skills:** Interactive 3D-inspired stacked skill cards with orbit visuals, presenting Languages, Libraries, and Development Tools using animated glassmorphism layouts.
 * **Experience:** Professional experience timeline highlighting internships, technical roles, technologies used, key achievements, and measurable impact through an interactive glassmorphism card layout and smooth hover animations.
-* **Projects:** Asymmetrical responsive project showcase featuring highlighted works such as HeartCareAI, RoadLens: Traffic Sign Recognition, and EasyNotes, designed with premium hover interactions and layered card styling.
+* **Projects:** Asymmetrical responsive project showcase featuring highlighted works. Designed with premium hover interactions and layered card styling.
 * **Certifications:** Verified certification gallery with animated hover states, certificate previews, issue metadata, and direct credential access links.
 * **Contact:** Interactive glass-card contact grid with dedicated Email, GitHub, and LinkedIn panels alongside a glowing resume call-to-action button.
 * **Footer:** Minimal developer-style footer featuring a live IST clock, stylized terminal-inspired Git commit text, and responsive copyright layout.
