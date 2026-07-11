@@ -925,6 +925,68 @@
                 height: 450px;
             }
         }
+
+        /* Experience card button styling */
+        .experience-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            color: #A1A1AA;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .experience-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #FFFFFF;
+        }
+
+        .light .experience-btn {
+            background: rgba(139, 90, 43, 0.06) !important;
+            border-color: rgba(139, 90, 43, 0.15) !important;
+            color: #4A4C52 !important;
+        }
+
+        .light .experience-btn:hover {
+            background: rgba(139, 90, 43, 0.12) !important;
+            border-color: rgba(139, 90, 43, 0.3) !important;
+            color: #1A1C20 !important;
+        }
+
+        /* Mobile skills arrow navigation styling */
+        #skills-prev-btn, #skills-next-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #skills-prev-btn:hover, #skills-next-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+        }
+
+        .light #skills-prev-btn, .light #skills-next-btn {
+            background: rgba(255, 255, 255, 0.9) !important;
+            border-color: rgba(139, 90, 43, 0.18) !important;
+            color: #4A4C52 !important;
+            box-shadow: 0 4px 12px rgba(139, 90, 43, 0.1) !important;
+        }
+
+        .light #skills-prev-btn:hover, .light #skills-next-btn:hover {
+            color: #1A1C20 !important;
+            background: rgba(255, 255, 255, 1) !important;
+            border-color: rgba(139, 90, 43, 0.3) !important;
+        }
     </style>
 </head>
 
@@ -1177,6 +1239,14 @@
                                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg"
                                     class="w-3.5 h-3.5" alt="Scikit-Learn" /><span
                                     class="text-[12px] font-medium text-textMuted">Scikit-Learn</span></div>
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg"
+                                    class="w-3.5 h-3.5" alt="OpenCV" /><span
+                                    class="text-[12px] font-medium text-textMuted">OpenCV</span></div>
+                            <div class="skill-pill justify-center"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg"
+                                    class="w-3.5 h-3.5" alt="Tensorflow" /><span
+                                    class="text-[12px] font-medium text-textMuted">Tensorflow(Keras)</span></div>
                         </div>
                     </div>
                 </div>
@@ -1220,6 +1290,16 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Mobile Navigation Arrows (Visible only on mobile) -->
+                <button id="skills-prev-btn" aria-label="Previous Skill"
+                    class="absolute left-2 top-1/2 -translate-y-1/2 z-40 w-10 h-10 rounded-full flex items-center justify-center text-textMuted hover:text-white transition-all active:scale-95 md:hidden pointer-events-auto cursor-pointer">
+                    <i class="fa-solid fa-chevron-left text-sm"></i>
+                </button>
+                <button id="skills-next-btn" aria-label="Next Skill"
+                    class="absolute right-2 top-1/2 -translate-y-1/2 z-40 w-10 h-10 rounded-full flex items-center justify-center text-textMuted hover:text-white transition-all active:scale-95 md:hidden pointer-events-auto cursor-pointer">
+                    <i class="fa-solid fa-chevron-right text-sm"></i>
+                </button>
 
             </div>
         </section>
@@ -1299,20 +1379,28 @@
                                 <li>Collaborated with IT mentors to design system architecture, perform testing, and
                                     deliver a production-ready prototype during the internship period</li>
                             </ul>
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="text-[9px] font-bold px-2.5 py-1 bg-white/5 text-textMuted border border-white/10 rounded-full tracking-wider uppercase">React.js</span>
-                                <span
-                                    class="text-[9px] font-bold px-2.5 py-1 bg-white/5 text-textMuted border border-white/10 rounded-full tracking-wider uppercase">Flask</span>
-                                <span
-                                    class="text-[9px] font-bold px-2.5 py-1 bg-white/5 text-textMuted border border-white/10 rounded-full tracking-wider uppercase">MySQL</span>
-                                <span
-                                    class="text-[9px] font-bold px-2.5 py-1 bg-white/5 text-textMuted border border-white/10 rounded-full tracking-wider uppercase">Scikit-Learn</span>
-                                <span
-                                    class="text-[9px] font-bold px-2.5 py-1 bg-white/5 text-textMuted border border-white/10 rounded-full tracking-wider uppercase">Gemini
-                                    AI</span>
-                                <span
-                                    class="text-[9px] font-bold px-2.5 py-1 bg-white/5 text-textMuted border border-white/10 rounded-full tracking-wider uppercase">SQLAlchemy</span>
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-6">
+                                <div class="flex flex-wrap gap-2">
+                                    <span
+                                        class="text-[9px] font-bold px-2.5 py-1 bg-white/5 text-textMuted border border-white/10 rounded-full tracking-wider uppercase">React.js</span>
+                                    <span
+                                        class="text-[9px] font-bold px-2.5 py-1 bg-white/5 text-textMuted border border-white/10 rounded-full tracking-wider uppercase">Flask</span>
+                                    <span
+                                        class="text-[9px] font-bold px-2.5 py-1 bg-white/5 text-textMuted border border-white/10 rounded-full tracking-wider uppercase">MySQL</span>
+                                    <span
+                                        class="text-[9px] font-bold px-2.5 py-1 bg-white/5 text-textMuted border border-white/10 rounded-full tracking-wider uppercase">Scikit-Learn</span>
+                                    <span
+                                        class="text-[9px] font-bold px-2.5 py-1 bg-white/5 text-textMuted border border-white/10 rounded-full tracking-wider uppercase">Gemini AI</span>
+                                    <span
+                                        class="text-[9px] font-bold px-2.5 py-1 bg-white/5 text-textMuted border border-white/10 rounded-full tracking-wider uppercase">SQLAlchemy</span>
+                                </div>
+                                <a href="https://drive.google.com/file/d/1qtIjxT_vnkLGYvJ1wyRfdFXE9agiL-Vo/view?usp=sharing"
+                                    target="_blank" rel="noopener noreferrer"
+                                    class="experience-btn self-start sm:self-auto">
+                                    <i class="fa-solid fa-file-signature text-[10px] opacity-75"></i>
+                                    <span>Completion Letter</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-[9px] opacity-50"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -1638,6 +1726,170 @@
                             class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">Python</span>
                     </div>
                 </div>
+
+                <!-- Card 9: Facemask Detector (Rectangular Box - 2 Cols) -->
+                <div
+                    class="project-card glass-card group gsap-reveal relative rounded-2xl p-8 flex flex-col justify-between md:col-span-2 min-h-[340px] overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primaryAccent/30 to-transparent">
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-[10px] font-bold tracking-widest text-[#E2B870]"
+                                style="font-family: 'Space Grotesk', sans-serif;">DEEP LEARNING / COMPUTER VISION</span>
+                            <a href="https://github.com/kunnalsinngh14/facemask-detector" target="_blank"
+                                rel="noopener noreferrer"
+                                class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-textMuted hover:text-white hover:bg-white/10 transition-all duration-200">
+                                <i class="fa-brands fa-github text-base"></i>
+                            </a>
+                        </div>
+                        <h3
+                            class="text-2xl font-display font-bold mb-3 text-white group-hover:text-primaryAccent transition-colors duration-200">
+                            Facemask Detector
+                        </h3>
+                        <p class="text-textMuted text-[13px] leading-relaxed font-medium tracking-wide">
+                            Deep learning Face Mask Detection system built using TensorFlow, Keras, MobileNetV2, OpenCV, and Streamlit. Features real-time webcam tracking and binary classification with confidence scores.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span
+                            class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">TensorFlow</span>
+                        <span
+                            class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">MobileNetV2</span>
+                        <span
+                            class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">OpenCV</span>
+                        <span
+                            class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">Streamlit</span>
+                    </div>
+                </div>
+
+                <!-- Card 10: Crowd Counter (Square Box - 1 Col) -->
+                <div
+                    class="project-card glass-card group gsap-reveal relative rounded-2xl p-8 flex flex-col justify-between md:col-span-1 min-h-[340px] overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primaryAccent/30 to-transparent">
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-[10px] font-bold tracking-widest text-[#E2B870]"
+                                style="font-family: 'Space Grotesk', sans-serif;">COMPUTER VISION / DEEP LEARNING</span>
+                            <a href="https://github.com/kunnalsinngh14/Crowd-counter" target="_blank"
+                                rel="noopener noreferrer"
+                                class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-textMuted hover:text-white hover:bg-white/10 transition-all duration-200">
+                                <i class="fa-brands fa-github text-base"></i>
+                            </a>
+                        </div>
+                        <h3
+                            class="text-xl font-display font-bold mb-3 text-white group-hover:text-primaryAccent transition-colors duration-200">
+                            Crowd Counter
+                        </h3>
+                        <p class="text-textMuted text-[13px] leading-relaxed font-medium tracking-wide">
+                            Real-time computer vision system for webcam-based people detection and counting using YOLOv8 and OpenCV.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span
+                            class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">Python</span>
+                        <span
+                            class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">YOLOv8</span>
+                        <span
+                            class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">OpenCV</span>
+                    </div>
+                </div>
+
+                <!-- Card 11: Sentiment Analyzer (Square Box - 1 Col) -->
+                <div
+                    class="project-card glass-card group gsap-reveal relative rounded-2xl p-8 flex flex-col justify-between md:col-span-1 min-h-[340px] overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primaryAccent/30 to-transparent">
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-[10px] font-bold tracking-widest text-[#E2B870]"
+                                style="font-family: 'Space Grotesk', sans-serif;">DEEP LEARNING / NLP</span>
+                            <a href="https://github.com/kunnalsinngh14/Sentiment-Analyzer" target="_blank"
+                                rel="noopener noreferrer"
+                                class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-textMuted hover:text-white hover:bg-white/10 transition-all duration-200">
+                                <i class="fa-brands fa-github text-base"></i>
+                            </a>
+                        </div>
+                        <h3
+                            class="text-xl font-display font-bold mb-3 text-white group-hover:text-primaryAccent transition-colors duration-200">
+                            Sentiment Analyzer
+                        </h3>
+                        <p class="text-textMuted text-[13px] leading-relaxed font-medium tracking-wide">
+                            Deep learning web application classifying text into positive, neutral, or negative sentiment using LSTM networks, TensorFlow, Keras, and Streamlit.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span
+                            class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">TensorFlow</span>
+                        <span
+                            class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">LSTM</span>
+                        <span
+                            class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">Keras</span>
+                        <span
+                            class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">Streamlit</span>
+                    </div>
+                </div>
+
+                <!-- Card 12: Nextword Predictor (Square Box - 1 Col) -->
+                <div
+                    class="project-card glass-card group gsap-reveal relative rounded-2xl p-8 flex flex-col justify-between md:col-span-1 min-h-[340px] overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primaryAccent/30 to-transparent">
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-[10px] font-bold tracking-widest text-[#E2B870]"
+                                style="font-family: 'Space Grotesk', sans-serif;">DEEP LEARNING / NLP</span>
+                            <a href="https://github.com/kunnalsinngh14/NextWordPredictor" target="_blank"
+                                rel="noopener noreferrer"
+                                class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-textMuted hover:text-white hover:bg-white/10 transition-all duration-200">
+                                <i class="fa-brands fa-github text-base"></i>
+                            </a>
+                        </div>
+                        <h3
+                            class="text-xl font-display font-bold mb-3 text-white group-hover:text-primaryAccent transition-colors duration-200">
+                            NextWord Predictor
+                        </h3>
+                        <p class="text-textMuted text-[13px] leading-relaxed font-medium tracking-wide">
+                            Deep learning Streamlit application predicting the next word in a sentence using an LSTM neural network and TensorFlow/Keras.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span
+                            class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">TensorFlow</span>
+                        <span
+                            class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">LSTM</span>
+                        <span
+                            class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">Keras</span>
+                        <span
+                            class="text-[10px] font-semibold px-3 py-1 bg-white/5 text-textMuted border border-white/10 uppercase tracking-wider rounded-full">Streamlit</span>
+                    </div>
+                </div>
+
+                <!-- Card 13: GitHub CTA (Square Box - 1 Col) -->
+                <a href="https://github.com/kunnalsinngh14" target="_blank" rel="noopener noreferrer"
+                    class="project-card glass-card group gsap-reveal relative rounded-2xl p-8 flex flex-col items-center justify-center md:col-span-1 min-h-[340px] overflow-hidden text-center cursor-pointer transition-all duration-300 hover:border-primaryAccent/30">
+                    <div
+                        class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primaryAccent/30 to-transparent">
+                    </div>
+                    <div class="flex flex-col items-center justify-center gap-6">
+                        <!-- Glowing GitHub Icon -->
+                        <div class="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center text-textMuted group-hover:text-primaryAccent group-hover:bg-primaryAccent/15 group-hover:scale-110 transition-all duration-300 border border-white/10 group-hover:border-primaryAccent/30">
+                            <i class="fa-brands fa-github text-4xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-display font-bold text-white group-hover:text-primaryAccent transition-colors duration-200">
+                                Visit my GitHub profile for more
+                            </h3>
+                            <p class="text-textMuted text-[12px] mt-2 font-medium tracking-wide">
+                                Explore more projects, repositories, and contributions
+                            </p>
+                        </div>
+                    </div>
+                </a>
 
             </div>
         </section>
@@ -2135,6 +2387,14 @@
                 }
             });
         });
+
+        // Mobile arrows click logic
+        const prevBtn = document.getElementById('skills-prev-btn');
+        const nextBtn = document.getElementById('skills-next-btn');
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', rotateLeft);
+            nextBtn.addEventListener('click', rotateRight);
+        }
 
         // Swipe & Drag gesture logic
         let isDragging = false;
